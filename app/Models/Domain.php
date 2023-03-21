@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Domain extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'userId',
+        'domainName',
+        'dns1',
+        'dns2',
+        'expirationDate'
+    ];
 }
