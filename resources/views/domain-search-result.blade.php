@@ -69,7 +69,7 @@
                 <div class="row justify-content-between">
                     <div class="col-lg-3">
                         <div class="domain-extension-filter-wrap p-4 white-bg rounded">
-                            <div class="domain-filter-title">
+                            <!-- <div class="domain-filter-title">
                                 <h5 class="mb-0 d-flex">Filter les resultats <span
                                 class="fas fa-angle-down ms-auto text-end"></span></h5>
                             </div>
@@ -106,7 +106,7 @@
                                 </li>
                                
                                 <button type="submit" class="btn btn-block btn-outline-primary w-100 btn-sm mt-3">Appliquer</button>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
 
@@ -116,6 +116,8 @@
                             <table class="table vps-hosting-pricing-table domain-search-result-table alert-table mb-5">
                                 <tbody>
                                     <tr class="vps-pricing-row">
+                                    @if (isset($searchedDomain))
+
                                         <td>Le nom de domaine <span class="color-primary"> {{ $searchedDomain['domain'] }} </span> est {{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}!
                                             <br><small>{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Obtenez ce nom de domaine maintenant' : 'Essayez une autre extension' }} </small>
                                         </td>
@@ -143,6 +145,7 @@
                                                 <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
                                             @endif
                                         </td>
+                                    @endif
                                     </tr>
                                 </tbody>
                             </table>
@@ -151,32 +154,36 @@
                             <h4 class="text-center">Plus d'options de domaine</h4>
                             <table class="table vps-hosting-pricing-table domain-search-result-table">
                                 <tbody>
-                                @foreach ($data as $extension)
-                                    <tr class="vps-pricing-row">
-                                        <td data-value="{{ $extension['domainAvailability'] }}">{{ $extension['domain'] }} </td>
-                                        <td data-value="Price">
-                                            <p>
-                                                <span class="rate">{{ $extension['price'] }}<span>/An</span></span>
-                                                <span class="pricing-onsale">Achetez-le -
-                                            <span class="badge bg-warning">1 an Gratuit</span></span>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p>
-                                                <span class='badge bg-info'>{{ $extension['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}</span>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            @if ($extension['domainAvailability'] == 'AVAILABLE')
-                                                <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a>
-                                            @else
-                                                <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
 
-                             
+                                @if (isset($extension))
+
+                                    @foreach ($data as $extension)
+                                        <tr class="vps-pricing-row">
+                                            <td data-value="{{ $extension['domainAvailability'] }}">{{ $extension['domain'] }} </td>
+                                            <td data-value="Price">
+                                                <p>
+                                                    <span class="rate">{{ $extension['price'] }}<span>/An</span></span>
+                                                    <span class="pricing-onsale">Achetez-le -
+                                                <span class="badge bg-warning">1 an Gratuit</span></span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    <span class='badge bg-info'>{{ $extension['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}</span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                @if ($extension['domainAvailability'] == 'AVAILABLE')
+                                                    <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a>
+                                                @else
+                                                    <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                @endif
+
                                 </tbody>
                             </table>
                         </div>

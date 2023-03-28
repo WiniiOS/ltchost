@@ -69,6 +69,11 @@ class HoistingController extends Controller
         return view("contact-us");
     }
 
+    public function showDomainSearchResultPage()
+    {
+        return view("domain-search-result");
+    }
+
     public function domainSearchResult(Request $request)
     {
         $domain = $request->input('domain');

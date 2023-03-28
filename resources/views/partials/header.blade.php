@@ -142,7 +142,7 @@
                                             <div class="menu-item-wrap p-3">
                                                 <!--menu title with subtitle and icon item start-->
                                                 <div class="title-with-icon-item">
-                                                    <a class="title-with-icon-link" href="{{ route('domain-search-result') }}">
+                                                    <a class="title-with-icon-link" href="{{ route('showDomainResultPage') }}">
                                                         <div class="d-flex align-items-center pb-1">
                                                             <i class="fas fa-globe me-2 color-primary"></i>
                                                             <span class="u-header__promo-title"> Nom de Domaine Disponible </span>
@@ -381,7 +381,7 @@
                                         
                                         <!--menu title with subtitle and icon item start-->
                                         <div class="title-with-icon-item">
-                                            <a class="title-with-icon-link" href="{{ route('domain-search-result') }}">
+                                            <a class="title-with-icon-link" href="{{ route('showDomainResultPage') }}">
                                                 <div class="d-flex align-items-center pb-1">
                                                     <i class="fas fa-globe me-2 color-primary"></i>
                                                     <span class="u-header__promo-title"> Nom de Domaine Disponible </span>
