@@ -10,7 +10,7 @@
     <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="16x16" />
 
     <!--title-->
-    <title>Domain Checker </title>
+    <title>Domain Checker</title>
 
     <!--build:css-->
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
@@ -37,25 +37,20 @@
                 <div class="row align-items-center justify-content-lg-between">
                     <div class="col-md-6 col-lg-5">
                         <div class="hero-content-wrap text-white position-relative">
-                            <h1 class="text-white">Find Best Unique Domains Use Domain Checker!</h1>
-                            <p class="lead">Web hosting made easy & affordable, choose a fine-tuned web hosting services solution for successful personal and business websites.</p>
+                            <h1 class="text-white">Trouvez les meilleurs domaines uniques grâce à Domain Checker !</h1>
+                            <p class="lead">Hébergement web facile et abordable, choisissez une solution de services d'hébergement web sur mesure pour des sites web personnels et professionnels réussis</p>
                             <div class="domain-checker-wrap">
                                 <form action="domain-search-result.php" class="domain-transfer-form newsletter-form position-relative w-75">
-                                    <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="yourdomainname.com" />
-                                    <button type="submit" class="btn btn-tertiary">Check now</button>
+                                    <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
+                                    <button type="submit" class="btn btn-tertiary">Verifier maintenant</button>
                                 </form>
                                 <div class="domain-list-wrap mt-4">
                                     <ul class="list-inline domain-search-list">
-                                        <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/com-w.png" alt="com" width="60" class="img-fluid"> <span>$8.99</span></a>
-                                        </li>
-                                        <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/online-w.png" alt="com" width="60" class="img-fluid"> <span>$0.99</span></a>
-                                        </li>
-                                        <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/net-w.png" alt="com" width="60" class="img-fluid"> <span>$4.99</span></a>
-                                        </li>
-                                        <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/org-w.png" alt="com" width="60" class="img-fluid"> <span>$2.99</span></a>
-                                        </li>
-                                        <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/store-w.png" alt="com" width="60" class="img-fluid"> <span>$0.99</span></a>
-                                        </li>
+                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/com-w.png" alt="com" width="60" class="img-fluid"> <span>9000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/net-w.png" alt="com" width="60" class="img-fluid"> <span>9000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/org-w.png" alt="com" width="60" class="img-fluid"> <span>11000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#">.cm <span>3000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#">.fr <span>9000 fcfa</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -77,9 +72,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 col-lg-8">
                         <div class="section-heading text-center mb-2">
-                            <h2>Popular Top Level Domains Fit For You</h2>
-                            <p>Assertively benchmark bricks-and-clicks opportunities and process-centric supply
-                                chains vortals whereas cross-unit innovation. Credibly deliver extensible growth strategies.</p>
+                            <h2>Noms de Domaines de premier niveau de popularité</h2>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -88,11 +82,11 @@
                         <div class="single-popular-domain position-relative bg-white rounded p-4 mt-sm-4 mt-md-5 mt-lg-4">
                             <img src="assets/img/com.png" alt="domain" class="img-fluid" />
                             <div class="domain-info-wrap">
-                                <span class="position-absolute badge bg-warning">Most Popular</span>
-                                <p>Holisticly parallel task team building results and bleeding-edge.</p>
+                                <span class="position-absolute badge bg-warning">Plus Populaires</span>
+                                <p>Tâches holistiquement parallèles, résultats de la construction d'une équipe de travail, et avant-garde.</p>
                                 <ul class="list-inline domain-price-list">
                                     <li class="list-inline-item domain-old-price">
-                                        <del>$10.99</del>
+                                        <del>10000 fcfa</del>
                                     </li>
                                     <li class="list-inline-item domain-new-price">$8.99</li>
                                 </ul>
@@ -424,193 +418,6 @@
                 </div>
             </div>
         </section> <!--feature section end-->
-
-        <!--faq section start-->
-        <section id="faq" class="ptb-100 ">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-9 col-lg-6">
-                        <div class="section-heading text-center mb-5">
-                            <h2>Frequently Asked Queries</h2>
-                            <p>Efficiently productivate reliable paradigms before ubiquitous models. Continually utilize frictionless expertise whereas tactical relationships. Still have questions? Contact us</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-md-12 col-lg-12">
-                        <div class="accordion faq-wrap" id="accordionExample">
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">If I have a WordPress site hosted somewhere else, can I move it to Kohost?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse show" id="collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Credibly maximize open-source methodologies via sustainable synergy. Dynamically predominate diverse architectures via user-centric technologies. Credibly enable clicks-and-mortar services whereas extensive services. Proactively integrate orthogonal technologies whereas seamless networks. Dynamically transition intermandated communities via premier mindshare.</div>
-                                </div>
-                            </div>
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">What’s the difference between WordPress Hosting and shared Web Hosting?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse" id="collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Energistically conceptualize visionary results and premier best practices. Enthusiastically innovate leveraged testing procedures rather than progressive experiences. Uniquely incubate bricks-and-clicks potentialities and process-centric "outside the box" thinking. Dramatically recaptiualize magnetic services rather than fully tested products. Appropriately productize innovative convergence before superior niches.</div>
-                                </div>
-                            </div>
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">How do I know what WordPress Hosting plan is best for me?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse" id="collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Compellingly utilize go forward portals with go forward manufactured products. Continually evolve clicks-and-mortar web services and just in time quality vectors. Holisticly envisioneer unique technology whereas equity invested networks. Dynamically target reliable services without multifunctional convergence. Seamlessly visualize resource-leveling vortals after prospective partnerships.</div>
-                                </div>
-                            </div>
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Is email included with WordPress Hosting?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse" id="collapseFour" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Professionally integrate optimal initiatives for progressive "outside the box" thinking. Intrinsicly drive real-time synergy with bleeding-edge growth strategies. Synergistically productize mission-critical portals vis-a-vis interactive customer service. Synergistically predominate B2B outsourcing for magnetic synergy. Energistically optimize synergistic expertise whereas premier results.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> <!--faq section end-->
-
-        <!--testimonial and review section start-->
-        <section class="review-section ptb-100 gray-light-bg">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="section-heading">
-                            <h2>Trusted By Clients And Industry Experts</h2>
-                            <p>Uniquely repurpose strategic core competencies with progressive content. Assertively transition ethical imperatives and collaborative manufactured products. </p>
-                            <a href="#" class="read-more-link"> Write about us <i class="fas fa-face-grin-stars ms-2"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-8">
-                        <div class="owl-carousel owl-theme client-testimonial-2 dot-bottom-center custom-dot">
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Amazing template</h5>
-                                        <p>Distinctively foster maintainable metrics whereas multidisciplinary process improvements. Objectively implement strategic niches through.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-2.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Best template for app</h5>
-                                        <p>Efficiently innovate customized growth strategies whereas error-free paradigms. Monotonectally enhance stand-alone data with prospective innovation.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-1.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Tony Roy</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Efficiently innovate app</h5>
-                                        <p>Continually redefine sticky channels whereas extensive "outside the box" thinking. Rapidiously supply focused schemas vis-a-vis optimal users.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-3.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Uniquely mesh flexible</h5>
-                                        <p>Phosfluorescently optimize intermandated platforms without integrated infrastructures. Proactively redefine granular thinking before.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-4.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Uniquely mesh flexible</h5>
-                                        <p>Phosfluorescently optimize intermandated platforms without integrated infrastructures. Proactively redefine granular thinking before.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-1.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Holisticly reintermediate</h5>
-                                        <p>Collaboratively reintermediate out-of-the-box e-business via economically sound supply chains. Dynamically target client-based holistic information.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-2.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> <!--testimonial and review section end-->
 
     </div>
 

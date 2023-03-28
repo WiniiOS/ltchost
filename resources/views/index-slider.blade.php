@@ -131,16 +131,16 @@
                             <h4 class="text-center">Recherchez un nom de domaine</h4>
                             <form action="{{ route('domain-search-result') }}" method="POST" class="domain-search-form my-4">
                             @csrf
-                                <input type="text" name="domain" id="domain" class="form-control" placeholder="yourdomainname.com" />
+                                <input type="text" name="domain" id="domain" class="form-control" placeholder="votredomaine.com" />
                                 <div class="select-group">
                                     <select name="domainType" class="form-control">
-                                        <option value="com" selected>.com</option>
-                                        <option value="net">.net</option>
-                                        <option value="io">.org</option>
-                                        <option value="info">.cm</option>
-                                        <option value="store">.fr</option>
+                                        <option value=".com" selected>.com</option>
+                                        <option value=".net">.net</option>
+                                        <option value=".org">.org</option>
+                                        <option value=".cm">.cm</option>
+                                        <option value=".fr">.fr</option>
                                     </select>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search pe-1"></i> Search
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search pe-1"></i> Rechercher
                                     </button>
                                 </div>
                             </form>
@@ -439,15 +439,6 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="support-cta text-center mt-5">
-                            <a href="{{ route('pricing-comparaison') }}" target="_blank">
-                                <h5 class="mb-1">
-                                    <span class="fas fa-rotate-left color-primary me-2"></span>Comparer les plans d'Hébergement Web
-                                </h5>
-                            </a>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -457,47 +448,21 @@
         <section class="ptb-60 primary-bg">
             <div class="container">
                 <div class="row align-items-center justify-content-between">
-                    <div class="col-md-7 col-lg-6">
-                        <div class="cta-content-wrap text-white">
-                            <h2 class="text-white">Best Cloud Hosting <br> With Trusted Service</h2>
-                            <p>Objectively innovate high standards in methodologies vis-a-vis sustainable compellingly architect front-end methods
-                                maintain multidisciplinary process proactively streamline mission-critical information via quality imperatives. </p>
-                        </div>
-                        <div class="action-btns mt-4">
-                            <a href="#" class="btn btn-tertiary"> Get start now </a>
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-lg-4">
-                        <div class="cta-img-wrap text-center">
-                            <img src="assets/img/cta-new.svg" class="img-fluid" alt="server room">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--call to action end-->
-
-        
-
-        <!--call to action start-->
-        <section class="ptb-60 primary-bg">
-            <div class="container">
-                <div class="row align-items-center justify-content-between">
                     <div class="col-12 col-lg-6">
                         <div class="cta-content-wrap text-white">
                             <h2 class="text-white">
-                                24/7 Expert Hosting Support Our Customers Love
+                            Support d'hébergement 24/7 par des experts que nos clients adorent
                             </h2>
                             <p>
-                                Objectively innovate high compellingly maintain progressively pursue
-                                mission-critical information quality imperatives.
+                            Innover objectivement, maintenir de manière convaincante, poursuivre progressivement les impératifs de qualité de
+                            l'information qui sont essentiels à la mission.
                             </p>
                         </div>
                         <div class="support-action d-inline-flex flex-wrap">
                             <a href="mailto:support@yourdomain.com" class="me-3 text-info"><i class="fas fa-comment me-1 text-tertiary"></i>
-                                <span>support@yourdomain.com</span></a>
-                            <a href="tel:+00123456789" class="mb-0 text-info"><i class="fas fa-phone-alt me-1 text-tertiary"></i>
-                                <span>+00123456789</span></a>
+                                <span>contact@ltchost.com</span></a>
+                            <a href="tel:+237658682586" class="mb-0 text-info"><i class="fas fa-phone-alt me-1 text-tertiary"></i>
+                                <span>+237658682586</span></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 d-none d-lg-block">
@@ -516,9 +481,9 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="section-heading text-center mb-5">
-                            <h2>Lots of Customer Love Us</h2>
+                            <h2>Beaucoup de clients nous aiment</h2>
                             <p>
-                                Rapidiously morph transparent internal or sources whereas resource sucking e-business. Conveniently innovate formulate manufactured products compelling internal.
+                            Morceler rapidement des sources internes ou transparentes alors que l'e-business aspire les ressources. Innover commodément formuler des produits manufacturés convaincants en interne.
                             </p>
                         </div>
                     </div>

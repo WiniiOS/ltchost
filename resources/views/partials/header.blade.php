@@ -142,7 +142,7 @@
                                             <div class="menu-item-wrap p-3">
                                                 <!--menu title with subtitle and icon item start-->
                                                 <div class="title-with-icon-item">
-                                                    <a class="title-with-icon-link" href="{{ route('domain-checker') }}">
+                                                    <a class="title-with-icon-link" href="{{ route('domain-search-result') }}">
                                                         <div class="d-flex align-items-center pb-1">
                                                             <i class="fas fa-globe me-2 color-primary"></i>
                                                             <span class="u-header__promo-title"> Nom de Domaine Disponible </span>
@@ -166,19 +166,7 @@
                                                 </div>
                                                 <!--menu title with subtitle and icon item end-->
                                                 
-                                                <!--menu title with subtitle and icon item start-->
-                                                <div class="title-with-icon-item">
-                                                    <a class="title-with-icon-link" href="{{ route('domain-registration') }}">
-                                                        <div class="d-flex align-items-center pb-1">
-                                                            <i class="fas fa-copyright me-2 instagram-color"></i>
-                                                            <span class="u-header__promo-title"> Enregistrer Un Domaine </span>
-                                                        </div>
-                                                        <small class="u-header__promo-text">
-                                                            Enregistrez votre nom de domaine à vie
-                                                        </small>
-                                                    </a>
-                                                </div>
-                                                <!--menu title with subtitle and icon item end-->
+                                                
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 gray-light-bg custom-radius-right">
@@ -393,7 +381,7 @@
                                         
                                         <!--menu title with subtitle and icon item start-->
                                         <div class="title-with-icon-item">
-                                            <a class="title-with-icon-link" href="{{ route('domain-checker') }}">
+                                            <a class="title-with-icon-link" href="{{ route('domain-search-result') }}">
                                                 <div class="d-flex align-items-center pb-1">
                                                     <i class="fas fa-globe me-2 color-primary"></i>
                                                     <span class="u-header__promo-title"> Nom de Domaine Disponible </span>
@@ -417,20 +405,6 @@
                                         </div>
                                         <!--menu title with subtitle and icon item end-->
                                                 
-                                        <!--menu title with subtitle and icon item start-->
-                                        <div class="title-with-icon-item">
-                                            <a class="title-with-icon-link" href="{{ route('domain-registration') }}">
-                                                <div class="d-flex align-items-center pb-1">
-                                                    <i class="fas fa-copyright me-2 instagram-color"></i>
-                                                    <span class="u-header__promo-title"> Enregistrer Un Domaine </span>
-                                                </div>
-                                                <small class="u-header__promo-text">
-                                                    Enregistrez votre nom de domaine à vie
-                                                </small>
-                                            </a>
-                                        </div>
-                                        <!--menu title with subtitle and icon item end-->
-
                                     </div>
                                 </div>
                                 <div class="gray-light-bg">

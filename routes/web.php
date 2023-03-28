@@ -12,8 +12,9 @@ Route::get('terms-condition', [HoistingController::class, 'terms'])->name('terms
 Route::get('shared-hosting', [HoistingController::class, 'sharedHosting'])->name('shared-hosting');
 Route::get('privacy', [HoistingController::class, 'showPrivacy'])->name('privacy');
 
-Route::get('domain-search-result', [HoistingController::class, 'domainSearchResult'])->name('domain-search-result');
-Route::post('domain-search-result', [HoistingController::class, 'domainSearchResult'])->name('domain-search-result');
+Route::get('domain-search-result', [HoistingController::class, 'showDomainSearchResult'])->name('showDomainResults');
+
+Route::post('domain-search-result', [HoistingController::class, 'allDomainCheck'])->name('domain-search-result');
 
 Route::get('domain-checker', [HoistingController::class, 'domainChecker'])->name('domain-checker');
 Route::get('domain-transfer', [HoistingController::class, 'domainTransfer'])->name('domain-transfer');

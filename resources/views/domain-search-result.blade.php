@@ -38,25 +38,21 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 col-lg-8">
                         <div class="hero-content-left text-white text-center">
-                            <h1 class="text-white">Search for Find Unique Domains!</h1>
-                            <p class="lead">Up to 50% Off domain and hosting, Starting from $2.99/month, free SSL certificate, 24/7/365 support, money back guarantee.</p>
+                            <h1 class="text-white">Recherchez un nom de domaine unique !</h1>
+                            <p class="lead">Nom de domaine offert la premiere annee pour 1 an d'abonnement sur notre offre basique.</p>
 
-                            <form action="domain-search-result.php" class="domain-transfer-form newsletter-form position-relative mt-3 w-75 d-block mx-auto">
-                                <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="yourdomainname.com" />
-                                <button type="submit" class="btn btn-tertiary">Search</button>
+                            <form method="POST" action="{{ route('domain-search-result') }}" class="domain-transfer-form newsletter-form position-relative mt-3 w-75 d-block mx-auto">
+                                @csrf
+                                <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
+                                <button type="submit" class="btn btn-tertiary">Recherche</button>
                             </form>
                             <div class="domain-list-wrap text-center mt-4">
                                 <ul class="list-inline domain-search-list">
-                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/com-w.png" alt="com" width="60" class="img-fluid"> <span>$8.99</span></a>
-                                    </li>
-                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/online-w.png" alt="com" width="60" class="img-fluid"> <span>$0.99</span></a>
-                                    </li>
-                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/net-w.png" alt="com" width="60" class="img-fluid"> <span>$4.99</span></a>
-                                    </li>
-                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/org-w.png" alt="com" width="60" class="img-fluid"> <span>$2.99</span></a>
-                                    </li>
-                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/store-w.png" alt="com" width="60" class="img-fluid"> <span>$0.99</span></a>
-                                    </li>
+                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/com-w.png" alt="com" width="60" class="img-fluid"> <span>9000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/net-w.png" alt="com" width="60" class="img-fluid"> <span>9000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/org-w.png" alt="com" width="60" class="img-fluid"> <span>11000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#">.cm <span>3000 fcfa</span></a></li>
+                                    <li class="list-inline-item border rounded"><a href="#">.fr <span>9000 fcfa</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -74,154 +70,113 @@
                     <div class="col-lg-3">
                         <div class="domain-extension-filter-wrap p-4 white-bg rounded">
                             <div class="domain-filter-title">
-                                <h5 class="mb-0 d-flex">Filter Results <span
+                                <h5 class="mb-0 d-flex">Filter les resultats <span
                                 class="fas fa-angle-down ms-auto text-end"></span></h5>
                             </div>
                             <ul class="list-unstyled domain-filter-list mt-3">
                                 <li class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">Show All
+                                        <input type="checkbox" class="form-check-input" value="all">Tout voir
                                     </label>
                                 </li>
                                 <li class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.com
+                                        <input type="checkbox" class="form-check-input" value=".com">.com
                                     </label>
                                 </li>
                                 <li class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.net
+                                        <input type="checkbox" class="form-check-input" value=".net">.net
                                     </label>
                                 </li>
                                 <li class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.online
+                                        <input type="checkbox" class="form-check-input" value=".org">.org
                                     </label>
                                 </li>
                                 <li class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.org
+                                        <input type="checkbox" class="form-check-input" value=".fr">.fr
                                     </label>
                                 </li>
                                 <li class="form-check">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.xyz
+                                        <input type="checkbox" class="form-check-input" value=".cm">.cm
                                     </label>
                                 </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.store
-                                    </label>
-                                </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.website
-                                    </label>
-                                </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="">.biz
-                                    </label>
-                                </li>
-                                <button type="submit" class="btn btn-block btn-outline-primary w-100 btn-sm mt-3">Apply</button>
+                               
+                                <button type="submit" class="btn btn-block btn-outline-primary w-100 btn-sm mt-3">Appliquer</button>
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-md-12 col-lg-9">
                         <div class="content-with-sidebar">
                             <!--alert table start-->
                             <table class="table vps-hosting-pricing-table domain-search-result-table alert-table mb-5">
                                 <tbody>
                                     <tr class="vps-pricing-row">
-                                        <td>Domain <span class="color-primary">example.com</span> is available!
-                                            <br><small>Get this domain now </small>
+                                        <td>Le nom de domaine <span class="color-primary"> {{ $searchedDomain['domain'] }} </span> est {{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}!
+                                            <br><small>{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Obtenez ce nom de domaine maintenant' : 'Essayez une autre extension' }} </small>
                                         </td>
                                         <td>
                                             <p>
-                                                <span class="rate">$3.95<span>/month</span></span>
-                                                <span class="pricing-onsale">On sale -
-                                            <span class="badge bg-warning">Save 30%</span></span>
+                                                <span class="rate">{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? $searchedDomain['price'] : 'Reservée' }}<span>/An</span></span>
+                                                
+                                                @if ($searchedDomain['domainAvailability'] == 'AVAILABLE')
+                                                    <span class='pricing-onsale'>Achetez-le - <span class='badge bg-warning'>1 an Gratuit</span></span>
+                                                @else
+                                                    <span class='pricing-onsale'>Poussez la recherche</span>
+                                                @endif
+
                                             </p>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                                            <p>
+                                                <span class='badge bg-info'>{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}</span>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            @if ($searchedDomain['domainAvailability'] == 'AVAILABLE')
+                                                <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a>
+                                            @else
+                                                <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <!--alert table end-->
-                            <h4 class="text-center">More domain options</h4>
+
+                            <h4 class="text-center">Plus d'options de domaine</h4>
                             <table class="table vps-hosting-pricing-table domain-search-result-table">
                                 <tbody>
+                                @foreach ($data as $extension)
                                     <tr class="vps-pricing-row">
-                                        <td data-value="Available">hostlar<span class="color-primary">.com</span></td>
+                                        <td data-value="{{ $extension['domainAvailability'] }}">{{ $extension['domain'] }} </td>
                                         <td data-value="Price">
                                             <p>
-                                                <span class="rate">$3.95<span>/month</span></span>
-                                                <span class="pricing-onsale">On sale -
-                                            <span class="badge bg-warning">Save 30%</span></span>
+                                                <span class="rate">{{ $extension['price'] }}<span>/An</span></span>
+                                                <span class="pricing-onsale">Achetez-le -
+                                            <span class="badge bg-warning">1 an Gratuit</span></span>
                                             </p>
                                         </td>
                                         <td>
-                                            <a href="" class="btn btn-primary btn-sm">Add to Cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="vps-pricing-row">
-                                        <td data-value="Available">hostlar<span class="color-primary">.net</span></td>
-                                        <td data-value="Price">
                                             <p>
-                                                <span class="rate">$8.95<span>/month</span></span>
-                                                <span class="pricing-onsale">On sale -
-                                            <span class="badge bg-warning">Save 50%</span></span>
+                                                <span class='badge bg-info'>{{ $extension['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}</span>
                                             </p>
                                         </td>
                                         <td>
-                                            <a href="" class="btn btn-primary btn-sm">Add to Cart</a>
+                                            @if ($extension['domainAvailability'] == 'AVAILABLE')
+                                                <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a>
+                                            @else
+                                                <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
+                                            @endif
                                         </td>
                                     </tr>
-                                    <tr class="vps-pricing-row">
-                                        <td data-value="Available">hostlar<span class="color-primary">.org</span></td>
-                                        <td data-value="Price">
-                                            <p>
-                                                <span class="rate">$12.95<span>/month</span></span>
-                                                <span class="pricing-onsale">On sale -
-                                            <span class="badge bg-warning">Save 10%</span></span>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">Add to Cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="vps-pricing-row">
-                                        <td data-value="Available">hostlar<span class="color-primary">.info</span></td>
-                                        <td data-value="Price">
-                                            <p><span class="rate">$15.95<span>/month</span></span><span class="pricing-onsale">On sale - <span
-                                            class="badge bg-warning">Save 30%</span></span></p>
-                                        </td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">Add to Cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="vps-pricing-row">
-                                        <td data-value="Available">hostlar<span class="color-primary">.store</span></td>
-                                        <td data-value="Price">
-                                            <p><span class="rate">$23.95<span>/month</span></span><span class="pricing-onsale">On sale - <span
-                                            class="badge bg-warning">Save 40%</span></span></p>
-                                        </td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">Add to Cart</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="vps-pricing-row">
-                                        <td data-value="Available">hostlar<span class="color-primary">.online</span></td>
-                                        <td data-value="Price">
-                                            <p><span class="rate">$29.95<span>/month</span></span><span class="pricing-onsale">On sale - <span
-                                            class="badge bg-warning">Save 10%</span></span></p>
-                                        </td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">Add to Cart</a>
-                                        </td>
-                                    </tr>
+                                @endforeach
+
+                             
                                 </tbody>
                             </table>
                         </div>
@@ -230,142 +185,6 @@
             </div>
         </section>
         <!--domain search result section end-->
-
-        <!--popular domain list section start-->
-        <section class="feature-tab-section ptb-100 ">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-12 order-lg-last">
-                        <div class="image-box fadein text-xl-right text-center">
-                            <img src="assets/img/network-1.jpg" alt="wp-hosting" class="img-fluid rounded" />
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-12 order-xl-first">
-                        <h2>Advanced Search to Make your Life Fester and Easier</h2>
-                        <p class="lead">Progressively matrix mission-critical core competencies without magnetic
-                            paradigms.</p>
-                        <div class="row pt-2">
-                            <div class="col-12">
-                                <h5>Multi-layered security</h5>
-                                <p>Continually empower goal-oriented niche markets whereas interoperable outsourcing. Assertively incubate standardized methods of empowerment </p>
-                            </div>
-                            <div class="col-12">
-                                <h5>Green-friendly hosting</h5>
-                                <p>Monotonectally negotiate multifunctional applications whereas unique niche markets. Continually recaptiualize open-source catalysts for change whereas adaptive content.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-between mt-5">
-                    <div class="col-xl-6 col-lg-6 col-12 order-lg-last">
-                        <div class="image-box fadein text-xl-right text-center">
-                            <img src="assets/img/network-2.jpg" alt="wp-hosting" class="img-fluid rounded" />
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-12 order-xl-last">
-                        <h2>Fast connectivity & low latency</h2>
-                        <p class="lead">Efficiently reintermediate long-term high-impact channels without equity
-                            invested technology.</p>
-                        <div class="row pt-2">
-                            <div class="col-12">
-                                <h5>Exclusive Features</h5>
-                                <p>Globally seize functional products rather than compelling supply chains capital before frictionless quality vectors. Holisticly envisioneer worldwide niche markets for efficient services.</p>
-                            </div>
-                            <div class="col-12">
-                                <h5>Ultra-Fast Network</h5>
-                                <p>Dramatically aggregate granular resources vis-a-vis process-centric process deliver enterprise-wide scenarios improvements. Quickly target compelling e-services after cross functional schemas. </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--popular domain list section end-->
-
-        <!--domain name block start-->
-        <section class="ptb-60 primary-bg">
-            <div class="container">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-md-7 col-lg-6">
-                        <div class="cta-content-wrap text-white">
-                            <h2 class="text-white">Best Cloud Hosting <br> With Trusted Service</h2>
-                            <p>Objectively innovate high standards in methodologies vis-a-vis sustainable compellingly architect front-end methods
-                                maintain multidisciplinary process proactively streamline mission-critical information via quality imperatives. </p>
-                        </div>
-                        <div class="action-btns mt-4">
-                            <a href="#" class="btn btn-tertiary"> Get start now </a>
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-lg-4">
-                        <div class="cta-img-wrap text-center">
-                            <img src="assets/img/cta-new.svg" class="img-fluid" alt="server room">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--domain name block end-->
-
-        <!--faq new style start-->
-        <section id="faq" class="ptb-100 ">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-9 col-lg-6">
-                        <div class="section-heading text-center mb-5">
-                            <h2>Frequently Asked Queries</h2>
-                            <p>Efficiently productivate reliable paradigms before ubiquitous models. Continually utilize frictionless expertise whereas tactical relationships. Still have questions? Contact us</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-md-12 col-lg-12">
-                        <div class="accordion faq-wrap" id="accordionExample">
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">If I have a WordPress site hosted somewhere else, can I move it to Kohost?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse show" id="collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Credibly maximize open-source methodologies via sustainable synergy. Dynamically predominate diverse architectures via user-centric technologies. Credibly enable clicks-and-mortar services whereas extensive services. Proactively integrate orthogonal technologies whereas seamless networks. Dynamically transition intermandated communities via premier mindshare.</div>
-                                </div>
-                            </div>
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">What’s the difference between WordPress Hosting and shared Web Hosting?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse" id="collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Energistically conceptualize visionary results and premier best practices. Enthusiastically innovate leveraged testing procedures rather than progressive experiences. Uniquely incubate bricks-and-clicks potentialities and process-centric "outside the box" thinking. Dramatically recaptiualize magnetic services rather than fully tested products. Appropriately productize innovative convergence before superior niches.</div>
-                                </div>
-                            </div>
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">How do I know what WordPress Hosting plan is best for me?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse" id="collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Compellingly utilize go forward portals with go forward manufactured products. Continually evolve clicks-and-mortar web services and just in time quality vectors. Holisticly envisioneer unique technology whereas equity invested networks. Dynamically target reliable services without multifunctional convergence. Seamlessly visualize resource-leveling vortals after prospective partnerships.</div>
-                                </div>
-                            </div>
-
-                            <!-- Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Is email included with WordPress Hosting?</button>
-                                </h2>
-                                <div class="accordion-collapse collapse" id="collapseFour" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Professionally integrate optimal initiatives for progressive "outside the box" thinking. Intrinsicly drive real-time synergy with bleeding-edge growth strategies. Synergistically productize mission-critical portals vis-a-vis interactive customer service. Synergistically predominate B2B outsourcing for magnetic synergy. Energistically optimize synergistic expertise whereas premier results.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> <!--faq new style end-->
-
 
     </div>
 
