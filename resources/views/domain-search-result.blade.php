@@ -41,7 +41,7 @@
                             <h1 class="text-white">Recherchez un nom de domaine unique !</h1>
                             <p class="lead">Nom de domaine offert la premiere annee pour 1 an d'abonnement sur notre offre basique.</p>
 
-                            <form method="POST" action="{{ route('domain-search-result') }}" class="domain-transfer-form newsletter-form position-relative mt-3 w-75 d-block mx-auto">
+                            <form method="POST" action="{{ route('checkDomain') }}" class="domain-transfer-form newsletter-form position-relative mt-3 w-75 d-block mx-auto">
                                 @csrf
                                 <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
                                 <button type="submit" class="btn btn-tertiary">Recherche</button>
@@ -67,8 +67,8 @@
         <section class="domain-search-result-section gray-light-bg ptb-100">
             <div class="container">
                 <div class="row justify-content-between">
-                    <div class="col-lg-3">
-                        <div class="domain-extension-filter-wrap p-4 white-bg rounded">
+                    <!-- <div class="col-lg-3">
+                        <div class="domain-extension-filter-wrap p-4 white-bg rounded"> -->
                             <!-- <div class="domain-filter-title">
                                 <h5 class="mb-0 d-flex">Filter les resultats <span
                                 class="fas fa-angle-down ms-auto text-end"></span></h5>
@@ -107,10 +107,10 @@
                                
                                 <button type="submit" class="btn btn-block btn-outline-primary w-100 btn-sm mt-3">Appliquer</button>
                             </ul> -->
-                        </div>
-                    </div>
+                        <!-- </div>
+                    </div> -->
 
-                    <div class="col-md-12 col-lg-9">
+                    <div class="col-md-12 col-lg-10">
                         <div class="content-with-sidebar">
                             <!--alert table start-->
                             <table class="table vps-hosting-pricing-table domain-search-result-table alert-table mb-5">
@@ -150,12 +150,16 @@
                                 </tbody>
                             </table>
                             <!--alert table end-->
+                            @if (isset($extension))
+                                <h4 class="text-center">Plus d'options de domaine</h4>
+                            @else
+                                <h4 class="text-center">Recherchez un nom de domaine ci-dessus</h4>
+                            @endif
 
-                            <h4 class="text-center">Plus d'options de domaine</h4>
                             <table class="table vps-hosting-pricing-table domain-search-result-table">
                                 <tbody>
 
-                                @if (isset($extension))
+                                @if (isset($data))
 
                                     @foreach ($data as $extension)
                                         <tr class="vps-pricing-row">

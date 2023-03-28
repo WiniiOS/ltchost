@@ -13,6 +13,7 @@ Route::get('shared-hosting', [HoistingController::class, 'sharedHosting'])->name
 Route::get('privacy', [HoistingController::class, 'showPrivacy'])->name('privacy');
 
 Route::get('domain-search-result', [HoistingController::class, 'showDomainSearchResultPage'])->name('showDomainResultPage');
+Route::post('domain-search-result-interne', [HoistingController::class, 'completeDomainCheck'])->name('checkDomain');
 
 Route::post('domain-search-result', [HoistingController::class, 'allDomainCheck'])->name('domain-search-result');
 
