@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\Http;
 
 class HoistingController extends Controller
 {
+
+    public function payment()
+    {
+        $API_KEY = "19307168035e47e4a0a20d24.32798184";
+        $SITE_ID = "948395";
+        $SECRET_KEY = "292144007625025c5f16a00.19308402";
+        
+    }
+
     public function index()
     {
         return view("index-slider");
@@ -74,24 +83,24 @@ class HoistingController extends Controller
         return view("domain-search-result");
     }
 
-    public function domainSearchResult(Request $request)
-    {
-        $domain = $request->input('domain');
-        $extension = $request->input('domainType');
-        $fullDomain = "$domain"."$extension";
-        $apiKey = 'at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO';
-        $url = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$fullDomain}";
+    // public function domainSearchResult(Request $request)
+    // {
+    //     $domain = $request->input('domain');
+    //     $extension = $request->input('domainType');
+    //     $fullDomain = "$domain"."$extension";
+    //     $apiKey = 'at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO';
+    //     $url = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$fullDomain}";
 
-        $response = Http::get($url);
-        $data = $response->json();
+    //     $response = Http::get($url);
+    //     $data = $response->json();
 
-        // dd($data);
+    //     // dd($data);
 
-        return view('domain-search-result', [
-            'data' => $data
-        ]);
+    //     return view('domain-search-result', [
+    //         'data' => $data
+    //     ]);
 
-    }
+    // }
 
     public function allDomainCheck(Request $request)
     {
@@ -241,7 +250,7 @@ class HoistingController extends Controller
           'domain_name' => $domain_name,
           'extension' => $extension,
         ];
-      }
+    }
 
     public function completeDomainCheck(Request $request)
     {
