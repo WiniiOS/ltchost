@@ -33,11 +33,12 @@
                             </li>
                             <!--hosting end-->
 
+                            
 
                             <!--domain start-->
                             <li class="nav-item hs-has-mega-menu custom-nav-item position-relative" data-position="center">
                                 <a id="domainMegaMenu" class="nav-link custom-nav-link main-link-toggle" href="JavaScript:Void(0);" aria-haspopup="true" aria-expanded="false">
-                                    Nom de domaine
+                                    Noms de domaine
                                 </a>
                                 <!-- Demos - Mega Menu -->
                                 <div class="hs-mega-menu main-sub-menu" style="width: 660px;" aria-labelledby="domainMegaMenu">
@@ -134,6 +135,13 @@
                                 </a>
                             </li>
 
+                            
+                            <!-- end cart -->
+                            <li class="nav-item header-nav-last-item d-flex align-items-center">
+                                <a class="btn btn-tertiary animated-btn" href="{{ route('cart') }}" >
+                                    <span class="fa fa-shopping-cart pe-2"></span>
+                                </a>
+                            </li>
                             <!--button start-->
                             <li class="nav-item header-nav-last-item d-flex align-items-center">
                                 <a class="btn btn-tertiary animated-btn" href="{{ route('connexion') }}" >
@@ -278,6 +286,14 @@
                         <a class="nav-link" href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
                     <!--contact item end-->
+
+                    <!-- end cart -->
+                    <li class="nav-item header-nav-last-item d-flex align-items-center">
+                            <a class="btn btn-tertiary animated-btn" href="{{ route('cart') }}" >
+                            <span class="fa fa-shopping-cart pe-2"></span>
+                        </a>
+                    </li>
+                    
 
                     <!--button start-->
                     <li class="nav-item header-nav-last-item d-flex align-items-center mt-3">

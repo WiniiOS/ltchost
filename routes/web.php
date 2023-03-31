@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\HoistingController;
 
 
@@ -39,3 +40,8 @@ Route::get('connexion', [UserController::class, 'connexion'])->name('connexion')
 Route::post('sign-up', [UserController::class, 'save'])->name('save');
 Route::post('authentify', [UserController::class, 'authentify'])->name('authentify');
 
+
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::delete('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
