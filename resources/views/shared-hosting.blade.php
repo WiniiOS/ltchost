@@ -56,11 +56,8 @@
                                             </li>
                                         </ul>
                                         <div class="action-btns mt-4">
-                                            <!-- <p>
-                                                Get all the essentials features
-                                                <strong>Starting at $2.59/mo</strong>
-                                            </p> -->
-                                            <a href="#" class="btn btn-tertiary me-3">Commencer Maintenant</a>
+                                           
+                                            <a href="{{ route('cart.add',['id' => 1 ]) }}" class="btn btn-tertiary me-3">Ajouter Au Panier</a>
                                         </div>
                                     </div>
                                 </div>

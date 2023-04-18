@@ -3,9 +3,133 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
+
+// Integration de DNA api pour transferer les noms de domaines
+require_once __DIR__.'/../../../vendor/php-dna/src/dna.php';
+use DomainNameApi\DomainNameAPI_PHPLibrary;
 
 class HoistingController extends Controller
 {
+    public function domainTransfer(Request $request)
+    {
+        if(empty(session()->get('user')->email)){
+            return redirect('connexion');
+        }
+        
+        $domainName = $request->domain;
+        $authCode = $request->authcode;
+        $period = 3;
+
+        // ----------
+        $user = session()->get('user');
+        $email = $user->email;
+        $password = $user->password;
+
+        $checkUser = $this->checkIfUserIsAuth($email,$password);
+
+        if ($checkUser == false) {
+            return redirect('connexion');
+        }else{
+
+            // Utiliser la classe Dna de la bibliothèque
+            $dna = new DomainNameAPI_PHPLibrary($email, $password);
+
+            /**
+             * Transfer Domain
+             * @param string $DomainName
+             * @param string $AuthCode
+             * @param int $Period
+             * @return array
+             */
+
+            $result = $dna->Transfer($domainName, $authCode,$period);
+
+            dd($result);
+
+            return view('domain-transfer',['result' => $result]);
+
+        }
+
+        
+    }
+
+    public function checkIfUserIsAuth($email,$password)
+    {      
+        $user = DB::table('users')->where('email',$email)->first();
+
+        if ($user == null) {
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    public $packages = [
+        array(
+            'id' => 1,
+            'title' => 'Starter',
+            'period' => 'An',
+            'price' => 20000,
+            'afterPrice' => 25000,
+            'devise' => 'XAF',
+            'description' => 'Haute performance, hebergement moins cher pour un lancement parfait',
+            'caract1' => '1 Noms de domaine offert',
+            'caract1' => 'Espace Disque 50Go',
+            'caract1' => 'Bande Passante illimitée',
+            'caract1' => 'Adresses Email10',
+            'caract1' => 'Sous-Domaines 10',
+            'caract1' => 'Bases de Donnees illimitée',
+            'caract1' => 'Comptes FTP illimitée',
+            'caract1' => 'Espace admin Cpanel',
+            'caract1' => 'Certificat Auto SSL Offert'
+        ),
+        array(
+            'id' => 2,
+            'title' => 'Business',
+            'period' => 'An',
+            'price' => 25000,
+            'afterPrice' => 35000,
+            'devise' => 'XAF',
+            'description' => 'Bonne performance, hebergement moins chere avec DD pour un projet moyen',
+            'caract1' => '1 Noms de domaine offert',
+            'caract1' => 'Espace Disque 100Go',
+            'caract1' => 'Bande Passante illimitée',
+            'caract1' => 'Adresses Email 30',
+            'caract1' => 'Sous-Domaines 30',
+            'caract1' => 'Bases de Donnees illimitée',
+            'caract1' => 'Comptes FTP illimitée',
+            'caract1' => 'Espace admin Cpanel',
+            'caract1' => 'Certificat Auto SSL Offert'
+        ),
+        array(
+            'id' => 3,
+            'title' => 'Premium',
+            'period' => 'An',
+            'price' => 35000,
+            'afterPrice' => 45000,
+            'devise' => 'XAF',
+            'description' => 'Super performance pour des projets lourd ,à un prix raisonnable.',
+            'caract1' => '1 Noms de domaine offert',
+            'caract1' => 'Espace Disque 150Go',
+            'caract1' => 'Bande Passante illimitée',
+            'caract1' => 'Adresses Email 50',
+            'caract1' => 'Sous-Domaines 50',
+            'caract1' => 'Bases de Donnees illimitée',
+            'caract1' => 'Comptes FTP illimitée',
+            'caract1' => 'Espace admin Cpanel',
+            'caract1' => 'Certificat Auto SSL Offert'
+        ),
+    ];
+
+
+    public function addPackToCart()
+    {
+        $this->packages;
+
+
+    }
 
     public function payment()
     {
@@ -15,9 +139,14 @@ class HoistingController extends Controller
         
     }
 
+    public function showSpace()
+    {
+        return view('espace-client');
+    }
+
     public function index()
     {
-        return view("index-slider");
+        return view("index-slider",[ 'data' => $this->packages ]);
     }
 
     public function errorPage()
@@ -54,6 +183,7 @@ class HoistingController extends Controller
     {
         return view("about-us");
     }
+
     public function showPrivacy()
     {
         return view("privacy-policy");
@@ -64,10 +194,11 @@ class HoistingController extends Controller
         return view("domain-checker");
     }
 
-    public function domainTransfer()
+    public function showDomainTransfer()
     {
         return view("domain-transfer");
     }
+
     public function domainRegistration()
     {
         return view("domain-registration");
@@ -82,25 +213,6 @@ class HoistingController extends Controller
     {
         return view("domain-search-result");
     }
-
-    // public function domainSearchResult(Request $request)
-    // {
-    //     $domain = $request->input('domain');
-    //     $extension = $request->input('domainType');
-    //     $fullDomain = "$domain"."$extension";
-    //     $apiKey = 'at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO';
-    //     $url = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$fullDomain}";
-
-    //     $response = Http::get($url);
-    //     $data = $response->json();
-
-    //     // dd($data);
-
-    //     return view('domain-search-result', [
-    //         'data' => $data
-    //     ]);
-
-    // }
 
     public function allDomainCheck(Request $request)
     {
@@ -392,7 +504,6 @@ class HoistingController extends Controller
         ]);
 
     }
-    
 
     public function email_hosting()
     {

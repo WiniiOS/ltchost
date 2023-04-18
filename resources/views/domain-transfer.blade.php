@@ -40,8 +40,12 @@
                             <h1 class="text-white">Transférer votre domaine</h1>
                             <p class="lead">Hébergement web facile et abordable, choisissez une solution d'hébergement web sur mesure pour des sites web personnels et professionnels réussis.</p>
                             <div class="domain-transfer-wrap mt-4">
-                                <form action="domain-search-result.php" class="domain-transfer-form newsletter-form position-relative w-75">
-                                    <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
+                                <form method="POST" action="{{ route('domain-transfer-form') }}" class="domain-transfer-form newsletter-form position-relative w-75">
+                                @csrf
+                                    
+                                    <input type="text" required name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
+                                    <input type="text" required name="authcode" id="authcode" class="form-control rounded-pill" placeholder="Code de transfert" />
+
                                     <button type="submit" class="btn btn-tertiary">Transferer</button>
                                 </form>
                             </div>

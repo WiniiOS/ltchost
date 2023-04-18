@@ -38,9 +38,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 col-lg-8">
                         <div class="hero-content-left text-white text-center">
-                            <h1 class="text-white">Recherchez un nom de domaine unique !</h1>
+                            <h1 class="text-white">Recherchez un nom de domaine !</h1>
                             <p class="lead">Nom de domaine offert la premiere annee pour 1 an d'abonnement sur notre offre basique.</p>
-
                             <form method="POST" action="{{ route('checkDomain') }}" class="domain-transfer-form newsletter-form position-relative mt-3 w-75 d-block mx-auto">
                                 @csrf
                                 <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
@@ -58,7 +57,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
         <!--hero section end-->
@@ -67,49 +65,7 @@
         <section class="domain-search-result-section gray-light-bg ptb-100">
             <div class="container">
                 <div class="row justify-content-between">
-                    <!-- <div class="col-lg-3">
-                        <div class="domain-extension-filter-wrap p-4 white-bg rounded"> -->
-                            <!-- <div class="domain-filter-title">
-                                <h5 class="mb-0 d-flex">Filter les resultats <span
-                                class="fas fa-angle-down ms-auto text-end"></span></h5>
-                            </div>
-                            <ul class="list-unstyled domain-filter-list mt-3">
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value="all">Tout voir
-                                    </label>
-                                </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value=".com">.com
-                                    </label>
-                                </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value=".net">.net
-                                    </label>
-                                </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value=".org">.org
-                                    </label>
-                                </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value=".fr">.fr
-                                    </label>
-                                </li>
-                                <li class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" value=".cm">.cm
-                                    </label>
-                                </li>
-                               
-                                <button type="submit" class="btn btn-block btn-outline-primary w-100 btn-sm mt-3">Appliquer</button>
-                            </ul> -->
-                        <!-- </div>
-                    </div> -->
-
+                    
                     <div class="col-md-12 col-lg-10">
                         <div class="content-with-sidebar">
                             <!--alert table start-->
@@ -178,12 +134,13 @@
                                             </td>
                                             <td>
                                                 @if ($extension['domainAvailability'] == 'AVAILABLE')
-                                                    <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a>
+                                                    <a href="{{ route('cart.add',['subDomain' => $extension['subDomain'],'data' => $data ] ) }}" class="btn btn-primary btn-sm">Ajouter au panier</a>
                                                 @else
                                                     <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
                                                 @endif
                                             </td>
                                         </tr>
+                                        
                                     @endforeach
 
                                 @endif

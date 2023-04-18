@@ -10,17 +10,13 @@
     <link rel="icon" href="{{ url('assets/img/favicon.png') }}" type="image/png" sizes="16x16" />
 
     <!--title-->
-    <title>Hebergement & noms de domaine</title>
+    <title>Panier</title>
 
     <!--build:css-->
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
     
-    
- 
-    
-
 </head>
 
 <body>
@@ -41,107 +37,117 @@
                             <div class="row">
                 
                                 <div class="col-lg-7">
-                                <h5 class="mb-3"><a href="#!" class="text-body"><i
+                                <h5 class="mb-3"><a href="{{ route('home') }}" class="text-body"><i
                                         class="fas fa-long-arrow-alt-left me-2"></i>Retour</a></h5>
                                 <hr>
                 
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div>
-                                        <p class="mb-1">Mon panier</p>
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <p class="mb-1">Mon panier</p>
+                                        </div>
                                     </div>
-                                    <!-- <div>
-                                        <p class="mb-0"><span class="text-muted">Trier par:</span> <a href="#!" class="text-body">prix <i class="fas fa-angle-down mt-1"></i></a></p>
-                                    </div> -->
-                                </div>
+
+
+                                    @foreach ($cart as $item)
+
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                    <div>
+                                                        <img src="https://digitiz.fr/wp-content/uploads/2023/01/Hebergement-web-pas-cher-1080x675.png"
+                                                        class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h5>Pack Hébergement {{ $item['product']['title'] }} </h5>
+                                                        <p class="small mb-0"> Abonnement Annuel </p>
+                                                    </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                    <div style="width: 50px;">
+                                                        <h5 class="fw-normal mb-0">{{ $item['quantity'] }}</h5>
+                                                    </div>
+                                                    <div style="width: 80px;">
+                                                        <h5 class="mb-0">{{ $item['quantity'] * $item['product']['price'] }} F CFA</h5>
+                                                    </div>
+                                                    <a href="{{ route('cart.remove',['id' => $item['quantity'] ]) }}" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    @endforeach
+
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <p class="mb-1"><a href="{{ route('showDomainResultPage') }}"> Souhaitez-vous souscrire à un nom de domaine à votre panier ?</a></p>
+                                        </div>
+                                    </div>
                 
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex flex-row align-items-center">
-                                        
-                                         <div>
-                                            <img src="https://facemweb.com/wp-content/uploads/bfi_thumb/nom-de-domaine-344g6pu3qgy6heldk1u0p6.jpg"
-                                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                                        </div>
-                                        <div class="ms-3">
-                                            <h5>Kiroo.com</h5>
-                                            <p class="small mb-0">1 an abonnement</p>
-                                        </div>
-                                        </div>
-                                        <div class="d-flex flex-row align-items-center">
-                                        <div style="width: 50px;">
-                                            <h5 class="fw-normal mb-0">1</h5>
-                                        </div>
-                                        <div style="width: 80px;">
-                                            <h5 class="mb-0">20.000 fcfa</h5>
-                                        </div>
-                                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex flex-row align-items-center">
-                                        <!-- <div>
-                                            <img src="https://digitiz.fr/wp-content/uploads/2023/01/Hebergement-web-pas-cher-1080x675.png"
-                                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                                        </div> -->
-                                        <div class="ms-3">
-                                            <h5>Kiroo.com </h5>
-                                            <p class="small mb-0"> 1 an Abonnement</p>
-                                        </div>
-                                        </div>
-                                        <div class="d-flex flex-row align-items-center">
-                                        <div style="width: 50px;">
-                                            <h5 class="fw-normal mb-0">2</h5>
-                                        </div>
-                                        <div style="width: 80px;">
-                                            <h5 class="mb-0">10.000 F CFA</h5>
-                                        </div>
-                                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex flex-row align-items-center">
+                                                
+                                                <div>
+                                                    <img src="https://facemweb.com/wp-content/uploads/bfi_thumb/nom-de-domaine-344g6pu3qgy6heldk1u0p6.jpg"
+                                                    class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h5>kiroo.com</h5>
+                                                    <p class="small mb-0">Abonnement Annuel</p>
+                                                </div>
+                                                </div>
+                                                <div class="d-flex flex-row align-items-center">
+                                                <div style="width: 50px;">
+                                                    <h5 class="fw-normal mb-0">1</h5>
+                                                </div>
+                                                <div style="width: 80px;">
+                                                    <h5 class="mb-0">Gratuit</h5>
+                                                </div>
+                                                <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    </div>
-                                </div>
+                    
                 
                                 </div>
+
                                 <div class="col-lg-5">
                 
-                                <div class="card bg-primary text-white rounded-3">
-                                    <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <p class="mb-0">Détails du panier</p>
-                                    </div>
-                
-                                    <hr class="my-4">
-                
-                                    <div class="d-flex justify-content-between">
-                                        <p class="mb-2">Total </p>
-                                        <p class="mb-2">$45.000 FCFA</p>
-                                    </div>
-                
-                                    <div class="d-flex justify-content-between">
-                                        <p class="mb-2">Taxes</p>
-                                        <p class="mb-2">20 %</p>
-                                    </div>
-                
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <p class="mb-2">Total TTC</p>
-                                        <p class="mb-2">$50.000 FCFA</p>
-                                    </div>
-                
-                                    <button type='button' onclick='checkout()' class="btn btn-info btn-block btn-lg">
-                                        <div class="d-flex justify-content-between">
-                                            <span>50.000 FCFA </span> &nbsp;
-                                            <span>  Payer <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                    <div class="card bg-primary text-white rounded-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <p class="mb-0">Détails du panier</p>
+                                            </div>
+                        
+                                            <hr class="my-4">
+                        
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Total </p>
+                                                <p class="mb-2">{{ $total }} FCFA</p>
+                                            </div>
+                        
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Taxes</p>
+                                                <p class="mb-2">0 %</p>
+                                            </div>
+                        
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <p class="mb-2">Total TTC</p>
+                                                <p class="mb-2">{{ $total }} FCFA</p>
+                                            </div>
+                    
+                                            <button type='button' onclick='checkout()' class="btn btn-info btn-block btn-lg">
+                                                <div class="d-flex justify-content-between">
+                                    
+                                                    <span>{{ $total }} FCFA </span> &nbsp;
+                                                    <span>  Payer <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                </div>
+                                            </button>
                                         </div>
-                                    </button>
-                
                                     </div>
-                                </div>
                 
                                 </div>
                 
