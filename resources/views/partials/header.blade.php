@@ -135,21 +135,18 @@
                                 </a>
                             </li>
 
-                            
-                            <!-- end cart -->
                             <li class="nav-item header-nav-last-item d-flex align-items-center">
-                                <a class="btn btn-tertiary animated-btn" href="{{ route('cart') }}" >
-                                    <span class="fa fa-shopping-cart pe-2"></span>
+                                <a class="text-muted" href="{{ route('cart') }}" >
+                                <span class="fa fa-shopping-cart pe-2"></span> <span class="badge bg-secondary">{{ Cart::count() }}</span>
                                 </a>
                             </li>
-                            <!--button start-->
+
                             <li class="nav-item header-nav-last-item d-flex align-items-center">
-                                <a class="btn btn-tertiary animated-btn" href="{{ route('connexion') }}" >
+                                <a class="text-muted" href="{{ route('showSpace') }}" >
                                     <span class="fa fa-user pe-2"></span>
-                                    Espace Client
                                 </a>
                             </li>
-                            <!--button end-->
+
                         </ul>
                     </div>
                     <!--main menu end-->
@@ -287,22 +284,17 @@
                     </li>
                     <!--contact item end-->
 
-                    <!-- end cart -->
                     <li class="nav-item header-nav-last-item d-flex align-items-center">
-                            <a class="btn btn-tertiary animated-btn" href="{{ route('cart') }}" >
-                            <span class="fa fa-shopping-cart pe-2"></span>
+                        <a class="text-muted" href="{{ route('cart') }}" >
+                            <span class="fa fa-shopping-cart pe-2"></span> <span class="badge bg-secondary">{{ Cart::count() }}</span>
                         </a>
                     </li>
-                    
 
-                    <!--button start-->
-                    <li class="nav-item header-nav-last-item d-flex align-items-center mt-3">
-                        <a class="btn btn-tertiary animated-btn" href="{{ route('connexion') }}">
+                    <li class="nav-item header-nav-last-item d-flex align-items-center">
+                        <a class="text-muted" href="{{ route('showSpace') }}" >
                             <span class="fa fa-user pe-2"></span>
-                            Espace Client
                         </a>
                     </li>
-                    <!--button end-->
 
                 </ul>
                 <!--offcanvas menu list end-->

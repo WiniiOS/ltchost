@@ -96,7 +96,14 @@
                                         </td>
                                         <td>
                                             @if ($searchedDomain['domainAvailability'] == 'AVAILABLE')
-                                                <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a>
+                                            <form action="{{ route('cart.store') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="4" >
+                                                <input type="hidden" name="domain" value="{{ $searchedDomain['domain'] }}">
+                                                <input type="hidden" name="price" value="25000">
+                                                <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
+                                            </form>
+                                                <!-- <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a> -->
                                             @else
                                                 <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
                                             @endif
@@ -134,7 +141,14 @@
                                             </td>
                                             <td>
                                                 @if ($extension['domainAvailability'] == 'AVAILABLE')
-                                                    <a href="{{ route('cart.add',['subDomain' => $extension['subDomain'],'data' => $data ] ) }}" class="btn btn-primary btn-sm">Ajouter au panier</a>
+                                                    <form action="{{ route('cart.store') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="4" >
+                                                        <input type="hidden" name="domain" value="{{ $searchedDomain['domain'] }}">
+                                                        <input type="hidden" name="price" value="{{ $extension['price'] }}">
+                                                        <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
+                                                    </form>
+                                                    <a href="{{ route('cart.add',['subDomain' => $extension['subDomain'],'data' => $data,'allDomain' => $extension['domain'] ] ) }}" class="btn btn-primary btn-sm">Ajouter au panier</a>
                                                 @else
                                                     <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
                                                 @endif

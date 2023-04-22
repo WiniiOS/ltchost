@@ -7,6 +7,13 @@
         <div class="row justify-content-center">
             <div class="col-md-9 col-lg-6">
                 <div class="section-heading text-center mb-4">
+
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <h2>Choisis Un Plan d'Hébergement Web</h2>
                     <p> Hébergement professionnel à un prix abordable. </p>
                 </div>
@@ -97,7 +104,15 @@
                             </li>
                         </ul>
 
-                        <a href="{{ route('cart.add',['id' => 1 ]) }}" class="btn btn-primary btn-block" > Ajouter Au Panier </a>
+                        <form action="{{ route('cart.store') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="1" >
+                            <input type="hidden" name="title" value="Starter">
+                            <input type="hidden" name="price" value="20000">
+                            <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
+                        </form>
+
+                        <!-- <a href="{{ route('cart.add',['id' => 1 ]) }}" class="btn btn-primary btn-block" > Ajouter Au Panier </a> -->
                     
                     </div>
                 </div>
@@ -183,7 +198,13 @@
                                 </p>
                             </li>
                         </ul>
-                        <a href="{{ route('cart.add',['id' => 2 ]) }}" class="btn btn-primary btn-block" target="_blank">Ajouter Au Panier</a>
+                        <form action="{{ route('cart.store') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="2" >
+                            <input type="hidden" name="title" value="Business">
+                            <input type="hidden" name="price" value="25000">
+                            <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -267,9 +288,14 @@
                                 </p>
                             </li>
                         </ul>
-
-                        <a href="{{ route('cart.add',['id' => 3 ] ) }}" class="btn btn-primary btn-block" target="_blank">Ajouter Au Panier</a>
-                    
+                        <form action="{{ route('cart.store') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="3" >
+                            <input type="hidden" name="title" value="Premium">
+                            <input type="hidden" name="price" value="35000">
+                            <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
+                        </form>
+                                            
                     </div>
                 </div>
             </div>

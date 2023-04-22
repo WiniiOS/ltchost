@@ -2,10 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
+
+    public function index()
+    {
+        dd(Cart::content());
+
+        return view('panier', ['products' => $products]);
+
+    }
+
+
     public $packages = [
         array(
             'id' => 1,
@@ -74,12 +86,16 @@ class CartController extends Controller
         ]);
     }
 
-    public function add(Request $request, $id)
+    public function add(Request $request, $id,$domaine)
     {
         $packages = $this->packages;
         $pack = $packages[$id - 1];
+
+        // $domaine = 
+
         // on initialise la variable cart(panier) 
-        $cart = session()->get('cart', []);        
+        $cart = session()->get('cart', []);    
+
         array_push($cart, [
             'product' => $pack,
             'quantity' => 1
@@ -117,7 +133,20 @@ class CartController extends Controller
             }
         }
         $this->totalize($cart);
-
         return redirect()->route('cart');
     }
+
+
+
+    public function store(Request $request)
+    {
+        $product = Product::find($request->id);
+        dd($product);
+        // Order : Id, Name, Quantity & Price
+        $cartItem = Cart::add($request->id,$request->title,1,$request->price)
+                    ->associate('Product');
+        
+        return redirect('/')->with('success','le produit a bien été ajouté.');
+    }
+
 }

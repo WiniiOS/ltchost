@@ -16,6 +16,69 @@
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
+    <script src="https://cdn.cinetpay.com/seamless/main.js"></script>
+    <style>
+        .sdk {
+            display: block;
+            position: absolute;
+            background-position: center;
+            text-align: center;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+    <script>
+        
+        function checkout() {
+            
+            CinetPay.setConfig({
+                apikey: '19307168035e47e4a0a20d24.32798184',//   YOUR APIKEY
+                site_id: '948395',//YOUR_SITE_ID
+                notify_url: 'http://localhost:8000/notify/',
+                mode: 'PRODUCTION'
+            });
+
+            CinetPay.getCheckout({
+                transaction_id: Math.floor(Math.random() * 100000000).toString(),
+                amount: 100,
+                currency: 'XOF',
+                channels: 'ALL',
+                description: 'Test de Paiement',   
+                //Fournir ces variables pour le paiements par carte bancaire,
+                customer_id :"1",
+                customer_name:"Joe",//Le nom du client
+                customer_surname:"Down",//Le prenom du client
+                customer_email: "franckndi5@gmail.com",//l'email du client
+                customer_phone_number: 658682586,//l'email du client
+                customer_address : "BP 0024",//addresse du client
+                customer_city: "Yaoundé",// La ville du client
+                customer_country : "CM",// le code ISO du pays
+                customer_state : "CM",// le code ISO l'état
+                customer_zip_code : "06510", // code postal
+            });
+
+            CinetPay.waitResponse(function(data) {
+                if (data.status == "REFUSED") {
+                    if (alert("Votre paiement a échoué")) {
+                        window.location.reload();
+                    }
+                } else if (data.status == "ACCEPTED") {
+                    if (alert("Votre paiement a été effectué avec succès")) {
+                        window.location.reload();
+                    }
+                }
+            });
+
+            CinetPay.onError(function(data) {
+                console.log(data);
+            });
+
+        }
+
+    </script>
+
     
 </head>
 
@@ -93,11 +156,12 @@
                                                     <img src="https://facemweb.com/wp-content/uploads/bfi_thumb/nom-de-domaine-344g6pu3qgy6heldk1u0p6.jpg"
                                                     class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
                                                 </div>
-                                                <div class="ms-3">
-                                                    <h5>kiroo.com</h5>
-                                                    <p class="small mb-0">Abonnement Annuel</p>
+                                                    <div class="ms-3">
+                                                        <h5>kiroo.com</h5>
+                                                        <p class="small mb-0"> Abonnement Annuel </p>
+                                                    </div>
                                                 </div>
-                                                </div>
+                                                
                                                 <div class="d-flex flex-row align-items-center">
                                                 <div style="width: 50px;">
                                                     <h5 class="fw-normal mb-0">1</h5>
@@ -296,57 +360,6 @@
         <span class="fas fa-hand-point-up"></span>
     </div>
     <!--scroll bottom to top button end-->
-
-    <script src="https://cdn.cinetpay.com/seamless/main.js"></script>
-
-    <script>
-    
-        function checkout() {
-            
-            CinetPay.setConfig({
-                apikey: '19307168035e47e4a0a20d24.32798184',//   YOUR APIKEY
-                site_id: '948395',//YOUR_SITE_ID
-                notify_url: 'http://localhost:8000/notify/',
-                mode: 'SANDBOX'
-            });
-
-            CinetPay.getCheckout({
-                transaction_id: Math.floor(Math.random() * 100000000).toString(),
-                amount: 100,
-                currency: 'XAF',
-                channels: 'ALL',
-                description: 'Test de Paiement Abonnement LTC HOST',   
-                 //Fournir ces variables pour le paiements par carte bancaire
-                customer_name:"Joe",//Le nom du client
-                customer_surname:"Down",//Le prenom du client
-                customer_email: "franckndi5@gmail.com",//l'email du client
-                customer_phone_number: "658682586",//l'email du client
-                customer_address : "BP 0024",//addresse du client
-                customer_city: "Yaoundé",// La ville du client
-                customer_country : "CM",// le code ISO du pays
-                customer_state : "CM",// le code ISO l'état
-                customer_zip_code : "06510", // code postal
-            });
-
-            CinetPay.waitResponse(function(data) {
-                if (data.status == "REFUSED") {
-                    if (alert("Votre paiement a échoué")) {
-                        window.location.reload();
-                    }
-                } else if (data.status == "ACCEPTED") {
-                    if (alert("Votre paiement a été effectué avec succès")) {
-                        window.location.reload();
-                    }
-                }
-            });
-
-            CinetPay.onError(function(data) {
-                console.log(data);
-            });
-
-        }
-
-    </script>
 
     <!--build:js-->
     <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>

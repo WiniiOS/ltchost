@@ -9,8 +9,24 @@ use Illuminate\Support\Facades\DB;
 require_once __DIR__.'/../../../vendor/php-dna/src/dna.php';
 use DomainNameApi\DomainNameAPI_PHPLibrary;
 
+use PDF;
+
 class HoistingController extends Controller
 {
+
+
+    public function generatePDF()
+    {
+        $data = ['foo' => 'bar']; // Données à passer à la vue
+        $pdf = PDF::loadView('pdf.myview', $data); // Charger la vue 'pdf.myview' avec les données
+        return $pdf->download('mon_pdf.pdf'); // Télécharger le PDF avec un nom de fichier personnalisé
+    }
+
+    public function showProfile()
+    {
+        return view('user-profile');
+    }
+
     public function domainTransfer(Request $request)
     {
         if(empty(session()->get('user')->email)){
@@ -44,15 +60,44 @@ class HoistingController extends Controller
              */
 
             $result = $dna->Transfer($domainName, $authCode,$period);
-
             dd($result);
-
             return view('domain-transfer',['result' => $result]);
+        }   
+    }
 
+
+    public function modifyNameServer(Request $request)
+    {
+        if(empty(session()->get('user')->email)){
+            return redirect('connexion');
         }
 
-        
+        $domainName = $request->domainName;
+        $dns1 = 'ns1.bunyam.in';
+        $dns2 = 'ns2.bunyam.in';
+        // ----------
+
+        $user = session()->get('user');
+        $email = $user->email;
+        $password = $user->password;
+
+        $checkUser = $this->checkIfUserIsAuth($email,$password);
+
+        $dna = new DomainNameAPI_PHPLibrary($email, $password);
+
+        if ($checkUser == false) {
+
+            return redirect('connexion');
+
+        }else{
+
+            $ns_change = $dna->ModifyNameServer($domainName,['ns1' => $dns1, 'ns2' => $dns2]);
+            // dd($ns_change);
+            return view('domain-change',['result' => $dns_change]);
+        }
+    
     }
+
 
     public function checkIfUserIsAuth($email,$password)
     {      
@@ -63,7 +108,6 @@ class HoistingController extends Controller
         }else{
             return true;
         }
-
     }
 
     public $packages = [
