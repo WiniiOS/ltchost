@@ -33,8 +33,6 @@
                             </li>
                             <!--hosting end-->
 
-                            
-
                             <!--domain start-->
                             <li class="nav-item hs-has-mega-menu custom-nav-item position-relative" data-position="center">
                                 <a id="domainMegaMenu" class="nav-link custom-nav-link main-link-toggle" href="JavaScript:Void(0);" aria-haspopup="true" aria-expanded="false">
@@ -70,8 +68,7 @@
                                                     </a>
                                                 </div>
                                                 <!--menu title with subtitle and icon item end-->
-                                                
-                                                
+                                  
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 gray-light-bg custom-radius-right">
@@ -136,7 +133,7 @@
                             </li>
 
                             <li class="nav-item header-nav-last-item d-flex align-items-center">
-                                <a class="text-muted" href="{{ route('cart') }}" >
+                                <a class="text-muted" href="{{ route('panier') }}" >
                                 <span class="fa fa-shopping-cart pe-2"></span> <span class="badge bg-secondary">{{ Cart::count() }}</span>
                                 </a>
                             </li>
@@ -285,7 +282,7 @@
                     <!--contact item end-->
 
                     <li class="nav-item header-nav-last-item d-flex align-items-center">
-                        <a class="text-muted" href="{{ route('cart') }}" >
+                        <a class="text-muted" href="{{ route('panier') }}" >
                             <span class="fa fa-shopping-cart pe-2"></span> <span class="badge bg-secondary">{{ Cart::count() }}</span>
                         </a>
                     </li>

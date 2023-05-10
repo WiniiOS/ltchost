@@ -37,21 +37,21 @@
                 apikey: '19307168035e47e4a0a20d24.32798184',//   YOUR APIKEY
                 site_id: '948395',//YOUR_SITE_ID
                 notify_url: 'http://localhost:8000/notify/',
-                mode: 'PRODUCTION'
+                mode: 'SANDBOX'
             });
 
             CinetPay.getCheckout({
                 transaction_id: Math.floor(Math.random() * 100000000).toString(),
-                amount: 100,
-                currency: 'XOF',
+                amount: 1000,
+                currency: 'XAF',
                 channels: 'ALL',
                 description: 'Test de Paiement',   
                 //Fournir ces variables pour le paiements par carte bancaire,
                 customer_id :"1",
                 customer_name:"Joe",//Le nom du client
                 customer_surname:"Down",//Le prenom du client
-                customer_email: "franckndi5@gmail.com",//l'email du client
-                customer_phone_number: 658682586,//l'email du client
+                customer_email: "franckndi20@gmail.com",//l'email du client
+                customer_phone_number: 658682587,//l'email du client
                 customer_address : "BP 0024",//addresse du client
                 customer_city: "Yaoundé",// La ville du client
                 customer_country : "CM",// le code ISO du pays
@@ -110,36 +110,50 @@
                                         </div>
                                     </div>
 
+                                    @if( Cart::count() > 0 )
 
-                                    @foreach ($cart as $item)
+                                        @foreach ( Cart::content() as $product )
 
                                         <div class="card mb-3">
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between">
                                                     <div class="d-flex flex-row align-items-center">
+                                                    @if($product->id > 3)
                                                     <div>
-                                                        <img src="https://digitiz.fr/wp-content/uploads/2023/01/Hebergement-web-pas-cher-1080x675.png"
+                                                        <img src="https://facemweb.com/wp-content/uploads/bfi_thumb/nom-de-domaine-344g6pu3qgy6heldk1u0p6.jpg"
                                                         class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
                                                     </div>
+                                                    @else
+                                                        <p>Hebergement Serveur Linux </p>
+                                                    @endif
+
                                                     <div class="ms-3">
-                                                        <h5>Pack Hébergement {{ $item['product']['title'] }} </h5>
+                                                        <h5>{{ $product->name }} </h5>
                                                         <p class="small mb-0"> Abonnement Annuel </p>
                                                     </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
                                                     <div style="width: 50px;">
-                                                        <h5 class="fw-normal mb-0">{{ $item['quantity'] }}</h5>
+                                                        <h5 class="fw-normal mb-0">{{ $product->qty }}</h5>
                                                     </div>
                                                     <div style="width: 80px;">
-                                                        <h5 class="mb-0">{{ $item['quantity'] * $item['product']['price'] }} F CFA</h5>
+                                                        <h5 class="mb-0"> {{ $product->price }} F CFA</h5>
                                                     </div>
-                                                    <a href="{{ route('cart.remove',['id' => $item['quantity'] ]) }}" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                    <form action="{{ route('cart.destroy', $product->rowId ) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class='text-dark'><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                    @endforeach
+                                        @endforeach
+
+                                    @else
+                                        <p class='text-muted'> Votre panier est vide </p>
+                                    @endif
 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
@@ -147,35 +161,7 @@
                                         </div>
                                     </div>
                 
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div class="d-flex flex-row align-items-center">
-                                                
-                                                <div>
-                                                    <img src="https://facemweb.com/wp-content/uploads/bfi_thumb/nom-de-domaine-344g6pu3qgy6heldk1u0p6.jpg"
-                                                    class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                                                </div>
-                                                    <div class="ms-3">
-                                                        <h5>kiroo.com</h5>
-                                                        <p class="small mb-0"> Abonnement Annuel </p>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 50px;">
-                                                    <h5 class="fw-normal mb-0">1</h5>
-                                                </div>
-                                                <div style="width: 80px;">
-                                                    <h5 class="mb-0">Gratuit</h5>
-                                                </div>
-                                                <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                    
-                
+                                 
                                 </div>
 
                                 <div class="col-lg-5">
@@ -190,23 +176,23 @@
                         
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Total </p>
-                                                <p class="mb-2">{{ $total }} FCFA</p>
+                                                <p class="mb-2">{{ Cart::subtotal() }} FCFA</p>
                                             </div>
                         
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Taxes</p>
-                                                <p class="mb-2">0 %</p>
+                                                <p class="mb-2">0 F CFA</p>
                                             </div>
                         
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Total TTC</p>
-                                                <p class="mb-2">{{ $total }} FCFA</p>
+                                                <p class="mb-2">{{ Cart::subtotal() }} FCFA</p>
                                             </div>
                     
                                             <button type='button' onclick='checkout()' class="btn btn-info btn-block btn-lg">
                                                 <div class="d-flex justify-content-between">
                                     
-                                                    <span>{{ $total }} FCFA </span> &nbsp;
+                                                    <span>{{ Cart::subtotal(); }} FCFA </span> &nbsp;
                                                     <span>  Payer <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                 </div>
                                             </button>
@@ -313,6 +299,15 @@
     </footer>
 
     </div>
+
+
+
+
+
+
+
+
+
 
     <!-- Theme plugin -->
     <div class="theme-setting show">

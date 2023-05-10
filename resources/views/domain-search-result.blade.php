@@ -17,12 +17,39 @@
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
 
+    <style>
+        .loader{
+            background: url('assets/img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+            cursor: wait;
+            height: 50%;
+            left: 0;
+            position: relative;
+            top: 0;
+            width: 90%;
+            z-index: 99;
+        }
+        .loader h1{
+            background: none;
+            border: none;
+            color: #0d1a55;
+            font-size: 22px;
+            font-family: "Open Sans",sans-serif;
+            font-variant: small-caps;
+            font-weight: 700;
+            height: 700px;
+            line-height: 700px;
+            margin: 0 0 10px;
+            padding: 60px;
+            text-align: center;
+        }
+    </style>
+
 </head>
 
 <body>
     
     <!--preloader start-->
-    @include('partials.preloader')
+    {{-- @include('partials.preloader') --}}
     <!--preloader end-->
 
     <!-- header & navbar  -->
@@ -40,12 +67,17 @@
                         <div class="hero-content-left text-white text-center">
                             <h1 class="text-white">Recherchez un nom de domaine !</h1>
                             <p class="lead">Nom de domaine offert la premiere annee pour 1 an d'abonnement sur notre offre basique.</p>
-                            <form method="POST" action="{{ route('checkDomain') }}" class="domain-transfer-form newsletter-form position-relative mt-3 w-75 d-block mx-auto">
+                            
+                            <form id="domain-search-form" class="domain-transfer-form newsletter-form position-relative mt-3 w-75 d-block mx-auto">
                                 @csrf
                                 <input type="text" name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
                                 <button type="submit" class="btn btn-tertiary">Recherche</button>
                             </form>
+
                             <div class="domain-list-wrap text-center mt-4">
+
+                                <div class="bg-success" id="domain-search-result"> </div>
+
                                 <ul class="list-inline domain-search-list">
                                     <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/com-w.png" alt="com" width="60" class="img-fluid"> <span>9000 fcfa</span></a></li>
                                     <li class="list-inline-item border rounded"><a href="#"><img src="assets/img/net-w.png" alt="com" width="60" class="img-fluid"> <span>9000 fcfa</span></a></li>
@@ -61,6 +93,7 @@
         </section>
         <!--hero section end-->
 
+        {{-- code to paste --}}
         <!--domain search result section start-->
         <section class="domain-search-result-section gray-light-bg ptb-100">
             <div class="container">
@@ -79,14 +112,14 @@
                                         </td>
                                         <td>
                                             <p>
-                                                <span class="rate">{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? $searchedDomain['price'] : 'Reservée' }}<span>/An</span></span>
+                                                <span class="rate">{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? $searchedDomain['price'] : 'Reservée' }} XAF<span>/An</span></span>
                                                 
                                                 @if ($searchedDomain['domainAvailability'] == 'AVAILABLE')
                                                     <span class='pricing-onsale'>Achetez-le - <span class='badge bg-warning'>1 an Gratuit</span></span>
+                                                    
                                                 @else
                                                     <span class='pricing-onsale'>Poussez la recherche</span>
                                                 @endif
-
                                             </p>
                                         </td>
                                         <td>
@@ -96,14 +129,13 @@
                                         </td>
                                         <td>
                                             @if ($searchedDomain['domainAvailability'] == 'AVAILABLE')
-                                            <form action="{{ route('cart.store') }}">
-                                                @csrf
-                                                <input type="hidden" name="id" value="4" >
-                                                <input type="hidden" name="domain" value="{{ $searchedDomain['domain'] }}">
-                                                <input type="hidden" name="price" value="25000">
-                                                <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
-                                            </form>
-                                                <!-- <a href="#" class="btn btn-primary btn-sm">Ajouter au panier</a> -->
+                                                <form action="{{ route('cart.store') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="4" >
+                                                    <input type="hidden" name="title" value="{{ $searchedDomain['domain'] }}">
+                                                    <input type="hidden" name="price" value="{{ $searchedDomain['price'] }}">
+                                                    <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
+                                                </form>
                                             @else
                                                 <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
                                             @endif
@@ -112,7 +144,10 @@
                                     </tr>
                                 </tbody>
                             </table>
+
                             <!--alert table end-->
+
+
                             @if (isset($extension))
                                 <h4 class="text-center">Plus d'options de domaine</h4>
                             @else
@@ -129,7 +164,7 @@
                                             <td data-value="{{ $extension['domainAvailability'] }}">{{ $extension['domain'] }} </td>
                                             <td data-value="Price">
                                                 <p>
-                                                    <span class="rate">{{ $extension['price'] }}<span>/An</span></span>
+                                                    <span class="rate">{{ $extension['price'] }} XAF <span>/An</span></span>
                                                     <span class="pricing-onsale">Achetez-le -
                                                 <span class="badge bg-warning">1 an Gratuit</span></span>
                                                 </p>
@@ -143,12 +178,11 @@
                                                 @if ($extension['domainAvailability'] == 'AVAILABLE')
                                                     <form action="{{ route('cart.store') }}">
                                                         @csrf
-                                                        <input type="hidden" name="id" value="4" >
-                                                        <input type="hidden" name="domain" value="{{ $searchedDomain['domain'] }}">
+                                                        <input type="hidden" name="id" value="{{ $extension['id'] }}" >
+                                                        <input type="hidden" name="title" value="{{ $extension['domain'] }}">
                                                         <input type="hidden" name="price" value="{{ $extension['price'] }}">
                                                         <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
                                                     </form>
-                                                    <a href="{{ route('cart.add',['subDomain' => $extension['subDomain'],'data' => $data,'allDomain' => $extension['domain'] ] ) }}" class="btn btn-primary btn-sm">Ajouter au panier</a>
                                                 @else
                                                     <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
                                                 @endif
@@ -158,6 +192,14 @@
                                     @endforeach
 
                                 @endif
+
+                                {{-- Loader for searching --}}
+                                <div class="loader">
+                                    <h1>Veuillez patientez pendant le chargement de la page.</h1>
+                                </div>
+                                {{-- <script>
+                                    jQuery(window).load(function(){ jQuery(".loader").fadeOut("200"); });
+                                </script> --}}
 
                                 </tbody>
                             </table>
@@ -174,7 +216,7 @@
      @include('partials.footer')
     <!--footer section end-->
 
-    <div class="theme-setting show">
+    {{-- <div class="theme-setting show">
         <a href="javascript:void(0)" id="themeSettingShow" class="theme-setting-link"><i class="fas fa-gear fa-spin"></i></a>
         <div class="theme-setting-body">
             <h6>Theme Option</h6>
@@ -214,14 +256,16 @@
                 </a>
             </div>
         </div>
-    </div><!--scroll bottom to top button start-->
+    </div> --}}
+    <!--scroll bottom to top button start-->
     <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
         <span class="fas fa-hand-point-up"></span>
     </div>
     <!--scroll bottom to top button end-->
 
     <!--build:js-->
-    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="assets/js/vendors/bootstrap-slider.min.js"></script>
     <script src="assets/js/vendors/owl.carousel.min.js"></script>
@@ -230,6 +274,57 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
+
+    <script>
+
+        const xhr = new XMLHttpRequest();
+
+        const form = document.querySelector("#domain-search-form");
+
+        const domainInput = document.querySelector("#domain");
+
+        const url = "{{ route('checking') }}";
+
+        
+        form.addEventListener('submit', (e) => {
+            
+            e.preventDefault()
+
+            const domainValue = domainInput.value
+
+            const data = { domain : domainValue }
+
+            // console.log(data);
+            // alert(data)
+
+            xhr.open("POST",url);
+
+            xhr.send(data);
+
+            // On assigne une fonction qui, lorsque l'état de la requête change, va traiter le résultat
+            xhr.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                }else{
+
+                }
+            };
+
+            xhr.onerror = function() {
+                alert("Request failed");
+            };
+
+            xhr.onload = function() {}
+
+            
+
+        })        
+
+        function showLoadingIndicator() {}
+
+
+    </script>
 
 </body>
 

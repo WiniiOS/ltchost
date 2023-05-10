@@ -88,10 +88,11 @@
                                 Services
                             </a>
                         <ul class="dropdown-menu">
-                            <li menuitemname="My Services" class="dropdown-item" id="Primary_Navbar-Services-My_Services">
-                        <a href="/clientarea.php?action=services" class="dropdown-item px-2 py-0">
-                            My Services
-                        </a>
+                            
+                        <li menuitemname="My Services" class="dropdown-item" id="Primary_Navbar-Services-My_Services">
+                            <a href="/clientarea.php?action=services" class="dropdown-item px-2 py-0">
+                                My Services
+                            </a>
                        
                        
                     </ul>
@@ -189,7 +190,7 @@
     <li menuitemname="Account" class="d-block no-collapse dropdown no-collapse account" id="Secondary_Navbar-Account">
 
         <a class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-            <i class="fal fa-user"></i>&nbsp;Bonjour, Franck!
+            <i class="fal fa-user"></i>&nbsp;Bonjour, {{ $user_data->name }} !
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
             <li menuitemname="Edit Account Details" class="dropdown-item" id="Secondary_Navbar-Account-Edit_Account_Details">
@@ -286,7 +287,7 @@
                 </div>
                 <div class="collapsable-card-body">
                     <div class="card-body">
-                        <strong>ThemeTags</strong><br><em>asd Hex</em><br>121 King Street, Melbourne<br>Melbourne, 3000<br>Israel
+                        <strong>Utilisateur</strong><br><em>{{ $user_data->name }}</em><br>E-mail : {{ $user_data->email }} <br>Telephone: {{ $user_data->telephone }}<br>
                     </div>
                 </div>
                 <div class="card-footer clearfix">
@@ -300,24 +301,22 @@
 
 
             <div menuitemname="Client Shortcuts" class="mb-3 card card-sidebar">
+
                 <div class="card-header">
                     <h3 class="card-title m-0">
-                    <i class="fas fa-bookmark"></i>&nbsp;                Raccourçis
+                    <i class="fas fa-bookmark"></i>&nbsp;Raccourçis
                     <i class="fas fa-chevron-up card-minimise float-right"></i>
                     </h3>
                 </div>
 
                 <div class="collapsable-card-body">
                     <div class="list-group list-group-flush d-md-flex" role="tablist">
-                        <a menuitemname="Order New Services" href="/cart.php" class="list-group-item list-group-item-action" id="Secondary_Sidebar-Client_Shortcuts-Order_New_Services">
-                        <i class="fas fa-shopping-cart fa-fw"></i>&nbsp;                                Acheter Un Service
-                        </a>
-                        
-                        <a menuitemname="Logout" href="/logout.php" class="list-group-item list-group-item-action" id="Secondary_Sidebar-Client_Shortcuts-Logout">
-                        <i class="fas fa-arrow-left fa-fw"></i>&nbsp;                                Deconnexion
+                        <a menuitemname="Logout" href="{{ route('logout')}}" class="list-group-item list-group-item-action" id="Secondary_Sidebar-Client_Shortcuts-Logout">
+                            <i class="fas fa-arrow-left fa-fw"></i>&nbsp;Deconnexion
                         </a>
                     </div>
                 </div>
+
             </div>
 
             </div>

@@ -111,8 +111,6 @@
                             <input type="hidden" name="price" value="20000">
                             <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
                         </form>
-
-                        <!-- <a href="{{ route('cart.add',['id' => 1 ]) }}" class="btn btn-primary btn-block" > Ajouter Au Panier </a> -->
                     
                     </div>
                 </div>
@@ -291,8 +289,6 @@
                         <form action="{{ route('cart.store') }}">
                             @csrf
                             <input type="hidden" name="id" value="3" >
-                            <input type="hidden" name="title" value="Premium">
-                            <input type="hidden" name="price" value="35000">
                             <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
                         </form>
                                             

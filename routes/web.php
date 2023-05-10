@@ -12,13 +12,21 @@ Route::get('email_hosting', [HoistingController::class, 'email_hosting'])->name(
 Route::get('terms-condition', [HoistingController::class, 'terms'])->name('terms');
 Route::get('shared-hosting', [HoistingController::class, 'sharedHosting'])->name('shared-hosting');
 Route::get('privacy', [HoistingController::class, 'showPrivacy'])->name('privacy');
-Route::get('domain-search-result', [HoistingController::class, 'showDomainSearchResultPage'])->name('showDomainResultPage');
+
 Route::post('domain-search-result-interne', [HoistingController::class, 'completeDomainCheck'])->name('checkDomain');
+
+Route::get('domain-search-result', [HoistingController::class, 'showDomainSearchResultPage'])->name('showDomainResultPage');
 Route::post('domain-search-result', [HoistingController::class, 'allDomainCheck'])->name('domain-search-result');
+
+Route::post('/check-domain-availability', [HoistingController::class, 'checkDomainAvailability'])->name('checking');
+
 Route::get('domain-checker', [HoistingController::class, 'domainChecker'])->name('domain-checker');
+
 Route::get('domain-transfer', [HoistingController::class, 'showDomainTransfer'])->name('domain-transfer');
 Route::get('domain-registration', [HoistingController::class, 'domainRegistration'])->name('domain-registration');
 Route::get('pricing-comparaison', [HoistingController::class, 'showPricingComparison'])->name('pricing-comparaison');
+
+
 Route::get('pricing-package', [HoistingController::class, 'showPricingPackage'])->name('pricing-package');
 Route::get('pricing-specifications', [HoistingController::class, 'showPricingSpecifications'])->name('pricing-specifications');
 Route::get('pricing-web-hosting', [HoistingController::class, 'showPricingWebHosting'])->name('pricing-web-hosting');
@@ -30,18 +38,32 @@ Route::get('connexion', [UserController::class, 'connexion'])->name('connexion')
 Route::post('sign-up', [UserController::class, 'save'])->name('save');
 Route::post('authentify', [UserController::class, 'authentify'])->name('authentify');
 
-Route::get('/cart/add', [CartController::class, 'add'])->name('cart.add');
 
-Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
-Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 /* Client Space */
 
-Route::get('showSpace', [HoistingController::class, 'showSpace'])->name('showSpace');
+Route::get('showSpace', [UserController::class, 'showSpace'])->name('showSpace');
+
 Route::get('user-profile', [HoistingController::class, 'showProfile'])->name('user-profile');
+
 Route::post('domain-transfer-form', [HoistingController::class, 'domainTransfer'])->name('domain-transfer-form');
 
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
+
+
 /* Cart Routes */
-Route::get('/panier/ajouter', [CartController::class, 'store'])->name('cart.store');
+Route::get('panier/ajouter', [CartController::class, 'store'])->name('cart.store');
 Route::get('panier', [CartController::class, 'index'])->name('panier');
+Route::get('videpanier', function() {
+    Cart::destroy();
+});
+Route::delete('panier/{rowId}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+
+/* Factures Routes */
+Route::get('facture', [CartController::class, 'generatePDF'])->name('facture');
+
+// tests
+Route::get('mail', [CartController::class, 'sendMailFacture'])->name('mail');
+Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');

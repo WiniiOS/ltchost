@@ -7,10 +7,10 @@
 <body>
     <h1>Facture LTC HOST</h1>
     <hr>
-    <p>Client: {{ $client_name }}</p>
-    <p>Adresse: {{ $client_address }}</p>
-    <p>E-mail: {{ $client_email }}</p>
-    <p>Téléphone: {{ $client_phone }}</p>
+    <p>Client: {{ "‘franck’" }}</p>
+    <p>Adresse: {{ "‘mvan’" }}</p>
+    <p>E-mail: {{ 'mvan@gmail.com' }}</p>
+    <p>Téléphone: {{ "6554545434"  }}</p>
     <hr>
     <table>
 
@@ -26,23 +26,24 @@
         <tbody>
             <tr>
                 <td>Hébergement web</td>
-                <td>{{ $hosting_price }} €</td>
-                <td>{{ $hosting_duration }} mois</td>
-                <td>{{ $hosting_total }} €</td>
+                <td>{{ 20 }} €</td>
+                <td>{{ 4 }} mois</td>
+                <td>{{ 20 }} €</td>
             </tr>
             <tr>
                 <td>Nom de domaine</td>
-                <td>{{ $domain_price }} €</td>
-                <td>{{ $domain_duration }} ans</td>
-                <td>{{ $domain_total }} €</td>
+                <td>{{ 20 }} €</td>
+                <td>{{ 4 }} ans</td>
+                <td>40.000 €</td>
             </tr>
         </tbody>
         
     </table>
     <hr>
-    <p>Total à payer: {{ $total }} €</p>
+    <p>Total à payer: {{ "40.000" }} €</p>
     <hr>
     <p>Merci de votre confiance en LTC HOST.</p>
     <p>Coordonnées: 123 Rue de la Paix, Paris | contact@ltchost.com | 01 23 45 67 89</p>
 </body>
 </html>
+

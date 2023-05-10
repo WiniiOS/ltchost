@@ -6,6 +6,19 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function showSpace()
+    {
+        $user = session()->get('user');
+
+        // dd($user);
+        if (empty($user)) {
+            return redirect('connexion');
+        }
+        return view('espace-client',['user_data' => $user]);
+
+    }
+
     public function save(Request $request)
     {
 
@@ -129,7 +142,6 @@ class UserController extends Controller
     public function logout(Request $request)
     {
         $request->session()->forget('user'); 
-
         return redirect('/');
     }
 

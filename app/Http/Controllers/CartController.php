@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use App\Models\Facture;
 use App\Models\Product;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
@@ -11,12 +15,19 @@ class CartController extends Controller
 
     public function index()
     {
-        dd(Cart::content());
+        $products = Cart::content();
 
         return view('panier', ['products' => $products]);
 
     }
 
+    public function destroy($rowId)
+    {
+
+        Cart::remove($rowId);
+        return back()->with('success','Le produit a été supprimé.');
+
+    }
 
     public $packages = [
         array(
@@ -75,78 +86,104 @@ class CartController extends Controller
         )
     ];
 
-    public $totalPanier = 0;
-
-    public function showCart()
-    {
-        $cart = session()->get('cart');
-        return view('cart', [
-            'cart' => $cart,
-            'total' => session()->get('total')
-        ]);
-    }
-
-    public function add(Request $request, $id,$domaine)
-    {
-        $packages = $this->packages;
-        $pack = $packages[$id - 1];
-
-        // $domaine = 
-
-        // on initialise la variable cart(panier) 
-        $cart = session()->get('cart', []);    
-
-        array_push($cart, [
-            'product' => $pack,
-            'quantity' => 1
-        ]);
-
-        $this->totalize($cart);
-        
-        session()->put('cart', $cart);
-        return redirect()->route('cart');
-    }
-
-    public function totalize($mycart)
-    {
-        // on get la variable cart(panier) 
-        $cart = $mycart;
-        $total = 0;
-        foreach ($cart as $item) {
-            $qte = $item['quantity'];
-            $price = $item['product']['price'];
-            $total += $qte*$price;
-        }
-        session()->put('total', $total);
-    }
-
-    public function remove(Request $request, $id)
-    {
-        $cart = session()->get('cart', []);
-        $reorganizedCart = array_values($cart);
-        for($i = 0; $i <= count($reorganizedCart); $i++){
-            if (isset($reorganizedCart[$i]) && $reorganizedCart[$i]['product']['id'] == $id ) {
-                unset($reorganizedCart[$i]);
-                // Réorganisation des index restants
-                $newCart = array_values($reorganizedCart);
-                session()->put('cart', $newCart);
-            }
-        }
-        $this->totalize($cart);
-        return redirect()->route('cart');
-    }
-
-
-
     public function store(Request $request)
     {
-        $product = Product::find($request->id);
-        dd($product);
-        // Order : Id, Name, Quantity & Price
-        $cartItem = Cart::add($request->id,$request->title,1,$request->price)
+        // $user = session()->get('user');
+        // if (empty($user)) {
+        //     return redirect('connexion');
+        // }
+
+        $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
+            return $cartItem->id === $request->id;
+        });
+
+        if ($duplicata->isNotEmpty()) {
+            return redirect('/')->with('success','Le produit a déjà été ajouté au panier.');
+        }
+
+        // Pour les packages
+        if( $request->id <= 3 ) {
+
+            $product = Product::find($request->id);
+            // Order : Id, Name, Quantity & Price
+            $cartItem = Cart::add($product->id,$product->title,1,$product->price)
+                        ->associate('Product');
+
+        }else{
+            // Cas des noms de domaines
+            $cartItem = Cart::add($request->id,$request->title,1,$request->price)
                     ->associate('Product');
-        
-        return redirect('/')->with('success','le produit a bien été ajouté.');
+        }
+
+        return redirect('/')->with('success','Le produit a bien été ajouté.');
+
+    }
+
+
+    public function sendMailFacture(Request $request)
+    {
+        $user_email = 'franckndi5@gmail.com' ;
+        $name = 'Franck';
+        $reference ='MONIÉ324AS';
+        // $data['reference'] = $reference ;
+        $data['email'] = 'franckndi5@gmail.com' ;
+        $data['title'] = 'Votre facture est disponible' ;
+        $data['body'] = '' ;
+
+        $pdf = PDF::loadView('invoice', $data);
+
+        Mail::send("emails.invoice_mail", $data, function ($message) use ($reference,$user_email,$name, $pdf) {
+                $message->to($user_email,$name)
+                        ->subject('Votre facture est disponible')
+                        ->attachData($pdf->output(), 'facture_'.$reference.'.pdf');
+        });
+
+        return response()->json(['message' => 'Facture envoyée avec succès']);
+    }
+
+    public function storeInvoice($data,$user)
+    {
+        //on crée un enregistrement de notre User en BD
+        Facture::create([
+            'clientId' => $data->clientId,
+            'reference' => $data->reference,
+            'date_payement' => $data->date_payement,
+            'mode_de_reglement' => $data->mode_de_reglement,
+            'reference_du_payement' => $data->reference_du_payement,
+            'produits' => $data->produits,
+            'total_ht' => $data->total_ht,
+            'total_ttc' => $data->total_ttc,
+        ]);
+
+        return redirect('connexion');
+    }
+
+    public function storeSubscription($data,$user)
+    {
+        //on crée un enregistrement de notre User en BD
+        Subscription::create([
+            'user_id' => $request->clientId,
+            'name' => $request->reference,
+            'stripe_id' => $request->date_payement,
+            'mode_de_reglement' => $request->mode_de_reglement,
+            'reference_du_payement' => $request->reference_du_payement,
+            'produits' => $request->produits,
+            'total_ht' => $request->total_ht,
+            'total_ttc' => $request->total_ttc,
+        ]);
+
+        return redirect('connexion');
+    }
+
+
+    public function generatePDF()
+    {
+        $data = ['foo' => 'bar']; // Données à passer à la vue
+        // Charger la vue 'pdf.myview' avec les données
+        $pdf = PDF::loadView('invoice', $data); 
+        // Pdf::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
+        // Télécharger le PDF avec un nom de fichier personnalisé
+        return $pdf->download("facture_ltc_host_ref.pdf");
     }
 
 }
