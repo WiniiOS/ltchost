@@ -264,15 +264,15 @@ class HoistingController extends Controller
     {
         $dna = new DomainNameAPI_PHPLibrary('HackingCorp', '9ftUhAc!QVKZ@th');
         $exts = ['com', 'net', 'org', 'fr', 'io','cm','biz','info', 'news','tech','site','de','bz','tc','me'];
-        // $domain = $request->input('domain');
-        $domain = 'argent';
+        $domain = $request->input('domain');
+        // $domain = 'argent';
 
         $hasExtension = false;
         $onlyDomainName = '';
         $extType = '';
 
         // Vérifie si le domaine contient une extension
-        $extens = ['.com', '.net', '.org', '.fr', '.io','.biz','.info', '.news','.tech','.site','.de','.bz','.tc','.me'];
+        $extens = ['.com', '.cm', '.net', '.fr', '.biz','.info', '.org', '.tech','.news','.site','.de','.me','.bz','.tc'];
 
 
         foreach($extens as $ext){
@@ -291,135 +291,158 @@ class HoistingController extends Controller
 
         $result = $dna->CheckAvailability([ $onlyDomainName ], $exts , 1 , 'create' );
 
-        dd($result[0]);
+        // dd($result[0]);
 
-        return response()->json($result);
+        // return response()->json($result);
 
-        dd($result);
+        // $searchedDomain = [
+        //     'id' => 4,
+        //     'domain' => "$domain",
+        //     'domainAvailability' => "AVAILABLE",
+        //     'price' => "9000 XAF",
+        //     'subDomain' => "$extType"
+        // ];
 
-        $searchedDomain = [
-            'id' => 4,
-            'domain' => "$domain",
-            'domainAvailability' => "AVAILABLE",
-            'price' => "9,000 XAF",
-            'subDomain' => "$extType"
-        ];
-
-        $extensions = array(
+        $data = array(
             
             array(
                 '1' => 5,
                 'domain' => "$onlyDomainName.com",
                 'domainAvailability' => $result[0]['Status'],
-                'price' => "9,000 XAF",
-                'subDomain' => "com"
+                'price' => 9000,
+                'subDomain' => "com",
+                'currency' => 'XAF',
             ),
             array(
                 'id' => 6,
-                'domain' => "$onlyDomainName.cm",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "3,000 XAF",
-                'subDomain' => "cm"
+                'domain' =>"$onlyDomainName.cm",
+                'domainAvailability' =>  $result[1]['Status'],
+                'price' => 3000,
+                'subDomain' => "cm",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 7,
                 'domain' => "$onlyDomainName.net",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9,000 XAF",
-                'subDomain' => "net"
+                'domainAvailability' => $result[2]['Status'],
+                'price' => 9000,
+                'subDomain' => "net",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 8,
                 'domain' => "$onlyDomainName.fr",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9,000 XAF",
-                'subDomain' => "fr"
+                'domainAvailability' => $result[3]['Status'],
+                'price' => 9000,
+                'subDomain' => "fr",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 9,
                 'domain' => "$onlyDomainName.biz",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9,500 XAF",
-                'subDomain' => "biz"
+                'domainAvailability' => $result[4]['Status'],
+                'price' => 9500,
+                'subDomain' => "biz",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 10,
                 'domain' => "$onlyDomainName.info",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "10,000 XAF",
-                'subDomain' => "in"
+                'domainAvailability' => $result[5]['Status'],
+                'price' => 10000,
+                'subDomain' => "in",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 11,
                 'domain' => "$onlyDomainName.org",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "11,000 XAF",
-                'subDomain' => "org"
+                'domainAvailability' => $result[6]['Status'],
+                'price' => 11000,
+                'subDomain' => "org",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 12,
                 'domain' => "$onlyDomainName.tech",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "39,000 XAF",
-                'subDomain' => "tech"
+                'domainAvailability' => $result[7]['Status'],
+                'price' => 39000,
+                'subDomain' => "tech",
+                'currency' => 'XAF'
             ),
             array(
                 'id' => 13,
                 'domain' => "$onlyDomainName.news",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "19,500 XAF",
-                'subDomain' => "news"
+                'domainAvailability' => $result[8]['Status'],
+                'price' => 19500,
+                'subDomain' => "news",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 14,
                 'domain' => "$onlyDomainName.site",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "23,000 XAF",
-                'subDomain' => "site"
+                'domainAvailability' => $result[9]['Status'],
+                'price' => 23000,
+                'subDomain' => "site",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 15,
                 'domain' => "$onlyDomainName.de",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9,500 XAF",
-                'subDomain' => "de"
+                'domainAvailability' => $result[10]['Status'],
+                'price' => 9500,
+                'subDomain' => "de",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 16,
                 'domain' => "$onlyDomainName.me",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "7,000 XAF",
-                'subDomain' => "me"
+                'domainAvailability' => $result[11]['Status'],
+                'price' => 7000,
+                'subDomain' => "me",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 17,
                 'domain' => "$onlyDomainName.bz",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "14,000 XAF",
-                'subDomain' => "bz"
+                'domainAvailability' => $result[12]['Status'],
+                'price' => 14000,
+                'subDomain' => "bz",
+                'currency' => 'XAF'
+
             ),
             array(
                 'id' => 18,
                 'domain' => "$onlyDomainName.tc",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "19,000 XAF",
-                'subDomain' => "tc"
+                'domainAvailability' => $result[13]['Status'],
+                'price' => 19000,
+                'subDomain' => "tc",
+                'currency' => 'XAF'
             )
         );
 
-        for ($i = 0; $i < count($extensions); $i++) {
-            try {
-                $extensions[$i]['domainAvailability'] = $data['DomainInfo']['domainAvailability']; 
-                if($extensions[$i]['domain'] == $searchedDomain['domain']){
-                    $searchedDomain['price'] = $extensions[$i]['price'];
-                    $searchedDomain['domainAvailability'] = $extensions[$i]['domainAvailability'];
-                }
-            } catch (\Throwable $e) {
-                echo "cURL Error #:" . $e;
-            }
-        }
+        // for ($i = 0; $i < count($extensions); $i++) {
+        //     try {
+        //         $extensions[$i]['domainAvailability'] = $data['DomainInfo']['domainAvailability']; 
+        //         if($extensions[$i]['domain'] == $searchedDomain['domain']){
+        //             $searchedDomain['price'] = $extensions[$i]['price'];
+        //             $searchedDomain['domainAvailability'] = $extensions[$i]['domainAvailability'];
+        //         }
+        //     } catch (\Throwable $e) {
+        //         echo "cURL Error #:" . $e;
+        //     }
+        // }
 
-        $data = array_unshift($extensions, array($searchedDomain));
+        // $data = array_unshift($extensions, array($searchedDomain));
 
         return response()->json($data);
 
