@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
     <!--favicon icon-->
     <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="16x16" />
 
@@ -257,6 +257,7 @@
             </div>
         </div>
     </div> --}}
+
     <!--scroll bottom to top button start-->
     <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
         <span class="fas fa-hand-point-up"></span>
@@ -276,54 +277,51 @@
     <!--endbuild-->
 
     <script>
+        var loader = document.querySelector('loader');
+        // loader.style.visibility=="hidden";
 
         const xhr = new XMLHttpRequest();
 
         const form = document.querySelector("#domain-search-form");
 
+        const mydata = new FormData(form);
+
         const domainInput = document.querySelector("#domain");
 
         const url = "{{ route('checking') }}";
 
+
+        $(document).ready(function(){
+
+            $('#domain-search-form').on('submit', function(e) {                
+
+
+                e.preventDefault()
+                let token = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { domain : domainInput.value, _token: token },
+                    dataType: "json",
+                    beforeSend: function() {
+                        console.log('En cours de chargement');
+
+                    },
+                    success: function(response) {
+                        console.log(response); 
+                        // loaderstyle.visibility=="hidden";
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+            });
+				
+		});
+
         
-        form.addEventListener('submit', (e) => {
-            
-            e.preventDefault()
-
-            const domainValue = domainInput.value
-
-            const data = { domain : domainValue }
-
-            // console.log(data);
-            // alert(data)
-
-            xhr.open("POST",url);
-
-            xhr.send(data);
-
-            // On assigne une fonction qui, lorsque l'état de la requête change, va traiter le résultat
-            xhr.onreadystatechange = function()
-            {
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.responseText);
-                }else{
-
-                }
-            };
-
-            xhr.onerror = function() {
-                alert("Request failed");
-            };
-
-            xhr.onload = function() {}
-
-            
-
-        })        
-
-        function showLoadingIndicator() {}
-
-
     </script>
 
 </body>

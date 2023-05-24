@@ -58,6 +58,7 @@ Route::get('panier', [CartController::class, 'index'])->name('panier');
 Route::get('videpanier', function() {
     Cart::destroy();
 });
+
 Route::delete('panier/{rowId}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 
@@ -67,3 +68,7 @@ Route::get('facture', [CartController::class, 'generatePDF'])->name('facture');
 // tests
 Route::get('mail', [CartController::class, 'sendMailFacture'])->name('mail');
 Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');
+
+
+// test
+Route::get('test', [HoistingController::class, 'modifyNameServer'])->name('test');

@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
+
     <!--favicon icon-->
     <link rel="icon" href="{{ url('assets/img/favicon.png') }}" type="image/png" sizes="16x16" />
     <!--title-->
@@ -119,26 +121,25 @@
             </div>
         </section><!--hero section end-->
 
-        <!--domain search promo start-->
+        <!--domain search promo {{ route('domain-search-result') }} start-->
         <section class="position-relative zindex-2">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-9 col-lg-8 col-12">
                         <div class="domain-search-wrap border gray-light-bg">
                             <h4 class="text-center">Recherchez un nom de domaine</h4>
-                            <form action="{{ route('domain-search-result') }}" method="POST" class="domain-search-form my-4">
+                            <form id="SubmitForm" class="domain-search-form my-4">
                             @csrf
                                 <input type="text" name="domain" id="domain" class="form-control" placeholder="votredomaine.com" />
                                 <div class="select-group">
-                                    <select name="domainType" class="form-control">
+                                    <select id="domainType" name="domainType" class="form-control">
                                         <option value=".com" selected>.com</option>
                                         <option value=".net">.net</option>
                                         <option value=".org">.org</option>
                                         <option value=".cm">.cm</option>
                                         <option value=".fr">.fr</option>
                                     </select>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search pe-1"></i> Rechercher
-                                    </button>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search pe-1"></i> Rechercher </button>
                                 </div>
                             </form>
                             <div class="domain-list-wrap text-center">
@@ -298,6 +299,8 @@
     </div>
     <!--scroll bottom to top button end-->
 
+    
+
     <!--build:js-->
     <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -308,7 +311,36 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
+    <script type="text/javascript">
+$('#SubmitForm').on('submit',function(e){
+    e.preventDefault();
 
+    let domain = $('#domain').val();
+    let domainType = $('#domainType').val();
+    //let mobile = $('#InputMobile').val();
+    //let message = $('#InputMessage').val();
+    
+    $.ajax({
+      url: "check-domain-availability",
+      type:"POST",
+      data:{
+        "_token": "{{ csrf_token() }}",
+        domain:domain,
+        domainType:domainType,
+      },
+      success:function(response){
+        $('#successMsg').show();
+        console.log(response);
+      },
+      error: function(response) {
+        $('#nameErrorMsg').text(response.responseJSON.errors.name);
+        $('#emailErrorMsg').text(response.responseJSON.errors.email);
+        $('#mobileErrorMsg').text(response.responseJSON.errors.mobile);
+        $('#messageErrorMsg').text(response.responseJSON.errors.message);
+      },
+      });
+    });
+    </script> 
 </body>
 
 </html>
