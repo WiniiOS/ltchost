@@ -61,7 +61,6 @@ Route::get('videpanier', function() {
 
 Route::delete('panier/{rowId}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-
 /* Factures Routes */
 Route::get('facture', [CartController::class, 'generatePDF'])->name('facture');
 
@@ -71,4 +70,4 @@ Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');
 
 
 // test
-Route::get('test', [HoistingController::class, 'modifyNameServer'])->name('test');
+Route::get('test', [HoistingController::class, 'checkDomainAvailability'])->name('test');

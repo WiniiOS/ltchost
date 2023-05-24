@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 // Integration de DNA api pour transferer les noms de domaines
 require_once __DIR__.'/../../../vendor/php-dna/src/dna.php';
-use DomainNameApi\DomainNameAPI_PHPLibrary;
+
+use \DomainNameApi\DomainNameAPI_PHPLibrary;
+
 
 use PDF;
 
@@ -25,8 +27,10 @@ class HoistingController extends Controller
             return redirect('connexion');
         }
         
-        $domainName = $request->domain;
-        $authCode = $request->authcode;
+        // $domainName = $request->domain;
+        // $authCode = $request->authcode;
+        $domainName = 'money.com';
+        $authCode = '0ADE';
         $period = 3;
 
         // ----------
@@ -41,7 +45,7 @@ class HoistingController extends Controller
         }else{
 
             // Utiliser la classe Dna de la bibliothèque
-            $dna = new DomainNameAPI_PHPLibrary($email, $password);
+            $dna = new DomainNameAPI_PHPLibrary('HackingCorp', '9ftUhAc!QVKZ@th');
 
             /**
              * Transfer Domain
@@ -65,7 +69,7 @@ class HoistingController extends Controller
         }
 
         // $domainName = $request->domainName;
-        $domainName = "ltcgroup.net";
+        $domainName = "money.net";
         $dns1 = 'ns1.domainname.net';
         $dns2 = 'ns2.domainname.net';
         // ----------
@@ -73,17 +77,20 @@ class HoistingController extends Controller
         $user = session()->get('user');
         $email = $user->email;
         $password = $user->password;
+
         $checkUser = $this->checkIfUserIsAuth($email,$password);
 
-
-        $dna = new DomainNameAPI_PHPLibrary('HackingCorp', '9ftUhAc!QVKZ@th');
+        $dna = new \DomainNameApi\DomainNameAPI_PHPLibrary('HackingCorp', '9ftUhAc!QVKZ@th');
 
         if ($checkUser == false) {
             return redirect('connexion');
         }else{
             $ns_change = $dna->ModifyNameServer($domainName,['ns1' => $dns1, 'ns2' => $dns2]);
+
             dd($ns_change);
+
             return view('domain-change',['result' => $dns_change]);
+
         }
     }
 
@@ -244,7 +251,8 @@ class HoistingController extends Controller
         // Code pour traiter la requête Ajax
     }
 
-    function getOnlydomainName($text) {
+    // Methode qui retourne le nom de domaine sans l'extension
+    function getOnlydomainName($url) {
         // Sépare le nom de domaine et l'extension du domaine
         $domain_parts = explode('.', $url);
         $extension = end($domain_parts);
@@ -254,42 +262,40 @@ class HoistingController extends Controller
 
     public function checkDomainAvailability(Request $request)
     {
-        // return response()->json('hello',200);
         $dna = new DomainNameAPI_PHPLibrary('HackingCorp', '9ftUhAc!QVKZ@th');
-        $check = $dna->CheckAvailability('domainadi.com',1,'create');
-        
-        dd($check);
-        
-        return response()->json($check,200);
+        $exts = ['com', 'net', 'org', 'fr', 'io','cm','biz','info', 'news','tech','site','de','bz','tc','me'];
+        // $domain = $request->input('domain');
+        $domain = 'argent';
 
-        $domain = $request->input('domain');
         $hasExtension = false;
-        $extType = '';
         $onlyDomainName = '';
- 
-        $apiKey = 'at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO';
+        $extType = '';
 
         // Vérifie si le domaine contient une extension
-        $extensions = ['.com', '.net', '.org', '.fr', '.io','.cm','.biz','.info', '.news','.tech','.site','.de','.bz','.tc','.me']; // Ajoutez ici les extensions que vous souhaitez prendre en compte
-        
-        foreach($extensions as $ext){
+        $extens = ['.com', '.net', '.org', '.fr', '.io','.biz','.info', '.news','.tech','.site','.de','.bz','.tc','.me'];
+
+
+        foreach($extens as $ext){
             if(strpos($domain, $ext) !== false){
                 $hasExtension = true;
                 $extType = $ext;
             }
         }
 
-        // Si le domaine n'a pas d'extension, ajoute .com par défaut
-        // On se check que notre domaine a toujours une extension par defaut
-        if(!$hasExtension){
+        
+        if(!$hasExtension){ // Cas ou il y a pas d'extension
             $onlyDomainName = $domain;
-            // Puis on concatene
-            $domain .= '.com';
-        }else{
+        }else{ //Cas ou il y a une extension on retire 
             $onlyDomainName = $this->getOnlydomainName($domain);
         }
 
-        $url = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$domain}";
+        $result = $dna->CheckAvailability([ $onlyDomainName ], $exts , 1 , 'create' );
+
+        dd($result[0]);
+
+        return response()->json($result);
+
+        dd($result);
 
         $searchedDomain = [
             'id' => 4,
@@ -304,7 +310,7 @@ class HoistingController extends Controller
             array(
                 '1' => 5,
                 'domain' => "$onlyDomainName.com",
-                'domainAvailability' => "AVAILABLE",
+                'domainAvailability' => $result[0]['Status'],
                 'price' => "9,000 XAF",
                 'subDomain' => "com"
             ),
@@ -322,99 +328,92 @@ class HoistingController extends Controller
                 'price' => "9,000 XAF",
                 'subDomain' => "net"
             ),
-            // array(
-            //     'id' => 8,
-            //     'domain' => "$onlyDomainName.fr",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "9,000 XAF",
-            //     'subDomain' => "fr"
-            // ),
-            // array(
-            //     'id' => 9,
-            //     'domain' => "$onlyDomainName.biz",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "9,500 XAF",
-            //     'subDomain' => "biz"
-            // ),
-            // array(
-            //     'id' => 10,
-            //     'domain' => "$onlyDomainName.info",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "10,000 XAF",
-            //     'subDomain' => "in"
-            // ),
-            // array(
-            //     'id' => 11,
-            //     'domain' => "$onlyDomainName.org",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "11,000 XAF",
-            //     'subDomain' => "org"
-            // ),
-            // array(
-            //     'id' => 12,
-            //     'domain' => "$onlyDomainName.tech",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "39,000 XAF",
-            //     'subDomain' => "tech"
-            // ),
-            // array(
-            //     'id' => 13,
-            //     'domain' => "$onlyDomainName.news",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "19,500 XAF",
-            //     'subDomain' => "news"
-            // ),
-            // array(
-            //     'id' => 14,
-            //     'domain' => "$onlyDomainName.site",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "23,000 XAF",
-            //     'subDomain' => "site"
-            // ),
-            // array(
-            //     'id' => 15,
-            //     'domain' => "$onlyDomainName.de",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "9,500 XAF",
-            //     'subDomain' => "de"
-            // ),
-            // array(
-            //     'id' => 16,
-            //     'domain' => "$onlyDomainName.me",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "7,000 XAF",
-            //     'subDomain' => "me"
-            // ),
-            // array(
-            //     'id' => 17,
-            //     'domain' => "$onlyDomainName.bz",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "14,000 XAF",
-            //     'subDomain' => "bz"
-            // ),
-            // array(
-            //     'id' => 18,
-            //     'domain' => "$onlyDomainName.tc",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "19,000 XAF",
-            //     'subDomain' => "tc"
-            // )
+            array(
+                'id' => 8,
+                'domain' => "$onlyDomainName.fr",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "9,000 XAF",
+                'subDomain' => "fr"
+            ),
+            array(
+                'id' => 9,
+                'domain' => "$onlyDomainName.biz",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "9,500 XAF",
+                'subDomain' => "biz"
+            ),
+            array(
+                'id' => 10,
+                'domain' => "$onlyDomainName.info",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "10,000 XAF",
+                'subDomain' => "in"
+            ),
+            array(
+                'id' => 11,
+                'domain' => "$onlyDomainName.org",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "11,000 XAF",
+                'subDomain' => "org"
+            ),
+            array(
+                'id' => 12,
+                'domain' => "$onlyDomainName.tech",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "39,000 XAF",
+                'subDomain' => "tech"
+            ),
+            array(
+                'id' => 13,
+                'domain' => "$onlyDomainName.news",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "19,500 XAF",
+                'subDomain' => "news"
+            ),
+            array(
+                'id' => 14,
+                'domain' => "$onlyDomainName.site",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "23,000 XAF",
+                'subDomain' => "site"
+            ),
+            array(
+                'id' => 15,
+                'domain' => "$onlyDomainName.de",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "9,500 XAF",
+                'subDomain' => "de"
+            ),
+            array(
+                'id' => 16,
+                'domain' => "$onlyDomainName.me",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "7,000 XAF",
+                'subDomain' => "me"
+            ),
+            array(
+                'id' => 17,
+                'domain' => "$onlyDomainName.bz",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "14,000 XAF",
+                'subDomain' => "bz"
+            ),
+            array(
+                'id' => 18,
+                'domain' => "$onlyDomainName.tc",
+                'domainAvailability' => "AVAILABLE",
+                'price' => "19,000 XAF",
+                'subDomain' => "tc"
+            )
         );
 
         for ($i = 0; $i < count($extensions); $i++) {
-
-            $currentUrl = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$extensions[$i]['domain']}";
-
             try {
-                $response = Http::get($currentUrl);  
-                $data = $response->json();
                 $extensions[$i]['domainAvailability'] = $data['DomainInfo']['domainAvailability']; 
-
                 if($extensions[$i]['domain'] == $searchedDomain['domain']){
                     $searchedDomain['price'] = $extensions[$i]['price'];
                     $searchedDomain['domainAvailability'] = $extensions[$i]['domainAvailability'];
                 }
-
             } catch (\Throwable $e) {
                 echo "cURL Error #:" . $e;
             }
