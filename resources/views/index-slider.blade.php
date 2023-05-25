@@ -15,6 +15,33 @@
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
+    <style>
+        .loader{
+            background: url('assets/img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+            cursor: wait;
+            height: 50%;
+            left: 0;
+            position: relative;
+            top: 0;
+            width: 90%;
+            z-index: 99;
+        }
+        .loader h1{
+            background: none;
+            border: none;
+            color: #0d1a55;
+            font-size: 22px;
+            font-family: "Open Sans",sans-serif;
+            font-variant: small-caps;
+            font-weight: 700;
+            height: 700px;
+            line-height: 700px;
+            margin: 0 0 10px;
+            padding: 60px;
+            text-align: center;
+        }
+
+    </style>
 
 </head>
 
@@ -128,6 +155,7 @@
                     <div class="col-md-9 col-lg-8 col-12">
                         <div class="domain-search-wrap border gray-light-bg">
                             <h4 class="text-center">Recherchez un nom de domaine</h4>
+
                             <form id="SubmitForm" class="domain-search-form my-4">
                             @csrf
                                 <input type="text" name="domain" id="domain" class="form-control" placeholder="votredomaine.com" />
@@ -142,6 +170,7 @@
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search pe-1"></i> Rechercher </button>
                                 </div>
                             </form>
+
                             <div class="domain-list-wrap text-center">
                                 <ul class="list-inline domain-search-list">
                                     <li class="list-inline-item bg-white border rounded"><a href="#"><img src="assets/img/com.png" alt="com" width="70" class="img-fluid"> <span>9000 XAF</span></a>
@@ -162,6 +191,27 @@
             </div>
         </section>
         <!--domain search promo end-->
+
+
+        <!-- rrrrrrrrr -->
+        <section class="domain-search-result-section gray-light-bg ptb-100">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <h3> Quelques resultats de recherche </h3>
+                    <table class="table vps-hosting-pricing-table domain-search-result-table">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <div id='myloader' >
+            <div class='loader'>
+              
+            </div>
+        </div>
+        <!--domain search result section end-->
 
 
         <!-- include pricing -->
@@ -312,34 +362,101 @@
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
     <script type="text/javascript">
-$('#SubmitForm').on('submit',function(e){
-    e.preventDefault();
-
-    let domain = $('#domain').val();
-    let domainType = $('#domainType').val();
-    //let mobile = $('#InputMobile').val();
-    //let message = $('#InputMessage').val();
     
-    $.ajax({
-      url: "check-domain-availability",
-      type:"POST",
-      data:{
-        "_token": "{{ csrf_token() }}",
-        domain:domain,
-        domainType:domainType,
-      },
-      success:function(response){
-        $('#successMsg').show();
-        console.log(response);
-      },
-      error: function(response) {
-        $('#nameErrorMsg').text(response.responseJSON.errors.name);
-        $('#emailErrorMsg').text(response.responseJSON.errors.email);
-        $('#mobileErrorMsg').text(response.responseJSON.errors.mobile);
-        $('#messageErrorMsg').text(response.responseJSON.errors.message);
-      },
-      });
-    });
+        $('#SubmitForm').on('submit',function(e){
+            e.preventDefault();
+
+            let domain = $('#domain').val();
+            let domainType = $('#domainType').val();
+            
+            $.ajax({
+            url: "check-domain-availability",
+            type:"POST",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                domain:domain,
+                domainType:domainType,
+            },
+            success: function(responses) {
+
+                $('tbody').empty();
+
+                responses.forEach( data => {
+
+                    if(data['domainAvailability'] == 'available'){
+
+                        $('tbody').append(
+                        
+                        `<tr class='vps-pricing-row'>
+                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
+                            <td data-value='Price'>
+                                <p>
+                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
+                                    <span class='pricing-onsale'>Achetez-le -
+                                <span class="badge bg-warning">1 an Gratuit</span></span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
+                                </p>
+                            </td>
+                            <!--preloader start-->
+                            <td>
+                                <form action='/panier/ajouter'>
+                                    @csrf
+                                    <input type='hidden' name='id' value='${ data['id'] }' >
+                                    <input type='hidden' name="title" value='${ data['domain'] }' >
+                                    <input type='hidden' name="price" value='${ data['price'] }'>
+                                    <button type='submit' class='btn btn-primary btn-block' >Ajouter au panier</button>
+                                </form>
+                            </td>
+                            
+                        </tr>`);
+
+                    }else{
+
+
+                        $('tbody').append(
+                        
+                        `<tr class='vps-pricing-row'>
+                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
+                            <td data-value='Price'>
+                                <p>
+                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
+                                    <span class='pricing-onsale'>Achetez-le -
+                                <span class="badge bg-warning">1 an Gratuit</span></span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
+                                </p>
+                            </td>
+                            <td>
+                                <a disabled href='#' class='btn btn-secondary btn-sm disabled'>Reservée</a>
+                            </td>
+                            
+                        </tr>`);
+                    }
+    
+
+});
+
+
+// console.log(responses); 
+$('#preloader').hide();
+
+},
+            error: function(response) {
+                $('#nameErrorMsg').text(response.responseJSON.errors.name);
+                $('#emailErrorMsg').text(response.responseJSON.errors.email);
+                $('#mobileErrorMsg').text(response.responseJSON.errors.mobile);
+                $('#messageErrorMsg').text(response.responseJSON.errors.message);
+            },
+            });
+        });
+
     </script> 
 </body>
 

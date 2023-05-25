@@ -102,106 +102,36 @@
                     <div class="col-md-12 col-lg-10">
                         <div class="content-with-sidebar">
                             <!--alert table start-->
-                            <table class="table vps-hosting-pricing-table domain-search-result-table alert-table mb-5">
+                            <!-- <table class="table vps-hosting-pricing-table domain-search-result-table alert-table mb-5">
                                 <tbody>
-                                    <tr class="vps-pricing-row">
-                                    @if (isset($searchedDomain))
-
-                                        <td>Le nom de domaine <span class="color-primary"> {{ $searchedDomain['domain'] }} </span> est {{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}!
-                                            <br><small>{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Obtenez ce nom de domaine maintenant' : 'Essayez une autre extension' }} </small>
-                                        </td>
-                                        <td>
-                                            <p>
-                                                <span class="rate">{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? $searchedDomain['price'] : 'Reservée' }} XAF<span>/An</span></span>
-                                                
-                                                @if ($searchedDomain['domainAvailability'] == 'AVAILABLE')
-                                                    <span class='pricing-onsale'>Achetez-le - <span class='badge bg-warning'>1 an Gratuit</span></span>
-                                                    
-                                                @else
-                                                    <span class='pricing-onsale'>Poussez la recherche</span>
-                                                @endif
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p>
-                                                <span class='badge bg-info'>{{ $searchedDomain['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}</span>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            @if ($searchedDomain['domainAvailability'] == 'AVAILABLE')
-                                                <form action="{{ route('cart.store') }}">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="4" >
-                                                    <input type="hidden" name="title" value="{{ $searchedDomain['domain'] }}">
-                                                    <input type="hidden" name="price" value="{{ $searchedDomain['price'] }}">
-                                                    <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
-                                                </form>
-                                            @else
-                                                <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
-                                            @endif
-                                        </td>
-                                    @endif
-                                    </tr>
+                                    
                                 </tbody>
-                            </table>
+                            </table> -->
 
                             <!--alert table end-->
 
-
-                            @if (isset($extension))
-                                <h4 class="text-center">Plus d'options de domaine</h4>
-                            @else
-                                <h4 class="text-center">Recherchez un nom de domaine ci-dessus</h4>
-                            @endif
-
+                            <h4 class="text-center">Recherche rapide de nom de domaines</h4>
+                            
                             <table class="table vps-hosting-pricing-table domain-search-result-table">
+                                
                                 <tbody>
 
-                                @if (isset($data))
-
-                                    @foreach ($data as $extension)
-                                        <tr class="vps-pricing-row">
-                                            <td data-value="{{ $extension['domainAvailability'] }}">{{ $extension['domain'] }} </td>
-                                            <td data-value="Price">
-                                                <p>
-                                                    <span class="rate">{{ $extension['price'] }} XAF <span>/An</span></span>
-                                                    <span class="pricing-onsale">Achetez-le -
-                                                <span class="badge bg-warning">1 an Gratuit</span></span>
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p>
-                                                    <span class='badge bg-info'>{{ $extension['domainAvailability'] == 'AVAILABLE' ? 'Disponible' : 'Indisponible' }}</span>
-                                                </p>
-                                            </td>
-                                            <td>
-                                                @if ($extension['domainAvailability'] == 'AVAILABLE')
-                                                    <form action="{{ route('cart.store') }}">
-                                                        @csrf
-                                                        <input type="hidden" name="id" value="{{ $extension['id'] }}" >
-                                                        <input type="hidden" name="title" value="{{ $extension['domain'] }}">
-                                                        <input type="hidden" name="price" value="{{ $extension['price'] }}">
-                                                        <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
-                                                    </form>
-                                                @else
-                                                    <a disabled href="#" class="btn btn-secondary btn-sm disabled">Reservée</a>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        
-                                    @endforeach
-
-                                @endif
-
-                                {{-- Loader for searching --}}
-                                <div class="loader">
-                                    <h1>Veuillez patientez pendant le chargement de la page.</h1>
-                                </div>
-                                {{-- <script>
-                                    jQuery(window).load(function(){ jQuery(".loader").fadeOut("200"); });
-                                </script> --}}
 
                                 </tbody>
+
+                                <!--preloader start-->
+                                <div id="preloader">
+                                    <div class="preloader-wrap">
+                                        <img src="{{ url('assets/img/logo/blue.png') }}" alt="logo" class="img-fluid" />
+                                        <div class="preloader">
+                                            <i>.</i>
+                                            <i>.</i>
+                                            <i>.</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--preloader start-->
+
                             </table>
                         </div>
                     </div>
@@ -277,8 +207,6 @@
     <!--endbuild-->
 
     <script>
-        var loader = document.querySelector('loader');
-        // loader.style.visibility=="hidden";
 
         const xhr = new XMLHttpRequest();
 
@@ -288,13 +216,15 @@
 
         const domainInput = document.querySelector("#domain");
 
-        const url = "{{ route('checking') }}";
+        const table = $('tbody')
 
+        const url = "{{ route('checking') }}";
 
         $(document).ready(function(){
 
-            $('#domain-search-form').on('submit', function(e) {                
+            $('#preloader').hide();
 
+            $('#domain-search-form').on('submit', function(e) {                
 
                 e.preventDefault()
                 let token = $('meta[name="csrf-token"]').attr('content');
@@ -305,20 +235,88 @@
                     data: { domain : domainInput.value, _token: token },
                     dataType: "json",
                     beforeSend: function() {
-                        console.log('En cours de chargement');
-
+                        $('#preloader').show();
+                        // console.log('En cours de chargement');
                     },
-                    success: function(response) {
-                        console.log(response); 
-                        // loaderstyle.visibility=="hidden";
+                    success: function(responses) {
+
+                        $('tbody').empty();
+
+                        responses.forEach( data => {
+
+                            if(data['domainAvailability'] == 'available'){
+
+                                $('tbody').append(
+                                
+                                `<tr class='vps-pricing-row'>
+                                    <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
+                                    <td data-value='Price'>
+                                        <p>
+                                            <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
+                                            <span class='pricing-onsale'>Achetez-le -
+                                        <span class="badge bg-warning">1 an Gratuit</span></span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
+                                        </p>
+                                    </td>
+                                    <!--preloader start-->
+                                    <td>
+                                        <form action='/panier/ajouter'>
+                                            @csrf
+                                            <input type='hidden' name='id' value='${ data['id'] }' >
+                                            <input type='hidden' name="title" value='${ data['domain'] }' >
+                                            <input type='hidden' name="price" value='${ data['price'] }'>
+                                            <button type='submit' class='btn btn-primary btn-block' >Ajouter au panier</button>
+                                        </form>
+                                    </td>
+                                    
+                                </tr>`);
+
+                            }else{
+
+
+                                $('tbody').append(
+                                
+                                `<tr class='vps-pricing-row'>
+                                    <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
+                                    <td data-value='Price'>
+                                        <p>
+                                            <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
+                                            <span class='pricing-onsale'>Achetez-le -
+                                        <span class="badge bg-warning">1 an Gratuit</span></span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <a disabled href='#' class='btn btn-secondary btn-sm disabled'>Reservée</a>
+                                    </td>
+                                    
+                                </tr>`);
+                            }
+                            
+                     
+                        });
+
+                    
+                        // console.log(responses); 
+                        $('#preloader').hide();
+
                     },
                     error: function(error) {
                         console.log(error);
+                        $('#preloader').hide();
+
                     }
                 });
 
             });
-				
 		});
 
         

@@ -291,18 +291,6 @@ class HoistingController extends Controller
 
         $result = $dna->CheckAvailability([ $onlyDomainName ], $exts , 1 , 'create' );
 
-        // dd($result[0]);
-
-        // return response()->json($result);
-
-        // $searchedDomain = [
-        //     'id' => 4,
-        //     'domain' => "$domain",
-        //     'domainAvailability' => "AVAILABLE",
-        //     'price' => "9000 XAF",
-        //     'subDomain' => "$extType"
-        // ];
-
         $data = array(
             
             array(
@@ -430,200 +418,8 @@ class HoistingController extends Controller
             )
         );
 
-        // for ($i = 0; $i < count($extensions); $i++) {
-        //     try {
-        //         $extensions[$i]['domainAvailability'] = $data['DomainInfo']['domainAvailability']; 
-        //         if($extensions[$i]['domain'] == $searchedDomain['domain']){
-        //             $searchedDomain['price'] = $extensions[$i]['price'];
-        //             $searchedDomain['domainAvailability'] = $extensions[$i]['domainAvailability'];
-        //         }
-        //     } catch (\Throwable $e) {
-        //         echo "cURL Error #:" . $e;
-        //     }
-        // }
-
-        // $data = array_unshift($extensions, array($searchedDomain));
-
         return response()->json($data);
-
     }
-
-
-    private function isDomainAvailable($domain)
-    {
-        // domainName+Extension or just domainName
-        $apiKey = 'at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO';
-        $url = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$domain}";
-
-        $my_data = [
-            'id' => 4,
-            'domain' => "$domain",
-            'domainAvailability' => "AVAILABLE",
-            'price' => "9,000 XAF",
-            'subDomain' => ".com"
-        ];
-        
-        try {
-            $response = Http::get($url);  
-            $data = $response->json();
-            $my_data['domainAvailability'] = $data['DomainInfo']['domainAvailability']; 
-
-        } catch (\Throwable $e) {
-            echo "cURL Error #:" . $e;
-        }
-    }
-
-    public function allDomainCheck(Request $request)
-    {
-        $domain = $request->input('domain');
-        $ext = $request->input('domainType');
-
-        $fullDomain = "$domain"."$ext";
-
-        $apiKey = 'at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO';
-        $url = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$fullDomain}";
-
-        $searchedDomain = [
-            'id' => 4,
-            'domain' => "$fullDomain",
-            'domainAvailability' => "AVAILABLE",
-            'price' => "9,000 XAF",
-            'subDomain' => "$ext"
-        ];
-
-        $extensions = array(
-            
-            array(
-                'id' => 5,
-                'domain' => "$domain.com",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9,000 XAF",
-                'subDomain' => "com"
-            ),
-            array(
-                'id' => 6,
-                'domain' => "$domain.cm",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "3,000 XAF",
-                'subDomain' => "cm"
-            ),
-            array(
-                'id' => 7,
-                'domain' => "$domain.net",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9,000 XAF",
-                'subDomain' => "net"
-            ),
-            array(
-                'id' => 8,
-                'domain' => "$domain.fr",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9,000 XAF",
-                'subDomain' => "fr"
-            ),
-            // array(
-            //     'id' => 9,
-            //     'domain' => "$domain.biz",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "9,500 XAF",
-            //     'subDomain' => "biz"
-            // ),
-            // array(
-            //     'id' => 10,
-            //     'domain' => "$domain.info",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "10,000 XAF",
-            //     'subDomain' => "in"
-            // ),
-            // array(
-            //     'id' => 11,
-            //     'domain' => "$domain.org",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "11,000 XAF",
-            //     'subDomain' => "org"
-            // ),
-            // array(
-            //     'id' => 12,
-            //     'domain' => "$domain.tech",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "39,000 XAF",
-            //     'subDomain' => "tech"
-            // ),
-            // array(
-            //     'id' => 13,
-            //     'domain' => "$domain.news",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "19,500 XAF",
-            //     'subDomain' => "news"
-            // ),
-            // array(
-            //     'id' => 14,
-            //     'domain' => "$domain.site",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "23,000 XAF",
-            //     'subDomain' => "site"
-            // ),
-            // array(
-            //     'id' => 15,
-            //     'domain' => "$domain.de",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "9,500 XAF",
-            //     'subDomain' => "de"
-            // ),
-            // array(
-            //     'id' => 16,
-            //     'domain' => "$domain.me",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "7,000 XAF",
-            //     'subDomain' => "me"
-            // ),
-            // array(
-            //     'id' => 17,
-            //     'domain' => "$domain.bz",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "14,000 XAF",
-            //     'subDomain' => "bz"
-            // ),
-            // array(
-            //     'id' => 18,
-            //     'domain' => "$domain.tc",
-            //     'domainAvailability' => "AVAILABLE",
-            //     'price' => "19,000 XAF",
-            //     'subDomain' => "tc"
-            // )
-        );
-
-        for ($i = 0; $i < count($extensions); $i++) {
-
-            $currentUrl = "https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO&domainName={$extensions[$i]['domain']}";
-
-            try {
-
-                $response = Http::get($currentUrl); 
-                $data = $response->json();
-
-                dd($data);
-
-                $extensions[$i]['domainAvailability'] = $data['DomainInfo']['domainAvailability']; 
-            } catch (\Throwable $e) {
-                echo "cURL Error #:" . $e;
-            }
-        }
-
-        foreach ($extensions as $ext) {
-            if($ext['domain'] == $searchedDomain['domain']){
-                $searchedDomain['price'] = $ext['price'];
-                $searchedDomain['domainAvailability'] = $ext['domainAvailability'];
-            }
-        }
-
-        // dd($extensions);
-
-        return view('domain-search-result', [
-            'data' => $extensions, 'searchedDomain' => $searchedDomain
-        ]);
-    }
-
 
     function get_domain_and_extension($url) {
        
@@ -638,7 +434,6 @@ class HoistingController extends Controller
           'extension' => $extension,
         ];
     }
-
 
 
     public function completeDomainCheck(Request $request)
