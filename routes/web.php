@@ -10,7 +10,9 @@ use App\Http\Controllers\HoistingController;
 Route::get('/', [HoistingController::class, 'index'])->name('home');
 Route::get('email_hosting', [HoistingController::class, 'email_hosting'])->name('email_hosting');
 Route::get('terms-condition', [HoistingController::class, 'terms'])->name('terms');
+
 Route::get('shared-hosting', [HoistingController::class, 'sharedHosting'])->name('shared-hosting');
+
 Route::get('privacy', [HoistingController::class, 'showPrivacy'])->name('privacy');
 
 Route::post('domain-search-result-interne', [HoistingController::class, 'completeDomainCheck'])->name('checkDomain');
@@ -58,7 +60,6 @@ Route::get('panier', [CartController::class, 'index'])->name('panier');
 Route::get('videpanier', function() {
     Cart::destroy();
 });
-
 Route::delete('panier/{rowId}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 /* Factures Routes */

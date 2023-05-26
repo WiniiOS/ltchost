@@ -102,18 +102,21 @@ class CartController extends Controller
         }
 
         // Pour les packages
-        if( $request->id <= 3 ) {
+        // if( $request->id <= 3 ) {
 
-            $product = Product::find($request->id);
-            // Order : Id, Name, Quantity & Price
-            $cartItem = Cart::add($product->id,$product->title,1,$product->price)
-                        ->associate('Product');
+        //     $product = Product::find($request->id);
+        //     // Order : Id, Name, Quantity & Price
+        //     $cartItem = Cart::add($product->id,$product->title,1,$product->price)
+        //                 ->associate('Product');
 
-        }else{
-            // Cas des noms de domaines
-            $cartItem = Cart::add($request->id,$request->title,1,$request->price)
+        // }else{
+        //     // Cas des noms de domaines
+        //     $cartItem = Cart::add($request->id,$request->title,1,$request->price)
+        //             ->associate('Product');
+        // }
+
+        $cartItem = Cart::add($request->id,$request->title,1,$request->price)
                     ->associate('Product');
-        }
 
         return redirect('/')->with('success','Le produit a bien été ajouté.');
 

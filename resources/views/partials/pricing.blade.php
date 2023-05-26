@@ -289,6 +289,8 @@
                         <form action="{{ route('cart.store') }}">
                             @csrf
                             <input type="hidden" name="id" value="3" >
+                            <input type="hidden" name="title" value="Premium">
+                            <input type="hidden" name="price" value="35000">
                             <button type='submit' class="btn btn-primary btn-block" >Ajouter au panier</button>
                         </form>
                                             

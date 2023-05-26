@@ -70,43 +70,25 @@
 
         {{-- code to paste --}}
         <!--domain search result section start-->
-        <section class="domain-search-result-section gray-light-bg ptb-100">
+        <section class="ajax-domain-search-result-section gray-light-bg ptb-100">
             <div class="container">
                 <div class="row justify-content-between">
                     
                     <div class="col-md-12 col-lg-10">
                         <div class="content-with-sidebar">
-                            <!--alert table start-->
-                            <!-- <table class="table vps-hosting-pricing-table domain-search-result-table alert-table mb-5">
-                                <tbody>
-                                    
-                                </tbody>
-                            </table> -->
-
-                            <!--alert table end-->
-
-                            <h4 class="text-center">Recherche rapide de nom de domaines</h4>
                             
-                            <table class="table vps-hosting-pricing-table domain-search-result-table">
-                                
-                                <tbody>
+                            <h4 class="text-center">Faites une recherche rapide </h4>
+                            <h3 id='search_domain1' class="text-center mb-2"> Quelques resultats de recherche </h3>
+                            <h3 id='search_domain2' class="text-center mb-2"> Recherche en Cours ! Veuillez patienter. </h3>
 
-
-                                </tbody>
-
-                                <!--preloader start-->
-                                <div id="preloader">
-                                    <div class="preloader-wrap">
-                                        <img src="{{ url('assets/img/logo/blue.png') }}" alt="logo" class="img-fluid" />
-                                        <div class="preloader">
-                                            <i>.</i>
-                                            <i>.</i>
-                                            <i>.</i>
-                                        </div>
-                                    </div>
+                            <div class="text-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="visually-hidden">Loading...</span>
                                 </div>
-                                <!--preloader start-->
+                            </div>
 
+                            <table class="table vps-hosting-pricing-table domain-search-result-table">
+                                <tbody> </tbody>
                             </table>
                         </div>
                     </div>
@@ -195,6 +177,12 @@
 
         const url = "{{ route('checking') }}";
 
+        $('.spinner-border').hide();
+        $('#search_domain1').hide();    // Resultats de recherche
+        $('#search_domain2').hide();    // Recherche en cours
+        $('.ajax-domain-search-result-section').hide();
+        
+
         $(document).ready(function(){
 
             $('#preloader').hide();
@@ -210,10 +198,14 @@
                     data: { domain : domainInput.value, _token: token },
                     dataType: "json",
                     beforeSend: function() {
-                        $('#preloader').show();
-                        // console.log('En cours de chargement');
+                        $('.ajax-domain-search-result-section').show();
+                        $('.spinner-border').show();
+                        $('#search_domain2').show();
                     },
                     success: function(responses) {
+
+                        $('#search_domain2').hide();    // Recherche en cours
+                        $('#search_domain1').show();    // Resultats de recherche
 
                         $('tbody').empty();
 
@@ -280,11 +272,12 @@
                         });
 
                     
-                        // console.log(responses); 
-                        $('#preloader').hide();
+                        $('.spinner-border').hide();
 
                     },
                     error: function(error) {
+                        $('#search_domain2').hide();    // Recherche en cours
+                        $('#search_domain1').show();
                         console.log(error);
                         $('#preloader').hide();
 

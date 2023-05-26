@@ -55,10 +55,7 @@
                                                 <span class="fas fa-check-circle text-success me-2"></span><strong>45-Jours</strong> Garantie de remboursement
                                             </li>
                                         </ul>
-                                        <div class="action-btns mt-4">
-                                           
-                                            <a href="{{ route('cart.add',['id' => 1 ]) }}" class="btn btn-tertiary me-3">Ajouter Au Panier</a>
-                                        </div>
+                                       
                                     </div>
                                 </div>
 

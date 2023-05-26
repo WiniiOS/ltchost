@@ -462,13 +462,11 @@
 
             },
             error: function(response) {
-                $('#nameErrorMsg').text(response.responseJSON.errors.name);
-                $('#emailErrorMsg').text(response.responseJSON.errors.email);
-                $('#mobileErrorMsg').text(response.responseJSON.errors.mobile);
-                $('#messageErrorMsg').text(response.responseJSON.errors.message);
+                $('#search_domain2').hide();    // Recherche en cours
+                $('#search_domain1').show();
             },
-            });
         });
+    });
 
     </script> 
 </body>
