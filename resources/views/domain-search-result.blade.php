@@ -17,32 +17,7 @@
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
 
-    <style>
-        .loader{
-            background: url('assets/img/ajax-loader.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
-            cursor: wait;
-            height: 50%;
-            left: 0;
-            position: relative;
-            top: 0;
-            width: 90%;
-            z-index: 99;
-        }
-        .loader h1{
-            background: none;
-            border: none;
-            color: #0d1a55;
-            font-size: 22px;
-            font-family: "Open Sans",sans-serif;
-            font-variant: small-caps;
-            font-weight: 700;
-            height: 700px;
-            line-height: 700px;
-            margin: 0 0 10px;
-            padding: 60px;
-            text-align: center;
-        }
-    </style>
+    
 
 </head>
 

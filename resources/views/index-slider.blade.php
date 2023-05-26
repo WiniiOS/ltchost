@@ -193,11 +193,20 @@
         <!--domain search promo end-->
 
 
-        <!-- rrrrrrrrr -->
-        <section class="domain-search-result-section gray-light-bg ptb-100">
+        <!-- Spinner -->
+        <section class="ajax-domain-search-result-section gray-light-bg ptb-100">
             <div class="container">
                 <div class="row justify-content-between">
-                    <h3> Quelques resultats de recherche </h3>
+                    
+                    <h3 id='search_domain1' class="text-center mb-2"> Quelques resultats de recherche </h3>
+                    <h3 id='search_domain2' class="text-center mb-2"> Recherche en Cours ! Veuillez patienter. </h3>
+
+                    <div class="text-center">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
                     <table class="table vps-hosting-pricing-table domain-search-result-table">
                         <tbody></tbody>
                     </table>
@@ -205,12 +214,6 @@
             </div>
         </section>
 
-
-        <div id='myloader' >
-            <div class='loader'>
-              
-            </div>
-        </div>
         <!--domain search result section end-->
 
 
@@ -363,6 +366,12 @@
     <!--endbuild-->
     <script type="text/javascript">
     
+        $('.spinner-border').hide();
+        $('#search_domain1').hide();    // Resultats de recherche
+        $('#search_domain2').hide();    // Recherche en cours
+        $('.ajax-domain-search-result-section').hide();
+        
+
         $('#SubmitForm').on('submit',function(e){
             e.preventDefault();
 
@@ -377,7 +386,15 @@
                 domain:domain,
                 domainType:domainType,
             },
+            beforeSend: function() {
+                $('.ajax-domain-search-result-section').show();
+                $('.spinner-border').show();
+                $('#search_domain2').show();    // Recherche en cours
+            },
             success: function(responses) {
+
+                $('#search_domain2').hide();    // Recherche en cours
+                $('#search_domain1').show();    // Resultats de recherche
 
                 $('tbody').empty();
 
@@ -439,15 +456,11 @@
                             
                         </tr>`);
                     }
-    
+                });
 
-});
+                $('.spinner-border').hide();
 
-
-// console.log(responses); 
-$('#preloader').hide();
-
-},
+            },
             error: function(response) {
                 $('#nameErrorMsg').text(response.responseJSON.errors.name);
                 $('#emailErrorMsg').text(response.responseJSON.errors.email);
