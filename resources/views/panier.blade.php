@@ -29,57 +29,6 @@
         }
     </style>
 
-    <script>
-        
-        function checkout() {
-            
-            CinetPay.setConfig({
-                apikey: '19307168035e47e4a0a20d24.32798184',//   YOUR APIKEY
-                site_id: '948395',//YOUR_SITE_ID
-                notify_url: 'http://localhost:8000/notify/',
-                mode: 'SANDBOX'
-            });
-
-            CinetPay.getCheckout({
-                transaction_id: Math.floor(Math.random() * 100000000).toString(),
-                amount: 1000,
-                currency: 'XAF',
-                channels: 'ALL',
-                description: 'Test de Paiement',   
-                //Fournir ces variables pour le paiements par carte bancaire,
-                customer_id :"1",
-                customer_name:"Joe",//Le nom du client
-                customer_surname:"Down",//Le prenom du client
-                customer_email: "franckndi20@gmail.com",//l'email du client
-                customer_phone_number: 658682587,//l'email du client
-                customer_address : "BP 0024",//addresse du client
-                customer_city: "Yaoundé",// La ville du client
-                customer_country : "CM",// le code ISO du pays
-                customer_state : "CM",// le code ISO l'état
-                customer_zip_code : "06510", // code postal
-            });
-
-            CinetPay.waitResponse(function(data) {
-                if (data.status == "REFUSED") {
-                    if (alert("Votre paiement a échoué")) {
-                        window.location.reload();
-                    }
-                } else if (data.status == "ACCEPTED") {
-                    if (alert("Votre paiement a été effectué avec succès")) {
-                        window.location.reload();
-                    }
-                }
-            });
-
-            CinetPay.onError(function(data) {
-                console.log(data);
-            });
-
-        }
-
-    </script>
-
-    
 </head>
 
 <body>
@@ -101,7 +50,7 @@
                 
                                 <div class="col-lg-7">
                                 <h5 class="mb-3"><a href="{{ route('home') }}" class="text-body"><i
-                                        class="fas fa-long-arrow-alt-left me-2"></i>Retour</a></h5>
+                                        class="fas fa-long-arrow-alt-left me-2"></i>Retour a l'Accueil</a></h5>
                                 <hr>
                 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -124,7 +73,7 @@
                                                         class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
                                                     </div>
                                                     @else
-                                                        <p>Hebergement Serveur Linux </p>
+                                                        <img src="assets/img/stockage.png" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
                                                     @endif
 
                                                     <div class="ms-3">
@@ -151,14 +100,32 @@
 
                                         @endforeach
 
+                                        <div class="card">
+                                            <h5 class="card-header">Information !</h5>
+                                            <div class="card-body">
+                                                <h5 class="card-title">1 Hebergement = 1 Nom de domaine gratuit la 1ere Annee</h5>
+                                                <p class="card-text">Souscrivez a un hebergement annuel et beneficiez d'un nom de domaine gratuit la premiere annee.</p>
+                                                <p class="card-text text-info">L'offre concerne les extension : com, fr, biz , info</p>
+                                                <a href="{{ route('shared-hosting') }}" class="btn btn-primary">Souscrire</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="card">
+                                            <h5 class="card-header">Information 2 !</h5>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Verifiez la disponibilite et ajoutez un nom de domaine gratuitement</h5>
+                                                <p class="card-text">Si vous souhaitez profiter de notre offre gratuite 1 an, choisissez l'une des extensions ci-dessous :</p>
+                                                <p class="card-text text-info">Les extensions : com, fr, biz , info</p>
+                                                <a href="{{ route('domain-search-result') }}" class="btn btn-primary">Rechercher un nom de domaine</a>
+                                            </div>
+                                        </div>
+
                                     @else
                                         <p class='text-muted'> Votre panier est vide </p>
                                     @endif
 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <div>
-                                            <p class="mb-1"><a href="{{ route('showDomainResultPage') }}"> Souhaitez-vous souscrire à un nom de domaine à votre panier ?</a></p>
-                                        </div>
+                                        <div></div>
                                     </div>
                 
                                  
@@ -175,24 +142,27 @@
                                             <hr class="my-4">
                         
                                             <div class="d-flex justify-content-between">
-                                                <p class="mb-2">Total </p>
-                                                <p class="mb-2">{{ Cart::subtotal() }} FCFA</p>
+                                                <p class="mb-2">Total HT</p>
+                                                <p class="mb-2">{{ Cart::subtotal() }} XAF</p>
                                             </div>
                         
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Taxes</p>
-                                                <p class="mb-2">0 F CFA</p>
+                                                <p class="mb-2">0 XAF</p>
                                             </div>
                         
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Total TTC</p>
-                                                <p class="mb-2">{{ Cart::subtotal() }} FCFA</p>
+                                                <p class="mb-2">{{ Cart::subtotal() }} XAF</p>
                                             </div>
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <p class="mb-2">Devise</p>
+                                                <p class="mb-2">F CFA</p>
+                                            </div>
+
                     
-                                            <button type='button' onclick='checkout()' class="btn btn-info btn-block btn-lg">
-                                                <div class="d-flex justify-content-between">
-                                    
-                                                    <span>{{ Cart::subtotal(); }} FCFA </span> &nbsp;
+                                            <button type='button' onclick='payer()' class="btn btn-primary btn-block btn-lg">
+                                                <div class="d-flex justify-content-between">                                    
                                                     <span>  Payer <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                 </div>
                                             </button>
@@ -302,13 +272,6 @@
 
 
 
-
-
-
-
-
-
-
     <!-- Theme plugin -->
     <div class="theme-setting show">
         <a href="javascript:void(0)" id="themeSettingShow" class="theme-setting-link"><i class="fas fa-gear fa-spin"></i></a>
@@ -366,6 +329,60 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
+
+    <script>
+
+        function payer() {
+            
+            CinetPay.setConfig({
+                apikey: "19307168035e47e4a0a20d24.32798184",
+                site_id: '948395',//YOUR_SITE_ID
+                notify_url: 'http://localhost:8000/notify/',
+                return_url: 'http://localhost:8000/index-lider',
+                mode: 'PRODUCTION',
+                channels: 'ALL',
+            });
+
+            CinetPay.getCheckout({
+                transaction_id: Math.floor(Math.random() * 100000000).toString(),
+                amount: 5000,
+                currency: 'XOF',
+                channels: 'ALL',
+                description: 'Test de Paiement',  
+                lang:'fr', 
+                //Fournir ces variables pour le paiements par carte bancaire,
+                customer_id :'172',
+                customer_name:"Joe",//Le nom du client
+                customer_surname:"Down",//Le prenom du client
+                customer_email: "franckndi20@gmail.com",//l'email du client
+                customer_phone_number: "+237658682586",//l'email du client
+                customer_address : "BP 0024",//addresse du client
+                customer_city: "Yaounde",// La ville du client
+                customer_country : "CM",// le code ISO du pays
+                customer_state : "CM",// le code ISO l'état
+                customer_zip_code : "06510", // code postal
+                "metadata": "user1",
+
+            });
+
+            CinetPay.waitResponse(function(data) {
+                if (data.status == "REFUSED") {
+                    if (alert("Votre paiement a échoué")) {
+                        window.location.reload();
+                    }
+                } else if (data.status == "ACCEPTED") {
+                    if (alert("Votre paiement a été effectué avec succès")) {
+                        window.location.reload();
+                    }
+                }
+            });
+
+            CinetPay.onError(function(data) {
+                console.log(data);
+            });
+
+        }
+    </script>
 
 </body>
 

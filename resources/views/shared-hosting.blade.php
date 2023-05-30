@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
 
     <!--favicon icon-->
     <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="16x16" />
@@ -209,6 +210,109 @@
     <script src="assets/js/vendors/validator.min.js"></script>
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
+    <script>
+        
+        $('.spinner-border').hide();
+        $('#search_domain1').hide();    // Resultats de recherche
+        $('#search_domain2').hide();    // Recherche en cours
+        $('.ajax-domain-search-result-section').hide();
+
+        $('#SubmitForm').on('submit',function(e){
+            e.preventDefault();
+
+            let domain = $('#domain').val();
+            let domainType = $('#domainType').val();
+            
+            $.ajax({
+            url: "check-domain-availability",
+            type:"POST",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                domain:domain,
+                domainType:domainType,
+            },
+            beforeSend: function() {
+                $('.ajax-domain-search-result-section').show();
+                $('.spinner-border').show();
+                $('#search_domain2').show();    // Recherche en cours
+            },
+            success: function(responses) {
+
+                $('#search_domain2').hide();    // Recherche en cours
+                $('#search_domain1').show();    // Resultats de recherche
+
+                $('tbody').empty();
+
+                responses.forEach( data => {
+
+                    if(data['domainAvailability'] == 'available'){
+
+                        $('tbody').append(
+                        
+                        `<tr class='vps-pricing-row'>
+                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
+                            <td data-value='Price'>
+                                <p>
+                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
+                                    <span class='pricing-onsale'>Achetez-le -
+                                <span class="badge bg-warning">1 an Gratuit</span></span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
+                                </p>
+                            </td>
+                            <!--preloader start-->
+                            <td>
+                                <form action='/panier/ajouter'>
+                                    @csrf
+                                    <input type='hidden' name='id' value='${ data['id'] }' >
+                                    <input type='hidden' name="title" value='${ data['domain'] }' >
+                                    <input type='hidden' name="price" value='${ data['price'] }'>
+                                    <button type='submit' class='btn btn-primary btn-block' >Ajouter au panier</button>
+                                </form>
+                            </td>
+                            
+                        </tr>`);
+
+                    }else{
+
+
+                        $('tbody').append(
+                        
+                        `<tr class='vps-pricing-row'>
+                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
+                            <td data-value='Price'>
+                                <p>
+                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
+                                    <span class='pricing-onsale'>Achetez-le -
+                                <span class="badge bg-warning">1 an Gratuit</span></span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
+                                </p>
+                            </td>
+                            <td>
+                                <a disabled href='#' class='btn btn-secondary btn-sm disabled'>Reservée</a>
+                            </td>
+                            
+                        </tr>`);
+                    }
+                });
+
+                $('.spinner-border').hide();
+
+            },
+            error: function(response) {
+                $('#search_domain2').hide();    // Recherche en cours
+                $('#search_domain1').show();
+            },
+            });
+        });
+    </script>
     <!--endbuild-->
 
 </body>

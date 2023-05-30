@@ -27,13 +27,10 @@ class HoistingController extends Controller
             return redirect('connexion');
         }
         
-        // $domainName = $request->domain;
-        // $authCode = $request->authcode;
-        $domainName = 'money.com';
-        $authCode = '0ADE';
+        $domainName = $request->domain;
+        $authCode = $request->authcode;
         $period = 3;
 
-        // ----------
         $user = session()->get('user');
         $email = $user->email;
         $password = $user->password;
@@ -56,8 +53,8 @@ class HoistingController extends Controller
              */
 
             $result = $dna->Transfer($domainName, $authCode,$period);
-            dd($result);
-            return view('domain-transfer',['result' => $result]);
+    
+            return response()->json($result);
         }   
     }
 
@@ -89,7 +86,7 @@ class HoistingController extends Controller
 
             dd($ns_change);
 
-            return view('domain-change',['result' => $dns_change]);
+            return response()->json($ns_change);
 
         }
     }
@@ -173,6 +170,9 @@ class HoistingController extends Controller
 
     public function showSpace()
     {
+        if(empty(session()->get('user')->email)){
+            return redirect('connexion');
+        }
         return view('espace-client');
     }
 
@@ -226,9 +226,21 @@ class HoistingController extends Controller
         return view("domain-checker");
     }
 
-    public function showDomainTransfer()
+    public function showDomainTransfer($domain = 'domain.cm')
     {
-        return view("domain-transfer");
+
+        // session()->put('domain', $domain);
+
+        if(empty(session()->get('user')->email)){
+            return redirect('connexion');
+        }
+
+        if ($domain = null) {
+            return view("domain-transfer");
+        }else{
+            return view("domain-transfer",[ 'domain' => $domain ]);
+
+        }
     }
 
     public function domainRegistration()
@@ -244,11 +256,6 @@ class HoistingController extends Controller
     public function showDomainSearchResultPage()
     {
         return view("domain-search-result");
-    }
-
-    public function ajax_search(Request $request)
-    {
-        // Code pour traiter la requête Ajax
     }
 
     // Methode qui retourne le nom de domaine sans l'extension
@@ -281,7 +288,6 @@ class HoistingController extends Controller
                 $extType = $ext;
             }
         }
-
         
         if(!$hasExtension){ // Cas ou il y a pas d'extension
             $onlyDomainName = $domain;
@@ -435,156 +441,6 @@ class HoistingController extends Controller
         ];
     }
 
-
-    public function completeDomainCheck(Request $request)
-    {
-        $url = $request->input('domain');
-        $dispatch = $this->get_domain_and_extension($url);
-
-        $domain = $dispatch['domain_name'];
-        $ext = $dispatch['extension'];
-
-        $fullDomain = $url;
-
-        $apiKey = 'at_LHKPZ8Q1Y3lQe5aV5WaMazqhLswAO';
-        $url = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$fullDomain}";
-
-        $searchedDomain = [
-            'id' => 4,
-            'domain' => "$fullDomain",
-            'domainAvailability' => "AVAILABLE",
-            'price' => "9000 XAF",
-            'subDomain' => "$ext"
-        ];
-
-        $extensions = array(
-            
-            array(
-                'id' => 5,
-                'domain' => "$domain.com",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9000",
-                'subDomain' => "com"
-            ),
-            array(
-                'id' => 6,
-                'domain' => "$domain.cm",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "3000",
-                'subDomain' => "cm"
-            ),
-            array(
-                'id' => 7,
-                'domain' => "$domain.net",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9000",
-                'subDomain' => "net"
-            ),
-            array(
-                'id' => 8,
-                'domain' => "$domain.fr",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9000",
-                'subDomain' => "fr"
-            ),
-            array(
-                'id' => 9,
-                'domain' => "$domain.biz",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9500",
-                'subDomain' => "biz"
-            ),
-            array(
-                'id' => 10,
-                'domain' => "$domain.info",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "10000",
-                'subDomain' => "in"
-            ),
-            array(
-                'id' => 11,
-                'domain' => "$domain.org",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "11000",
-                'subDomain' => "org"
-            ),
-            array(
-                'id' => 12,
-                'domain' => "$domain.tech",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "39000",
-                'subDomain' => "tech"
-            ),
-            array(
-                'id' => 13,
-                'domain' => "$domain.news",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "19500",
-                'subDomain' => "news"
-            ),
-            array(
-                'id' => 14,
-                'domain' => "$domain.site",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "23000",
-                'subDomain' => "site"
-            ),
-            array(
-                'domain' => "$domain.de",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "9500",
-                'subDomain' => "de"
-            ),
-            array(
-                'domain' => "$domain.me",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "7000",
-                'subDomain' => "me"
-            ),
-            array(
-                'domain' => "$domain.bz",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "14000",
-                'subDomain' => "bz"
-            ),
-            array(
-                'domain' => "$domain.tc",
-                'domainAvailability' => "AVAILABLE",
-                'price' => "19000",
-                'subDomain' => "tc"
-            )
-        );
-
-
-        for ($i = 0; $i < count($extensions); $i++) {
-
-            $currentUrl = "https://domain-availability.whoisxmlapi.com/api/v1?"."apiKey={$apiKey}&domainName={$extensions[$i]['domain']}";
-
-            try {
-
-                $response = Http::get($currentUrl);  
-                $data = $response->json();
-                $extensions[$i]['domainAvailability'] = $data['DomainInfo']['domainAvailability']; 
-
-            } catch (\Throwable $e) {
-                echo "cURL Error #:" . $e;
-            }
-        
-        }
-
-        foreach ($extensions as $ext) {
-            if($ext['domain'] == $searchedDomain['domain']){
-                $searchedDomain['price'] = $ext['price'];
-                $searchedDomain['domainAvailability'] = $ext['domainAvailability'];
-            }
-        }
-
-        return view('domain-search-result', [
-            'data' => $extensions, 'searchedDomain' => $searchedDomain
-        ]);
-
-    }
-
     public function email_hosting()
     {
         return view('email-hosting');
@@ -593,6 +449,10 @@ class HoistingController extends Controller
     public function sharedHosting()
     {
         return view('shared-hosting');
+    }
+
+    function show_alert(){
+        return view('notify_url');
     }
 
 }

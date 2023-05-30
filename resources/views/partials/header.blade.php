@@ -57,7 +57,7 @@
 
                                                 <!--menu title with subtitle and icon item start-->
                                                 <div class="title-with-icon-item">
-                                                    <a class="title-with-icon-link" href="{{ route('domain-transfer') }}">
+                                                    <a class="title-with-icon-link" href="domain-transfer">
                                                         <div class="d-flex align-items-center pb-1">
                                                             <i class="fas fa-exchange-alt me-2 color-accent"></i>
                                                             <span class="u-header__promo-title"> Transfert de Nom de Domaine </span>
@@ -116,11 +116,12 @@
                             <!--domain end-->
 
 
-                            <li class="nav-item custom-nav-item">
+                            <!-- <li class="nav-item custom-nav-item">
                                 <a class="nav-link custom-nav-link" href="{{ route('blog') }}">
                                     Blog
                                 </a>
-                            </li>
+                            </li> -->
+
                             <li class="nav-item custom-nav-item">
                                 <a class="nav-link custom-nav-link" href="{{ route('about') }}">
                                     A Propos
@@ -140,7 +141,7 @@
 
                             <li class="nav-item header-nav-last-item d-flex align-items-center">
                                 <a class="text-muted" href="{{ route('showSpace') }}" >
-                                    <span class="fa fa-user pe-2"></span>
+                                    <span class="fa fa-user pe-2"></span> Espace Client
                                 </a>
                             </li>
 
@@ -153,8 +154,7 @@
         <!--main header menu end-->
 
 
-
-
+        
         <!--offcanvas menu start-->
         <div class="offcanvas offcanvas-start" id="offcanvasLeft" tabindex="-1">
             
@@ -264,9 +264,9 @@
                     <!--domain item end-->
 
                     <!--blog item start-->
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('blog') }}">Blog</a>
-                    </li>
+                    </li> -->
                     <!--blog item end-->
 
                     <!--about item start-->

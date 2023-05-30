@@ -37,8 +37,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-7 col-lg-8">
                         <div class="hero-content-wrap text-white text-center position-relative">
-                            <h1 class="text-white">About Us</h1>
-                            <p class="lead">Web hosting made easy & affordable, choose a fine-tuned web hosting services solution for successful personal and business websites.</p>
+                            <h1 class="text-white">Quis Sommes-nous</h1>
+                            <p class="lead">Hébergement Web facile et abordable, choisissez une solution de services d'hébergement Web adaptée pour des sites Web personnels et professionnels performants.</p>
                         </div>
                     </div>
                 </div>
@@ -52,22 +52,22 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-md-12 col-lg-6">
                         <div class="feature-contents section-heading">
-                            <h2>We Share the Same Values which Makes our Team Stronger</h2>
-                            <p>Objectively deliver professional value with diverse web-readiness.
-                                Collaboratively transition wireless customer service without goal-oriented catalysts for
-                                change. Collaboratively.</p>
+                            <h2>Nous partageons les mêmes valeurs, ce qui rend notre équipe plus forte</h2>
+                            <p>Offrir objectivement une valeur professionnelle avec une préparation Web diversifiée.
+                                 Transition collaborative vers le service client sans fil sans catalyseurs axés sur les objectifs pour
+                                 changement. En collaboration.</p>
 
                             <ul class="check-list-wrap list-two-col py-3">
-                                <li>Data driven quality review</li>
-                                <li>Secure work environment</li>
-                                <li>24x7 coverage</li>
-                                <li>Lifetime updates</li>
-                                <li>Management team</li>
-                                <li>Tech support</li>
-                                <li>Integration ready</li>
-                                <li>Tons of assets</li>
-                                <li>Compliance driven process</li>
-                                <li>Workforce management</li>
+                                <li>Examen de la qualité axé sur les données</li>
+                                <li>Environnement de travail sécurisé</li>
+                                <li>Couverture 24h/24 et 7j/7</li>
+                                <li>Mises à jour à vie</li>
+                                <li>Équipe de direction</li>
+                                <li>Support technique</li>
+                                <li>Intégration prête</li>
+                                <li>Des tonnes d'actifs</li>
+                                <li>Processus axé sur la conformité</li>
+                                <li>Gestion des effectifs</li>
                             </ul>
                         </div>
                     </div>
@@ -86,9 +86,9 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9 col-lg-6">
                         <div class="section-heading text-center mb-5">
-                            <h2>Our Data centers Location</h2>
-                            <p>Cloudhub offers a low latency worldwide network, enabling you to deploy your
-                                service infrastructure in close proximity to your customer base.</p>
+                            <h2>Emplacement de nos centres de données</h2>
+                            <p>Cloudhub offre un réseau mondial à faible latence, vous permettant de déployer votre
+                                 infrastructure de service à proximité de votre clientèle.</p>
                         </div>
                     </div>
                 </div>
@@ -139,16 +139,16 @@
                     <div class="col-12 col-lg-6">
                         <div class="cta-content-wrap text-white">
                             <h2 class="text-white">
-                                24/7 Expert Hosting Support Our Customers Love
+                            Support d'hébergement expert 24h/24 et 7j/7 que nos clients adorent
                             </h2>
                             <p>
-                                Objectively innovate high compellingly maintain progressively pursue
-                                mission-critical information quality imperatives.
+                            Objectivement innover de manière convaincante maintenir progressivement poursuivre
+                                 impératifs de qualité des informations critiques.
                             </p>
                         </div>
                         <div class="support-action d-inline-flex flex-wrap">
                             <a href="mailto:support@yourdomain.com" class="me-3 text-info"><i class="fas fa-comment me-1 text-tertiary"></i>
-                                <span>support@yourdomain.com</span></a>
+                                <span>support@ltchost.com</span></a>
                             <a href="tel:+00123456789" class="mb-0 text-info"><i class="fas fa-phone-alt me-1 text-tertiary"></i>
                                 <span>+00123456789</span></a>
                         </div>
@@ -169,17 +169,17 @@
                 <div class="row align-items-center justify-content-lg-between">
                     <div class="col-md-7 col-lg-5">
                         <div class="feature-content-wrap">
-                            <h2>99% Cloud Hosing High-speed Cutting-edge Platform</h2>
+                            <h2>Plate-forme de pointe à haute vitesse hébergée dans le cloud à 99 %</h2>
                             <p>
-                                Quickly reconceptualize cross-unit e-markets without superior
-                                products. Appropriately foster timely and idea-sharing rather than
-                                magnetic potentialities. Authoritatively restore high standards in
-                                outsourcing whereas vertical meta-services. Compellingly
-                                reconceptualize out-of-the-box outsourcing through plug-and-play
-                                synergy.
+                            Reconceptualisez rapidement les marchés électroniques inter-unités sans supérieur
+                                 des produits. Favoriser de manière appropriée le partage d'idées en temps opportun plutôt que
+                                 potentialités magnétiques. Restaurer avec autorité des normes élevées dans
+                                 l'externalisation tandis que les méta-services verticaux. De manière convaincante
+                                 reconceptualiser l'externalisation prête à l'emploi grâce au plug-and-play
+                                 synergie.
                             </p>
-                            <a href="about-us.html" class="read-more-link">
-                                Know more about us
+                            <a href="#" class="read-more-link">
+                            En savoir plus sur nous
                                 <i class="fas fa-arrow-right ms-2"></i>
                             </a>
                         </div>
@@ -198,18 +198,18 @@
                     </div>
                     <div class="col-md-7 col-lg-5">
                         <div class="feature-content-wrap">
-                            <h2>Our Own Interfaces for All Management</h2>
+                            <h2>Nos propres interfaces pour toute la gestion</h2>
                             <p>
-                                Authoritatively transform functionalized information without
-                                cross-platform convergence. Quickly superior products. Appropriately
-                                foster timely collaboration and idea-sharing rather than magnetic
-                                potentialities. Authoritatively restore high standards in
-                                outsourcing whereas vertical meta-services. Compellingly
-                                reconceptualize out-of-the-box outsourcing through plug-and-play
-                                synergy.
+                            Transformez avec autorité les informations fonctionnalisées sans
+                                 convergence multiplateforme. Produits rapidement supérieurs. De manière appropriée
+                                 favoriser une collaboration et un partage d'idées opportuns plutôt que magnétiques
+                                 potentialités. Restaurer avec autorité des normes élevées dans
+                                 l'externalisation tandis que les méta-services verticaux. De manière convaincante
+                                 reconceptualiser l'externalisation prête à l'emploi grâce au plug-and-play
+                                 synergie.
                             </p>
-                            <a href="about-us.html" class="read-more-link">
-                                Know more about us
+                            <a href="#" class="read-more-link">
+                            En savoir plus
                                 <i class="fas fa-arrow-right ms-2"></i>
                             </a>
                         </div>
@@ -219,189 +219,7 @@
         </div>
         <!--feature section end-->
 
-        <!--testimonial and review section start-->
-        <section class="review-section ptb-100 gray-light-bg">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-10 col-lg-6">
-                        <div class="section-heading text-center">
-                            <h2>Our Lovely Client Say About Us</h2>
-                            <p>Uniquely repurpose strategic core competencies with progressive content. Assertively transition ethical imperatives and collaborative manufactured products. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="owl-carousel owl-theme client-testimonial-1 dot-bottom-center custom-dot">
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Amazing template</h5>
-                                        <p>Distinctively foster maintainable metrics whereas multidisciplinary process improvements. Distinctively foster maintainable metrics whereas multidisciplinary process improvements. Objectively implement strategic niches through.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-2.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Best template for app</h5>
-                                        <p>Efficiently innovate customized growth strategies whereas error-free paradigms. Monotonectally enhance stand-alone data with prospective innovation.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-1.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Tony Roy</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Efficiently innovate app</h5>
-                                        <p>Continually redefine sticky channels whereas extensive "outside the box" thinking. Rapidiously supply focused schemas vis-a-vis optimal users.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-3.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Uniquely mesh flexible</h5>
-                                        <p>Phosfluorescently optimize intermandated platforms without integrated infrastructures. Proactively redefine granular thinking before.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-4.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Compellingly empower app</h5>
-                                        <p>Proactively grow focused niche markets with virtual e-services. Rapidiously pursue effective ROI via holistic information completely reintermediate.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-2.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Holisticly reintermediate</h5>
-                                        <p>Collaboratively reintermediate out-of-the-box e-business via economically sound supply chains. Dynamically target client-based holistic information.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-1.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Uniquely mesh flexible</h5>
-                                        <p>Phosfluorescently optimize intermandated platforms without integrated infrastructures. Proactively redefine granular thinking before.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-3.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Compellingly empower app</h5>
-                                        <p>Proactively grow focused niche markets with virtual e-services. Rapidiously pursue effective ROI via holistic information completely reintermediate.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-1.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="border single-review-wrap bg-white p-4 m-3">
-                                    <div class="review-body">
-                                        <h5>Holisticly reintermediate</h5>
-                                        <p>Collaboratively reintermediate out-of-the-box e-business via economically sound supply chains. Dynamically target client-based holistic information.</p>
-                                    </div>
-                                    <div class="review-author d-flex align-items-center">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/client-2.jpg" width="64" alt="author" class="rounded-circle shadow-sm img-fluid mr-3" />
-                                            <span>“</span>
-                                        </div>
-                                        <div class="review-info">
-                                            <h6 class="mb-0">Ana Joly</h6>
-                                            <span>BizBite</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--testimonial and review section end-->
-
+        
     </div>
 
      <!-- footer  section-->

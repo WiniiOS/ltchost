@@ -9,17 +9,14 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InvoiceMail extends Mailable
+class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(public string $name,public string $email,public string $message){}
 
     /**
      * Get the message envelope.
@@ -27,7 +24,7 @@ class InvoiceMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Facture de votre hebergement',
+            subject: 'Formulaire De Contact LTC HOST',
         );
     }
 
@@ -37,7 +34,8 @@ class InvoiceMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.invoice_mail',
+            // view: 'emails.contact',
+            markdown: 'emails.contact',
         );
     }
 

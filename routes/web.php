@@ -5,11 +5,16 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HoistingController;
+use App\Http\Controllers\ContactController;
+
 
 
 Route::get('/', [HoistingController::class, 'index'])->name('home');
 Route::get('email_hosting', [HoistingController::class, 'email_hosting'])->name('email_hosting');
 Route::get('terms-condition', [HoistingController::class, 'terms'])->name('terms');
+
+Route::post('sendmail', [ContactController::class, 'sendmail'])->name('sendmail');
+
 
 Route::get('shared-hosting', [HoistingController::class, 'sharedHosting'])->name('shared-hosting');
 
@@ -24,10 +29,10 @@ Route::post('/check-domain-availability', [HoistingController::class, 'checkDoma
 
 Route::get('domain-checker', [HoistingController::class, 'domainChecker'])->name('domain-checker');
 
-Route::get('domain-transfer', [HoistingController::class, 'showDomainTransfer'])->name('domain-transfer');
+Route::get('/domain-transfer/{domain?}', [HoistingController::class, 'showDomainTransfer'])->name('domain-transfer');
+
 Route::get('domain-registration', [HoistingController::class, 'domainRegistration'])->name('domain-registration');
 Route::get('pricing-comparaison', [HoistingController::class, 'showPricingComparison'])->name('pricing-comparaison');
-
 
 Route::get('pricing-package', [HoistingController::class, 'showPricingPackage'])->name('pricing-package');
 Route::get('pricing-specifications', [HoistingController::class, 'showPricingSpecifications'])->name('pricing-specifications');
@@ -72,3 +77,5 @@ Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');
 
 // test
 Route::get('test', [HoistingController::class, 'checkDomainAvailability'])->name('test');
+
+Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notify');

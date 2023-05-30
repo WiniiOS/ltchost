@@ -5,12 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
 
     <!--favicon icon-->
     <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="16x16" />
 
     <!--title-->
-    <title>Verifier la disponibilité d'un domaine</title>
+    <title>Transferer un domain</title>
 
     <!--build:css-->
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
@@ -37,17 +38,31 @@
                 <div class="row align-items-center justify-content-lg-between">
                     <div class="col-md-6 col-lg-5">
                         <div class="hero-content-wrap text-white position-relative">
-                            <h1 class="text-white">Transférer votre domaine</h1>
+                            <h1 class="text-white">Transférer votre domaine chez nous</h1>
                             <p class="lead">Hébergement web facile et abordable, choisissez une solution d'hébergement web sur mesure pour des sites web personnels et professionnels réussis.</p>
                             <div class="domain-transfer-wrap mt-4">
-                                <form method="POST" action="{{ route('domain-transfer-form') }}" class="domain-transfer-form newsletter-form position-relative w-75">
+                                <form id="domain-transfert" class="domain-transfer-form  position-relative w-75">
                                 @csrf
-                                    
-                                    <input type="text" required name="domain" id="domain" class="form-control rounded-pill" placeholder="mondomaine.com" />
-                                    <input type="text" required name="authcode" id="authcode" class="form-control rounded-pill" placeholder="Code de transfert" />
+                                    <input type="text" value="" required name="domain" id="domain" class="form-control rounded-pill"  />
+                                    <input type="text" required name="authcode" id="authcode" class="form-control rounded-pill" placeholder="code EPP" />
+                                    <br>
+                                    <button type="submit" class="btn btn-tertiary rounded-pill">
+                                         Transferer... 
+                                        <span class="spinner-border  spinner-border-sm" role="status" aria-hidden="true"></span>         
+                                    </button>
 
-                                    <button type="submit" class="btn btn-tertiary">Transferer</button>
+                                    <br>
                                 </form>
+
+                                <div class="text-center">
+                                    <div class="alert alert-success" role="alert">
+                                        Success : Votre domaine a bien ete transferee
+                                    </div>
+                                    <div class="alert alert-danger" role="alert">
+                                        Echec : La devise comptable ne correspond pas ou le solde n'est pas suffisant.
+                                    </div>
+                                </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -180,6 +195,57 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
+
+    <script>
+
+        const domainToTransfert = sessionStorage.getItem('domainSwitch');
+        // console.log(sessioinStorage.getItem('domainSwitch'));
+        document.querySelector("#domain").value = domainToTransfert;
+        
+        const domainInput = document.querySelector("#domain");
+        const authCode = document.querySelector("#authcode");
+
+        $('.spinner-border').hide();
+        $('.alert-success').hide();
+        $('.alert-danger').hide();
+
+        $(document).ready(function(){
+
+            $('#domain-transfert').on('submit', function(e) {                
+
+                e.preventDefault()
+                let token = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    url: 'domain-transfer-form',
+                    type: "POST",
+                    data: { domain : domainInput.value, authcode : authCode.value, _token: token },
+                    dataType: "json",
+                    beforeSend: function() {
+                        $('.spinner-border').show();
+                    },
+                    success: function(data) {
+                        if (data['result'] == 'ERROR') {
+                            $('.alert-danger').show();
+                        } else {
+                            $('.alert-success').show();
+                        }
+                                               
+                        $('.spinner-border').hide();
+                    },
+                    error: function(error) {
+                        $('.alert-danger').hide();
+                    }
+                });
+
+            });
+        });
+
+
+        
+
+
+        </script>
 
 </body>
 

@@ -262,15 +262,14 @@
                                         </p>
                                     </td>
                                     <td>
-                                        <a disabled href='#' class='btn btn-secondary btn-sm disabled'>Reservée</a>
+                                  
+                                        <a onclick="handleTransfert('${data['domain']}')"  class='btn btn-primary btn-sm'>Transferer</a>
+
                                     </td>
                                     
                                 </tr>`);
                             }
-                            
-                     
                         });
-
                     
                         $('.spinner-border').hide();
 
@@ -287,6 +286,18 @@
             });
 		});
 
+        function handleTransfert(domain){
+
+            console.log('Clicked domain',domain);
+
+            // on stocke le domaine en session
+            sessionStorage.removeItem('domainSwitch');
+            sessionStorage.setItem('domainSwitch', domain);
+
+            // Simulate a mouse click:
+            window.location.href = "/domain-transfer";
+
+        }
         
     </script>
 
