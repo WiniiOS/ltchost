@@ -15,6 +15,12 @@ use PDF;
 
 class HoistingController extends Controller
 {
+
+    public function __construct(Request $request)
+    {
+        $this->middleware('guest')->except('logout');
+        $this->request = $request;
+    }
   
     public function showProfile()
     {
@@ -61,6 +67,9 @@ class HoistingController extends Controller
 
     public function modifyNameServer(Request $request)
     {
+        // $route = route('connexion') . '?previous=' . Request::fullUrl() ;
+        // dd($route);
+
         if(empty(session()->get('user')->email)){
             return redirect('connexion');
         }
@@ -228,11 +237,10 @@ class HoistingController extends Controller
 
     public function showDomainTransfer($domain = 'domain.cm')
     {
-
-        // session()->put('domain', $domain);
+        $routeCkeck = route('connexion') . '?previous=' . $this->request->fullUrl() ;
 
         if(empty(session()->get('user')->email)){
-            return redirect('connexion');
+            return redirect($routeCkeck);
         }
 
         if ($domain = null) {

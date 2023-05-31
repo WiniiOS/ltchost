@@ -139,6 +139,13 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item custom-nav-item">
+                                <a class="nav-link custom-nav-link" href="{{ route('connexion') . '?previous=' . Request::fullUrl() }}">
+                                    Connexion
+                                </a>
+                            </li>
+                            
+
                             <li class="nav-item header-nav-last-item d-flex align-items-center">
                                 <a class="text-muted" href="{{ route('showSpace') }}" >
                                     <span class="fa fa-user pe-2"></span> Espace Client

@@ -7,13 +7,21 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function showSpace()
+    public function __construct(Request $request)
     {
+        $this->middleware('guest')->except('logout');
+        $this->request = $request;
+    }
+
+    public function showSpace(Request $request)
+    {
+        $routeCkeck = route('connexion') . '?previous=' . $request->fullUrl() ;
+
         $user = session()->get('user');
 
         // dd($user);
         if (empty($user)) {
-            return redirect('connexion');
+            return redirect($routeCkeck);
         }
         return view('espace-client',['user_data' => $user]);
 
@@ -82,10 +90,20 @@ class UserController extends Controller
         if ($user == null) {
             return redirect('/connexion')->withErrors(["Cet utilisateur n'existe pas!"])->withInput();
         }else{
+
             if ($user->password == $sha1password) {
+
                 // on enregistre sa variable de session
                 $request->session()->put('user', $user);
-                return redirect('/');
+
+                // On gere la redirection a la page precedente
+                if ($request->has('previous')) {
+                    $redirectTo = $request->get('previous');
+                    return redirect($redirectTo);
+                }else{
+                    return '/';
+                }
+
             }else{
                 return redirect('/connexion')->withErrors(['Le mot de passe est incorrect'])->withInput();
             }
@@ -164,5 +182,5 @@ class UserController extends Controller
         ]);
         
     }
-    
+
 }

@@ -69,6 +69,14 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                @if (Request::has('previous'))
+                                    <input type="hidden" name="previous" value="{{ Request::get('previous') }}">
+                                @else
+                                    <input type="hidden" name="previous" value="{{ URL::previous() }}">
+                                @endif
+                            </div>
+
                             <!-- Submit -->
                             <div class="d-grid">
                                 <button class="btn btn-primary mt-4 mb-3">
