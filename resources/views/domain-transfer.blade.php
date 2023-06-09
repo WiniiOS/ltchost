@@ -199,7 +199,6 @@
     <script>
 
         const domainToTransfert = sessionStorage.getItem('domainSwitch');
-        // console.log(sessioinStorage.getItem('domainSwitch'));
         document.querySelector("#domain").value = domainToTransfert;
         
         const domainInput = document.querySelector("#domain");

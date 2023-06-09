@@ -16,7 +16,8 @@
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
-    <script src="https://cdn.cinetpay.com/seamless/main.js"></script>
+    <script src="https://cdn.cinetpay.com/seamless/main.js" type="text/javascript"></script>
+
     <style>
         .sdk {
             display: block;
@@ -50,7 +51,7 @@
                 
                                 <div class="col-lg-7">
                                 <h5 class="mb-3"><a href="{{ route('home') }}" class="text-body"><i
-                                        class="fas fa-long-arrow-alt-left me-2"></i>Retour a l'Accueil</a></h5>
+                                        class="fas fa-long-arrow-alt-left me-2"></i>Retour a l'accueil</a></h5>
                                 <hr>
                 
                                     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -78,7 +79,7 @@
 
                                                     <div class="ms-3">
                                                         <h5>{{ $product->name }} </h5>
-                                                        <p class="small mb-0"> Hebergement Annuel </p>
+                                                        <p class="small mb-0"> Abonnement Annuel </p>
                                                     </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
@@ -89,17 +90,10 @@
                                                         <h5 class="mb-0"> {{ $product->price }} F CFA</h5>
                                                     </div>
                                                     <form action="{{ route('cart.destroy', $product->rowId ) }}" method="post">
-                                                        <!-- user data -->
-                                                        <input type="hidden" name="id" id="user_id" value="{{ $user->id }}" >
-                                                        <input type="hidden" name="email" id="user_email" value="{{ $user->email }}" >
-                                                        <input type="hidden" name="name" id="user_name" value="{{ $user->name }}" >
-                                                        <input type="hidden" name="telephone" id="user_phone" value="{{ $user->telephone }}" >
-
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class='text-dark'><i class="fas fa-trash-alt"></i></button>
                                                     </form>
-                                            
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,8 +128,7 @@
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div></div>
                                     </div>
-                
-                                 
+ 
                                 </div>
 
                                 <div class="col-lg-5">
@@ -150,7 +143,7 @@
                         
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Total HT</p>
-                                                <p class="mb-2" id='amount'>{{ Cart::subtotal() }}</p>
+                                                <p class="mb-2">{{ Cart::subtotal() }} XAF</p>
                                             </div>
                         
                                             <div class="d-flex justify-content-between">
@@ -166,11 +159,10 @@
                                                 <p class="mb-2">Devise</p>
                                                 <p class="mb-2">F CFA</p>
                                             </div>
-
                     
-                                            <button type='button' onclick='payer()' class="btn btn-primary btn-block btn-lg">
+                                            <button type='button' onclick='pay()' class="btn btn-primary btn-block btn-lg">
                                                 <div class="d-flex justify-content-between">                                    
-                                                    <span>  Payer <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                    <span>  Payer {{ Cart::subtotal() }} XAF <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                 </div>
                                             </button>
                                         </div>
@@ -339,98 +331,79 @@
 
     <script>
 
-        const preamount = document.querySelector('#amount').textContent.split('.')[0].split(',');
-        const amount = parseInt(''+preamount[0]+''+ preamount[1]);
+        var currentUser = sessionStorage.getItem('user');
 
-        const id = document.querySelector('#user_id').value;
-        const name = document.querySelector('#user_name').value;
-        const telephone = document.querySelector('#user_phone').value;
-        const email = document.querySelector('#user_email').value;
+        function pay() {
 
-
-
-        function payer() {
-            
             CinetPay.setConfig({
                 apikey: "19307168035e47e4a0a20d24.32798184",
                 site_id: 948395,
                 notify_url: 'http://localhost:8000/notify/',
-                return_url: 'http://localhost:8000',
+                return_url: 'http://localhost:8000/index-lider',
                 mode: 'PRODUCTION'
             });
 
             CinetPay.getCheckout({
                 transaction_id: Math.floor(Math.random() * 100000000).toString(),
-                amount: amount,
+                amount: 20000,
                 currency: 'XAF',
                 channels: 'ALL',
-                description: "Achat d'un Hebergement/ Nom de domaine LTC HOST",
-                cpm_designation: "Achat d'un Hebergement ou Nom de domaine LTC HOST",
+                description: "Achat d'un hebergement ou nom de domaine LTC HOST",
+                cpm_designation: "Achat d'un hebergement ou nom de domaine LTC HOST",
                 alternative_currency: 'XAF',
-                customer_surname: name,
-                customer_name: name,
-                customer_email: email,
-                customer_phone_number: telephone,
-                customer_address: 'Cameroun, yaounde',
+                customer_surname: 'LTC HOST',
+                customer_name: 'LTC GROUP',
+                customer_email: 'contact@ltchost.net',
+                customer_phone_number: '+22509688',
+                customer_address: '15 BP 1080 YAOUNDE 15',
                 customer_city: 'YAOUNDE',
                 customer_country: 'CM',
                 customer_state: 'CM',
                 customer_zip_code: '00225',
-                "metadata": "user".id,
-
+                "metadata": "user1",
             });
 
             CinetPay.waitResponse(function(data) {
-                if (data.status == "ACCEPTED") {
-                        console.log(data);
-                        sessionStorage.setItem(data);
 
-                        saveTransaction();
-                        saveFacture();
-                        saveDomain()
-                        saveHebergement(params)
-                        // window.location.reload();
-                    
-                } else if (data.status == "REFUSED") {
-                    console.log(data);
-                
-            
-                    sessionStorage.setItem(data);
-                    // En cas d'echec on enregistre la transaction echoue
-                        setTimeout(() => {
-                            saveTransaction()
-                            window.location.reload();
-                        }, 15000);
-                    // 
+                if (data.status == "REFUSED") {
+
+                    if (alert("Votre paiement a échoué")) {
+                        console.log('echec',data);
+                        // sessionStorage.setItem(data);
+                    }
+
+                } else if (data.status == "ACCEPTED") {
+
+                    console.log('success',data);
+
+                    if (alert("Votre paiement a été effectué avec succès")) {
+                        sessionStorage.setItem(data);
+                        // window.location.href = '/notify_url';
+                    }
 
                 }
             });
 
-
-
-            function saveTransaction() {
-                
-            }
-
-            function saveFacture() {
-                
-            }
-
-            function saveDomain(params) {
-                
-            }
-
-            function saveHebergement(params) {
-                
-            }
-
-            
-
             CinetPay.onError(function(data) {
                 console.log(data);
             });
-
         }
+
+
+        // DATA
+            // {
+            //     "amount": "100", 
+            //     "currency": "XOF", 
+            //     "status": "ACCEPTED", 
+            //     "payment_method": "FLOOZ", 
+            //     "description": "Description", 
+            //     "metadata": "ABIDJAN", 
+            //     "operator_id": "8211027064102", 
+            //     "payment_date": "2021-10-27 09:47:09"
+            // }
+
+
+
     </script>
 
 </body>

@@ -16,8 +16,13 @@ class CartController extends Controller
     public function index()
     {
         $products = Cart::content();
+        $user = session()->get('user');
 
-        return view('panier', ['products' => $products]);
+
+        return view('panier', [
+            'products' => $products,
+            'user' => $user
+        ]);
 
     }
 

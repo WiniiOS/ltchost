@@ -25,10 +25,10 @@
 
     <div class="navbar navbar-light">
         <div class="container">
+            
             <a href="{{ route('home') }}" class="navbar-brand mr-3">
-            <img src="assets/img/logo.png" class="logo-img" alt="ThemeTags">
+                <img src="assets/img/logo.png" class="logo-img" alt="ThemeTags">
             </a>
-
             <div class="navbar navbar-expand-xl main-navbar-wrapper tt-main-header offcanvas-collapse">
                 <div class="" id="mainNavbar">
                     <form method="post" action="/knowledgebase/search" class="d-xl-none">
@@ -657,13 +657,13 @@
     <div class="collapsable-card-body">
     <div class="list-group list-group-flush d-md-flex" role="tablist">
     <a menuitemname="Order New Services" href="/cart.php" class="list-group-item list-group-item-action" id="Secondary_Sidebar-Client_Shortcuts-Order_New_Services">
-        <i class="fas fa-shopping-cart fa-fw"></i>&nbsp;                                Order New Services
+                    <i class="fas fa-shopping-cart fa-fw"></i>&nbsp;                                Order New Services
     </a>
                     <a menuitemname="Register New Domain" href="/domainchecker.php" class="list-group-item list-group-item-action" id="Secondary_Sidebar-Client_Shortcuts-Register_New_Domain">
                     <i class="fas fa-globe fa-fw"></i>&nbsp;                                Register a New Domain
     </a>
-            <a menuitemname="Logout" href="/logout.php" class="list-group-item list-group-item-action" id="Secondary_Sidebar-Client_Shortcuts-Logout">
-            <i class="fas fa-arrow-left fa-fw"></i>&nbsp;                                Logout
+                    <a menuitemname="Logout" href="/logout.php" class="list-group-item list-group-item-action" id="Secondary_Sidebar-Client_Shortcuts-Logout">
+                    <i class="fas fa-arrow-left fa-fw"></i>&nbsp;                                Logout
     </a>
     </div>
     </div>

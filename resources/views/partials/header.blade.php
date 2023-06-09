@@ -139,11 +139,11 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item custom-nav-item">
+                            <!-- <li class="nav-item custom-nav-item">
                                 <a class="nav-link custom-nav-link" href="{{ route('connexion') . '?previous=' . Request::fullUrl() }}">
                                     Connexion
                                 </a>
-                            </li>
+                            </li> -->
                             
 
                             <li class="nav-item header-nav-last-item d-flex align-items-center">
