@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('userId');
             $table->integer('montant');
-            $table->enum('mode', ['mobileMoney', 'orangeMoney','creditCard']);
-            $table->enum('type', ['hebergement', 'domain','mixte']);
+            $table->string('mode');
+            $table->enum('status', ['ACCEPTED', 'REFUSED']);
+            $table->string('currency');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -28,4 +30,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('transactions');
     }
+
+    
 };

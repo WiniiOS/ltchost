@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
+
 
     <!--favicon icon-->
     <link rel="icon" href="{{ url('assets/img/favicon.png') }}" type="image/png" sizes="16x16" />
@@ -90,14 +92,15 @@
                                                     </div>
                                                     <form action="{{ route('cart.destroy', $product->rowId ) }}" method="post">
                                                         <!-- user data -->
-                                                        <input type="hidden" name="id" id="user_id" value="{{ $user->id }}" >
-                                                        <input type="hidden" name="email" id="user_email" value="{{ $user->email }}" >
-                                                        <input type="hidden" name="name" id="user_name" value="{{ $user->name }}" >
-                                                        <input type="hidden" name="telephone" id="user_phone" value="{{ $user->telephone }}" >
+                                                        <input type="hidden" name="id" id="user_id" value="{{ isset($user->id) ? $user->id : '' }}" >
+                                                        <input type="hidden" name="email" id="user_email" value="{{ isset($user->email) ? $user->email : '' }}" >
+                                                        <input type="hidden" name="name" id="user_name" value="{{ isset($user->name) ? $user->name : '' }}" >
+                                                        <input type="hidden" name="telephone" id="user_phone" value="{{ isset($user->telephone) ? $user->telephone : '' }}" >
 
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class='text-dark'><i class="fas fa-trash-alt"></i></button>
+                                                    
                                                     </form>
                                             
                                                     </div>
@@ -134,8 +137,6 @@
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div></div>
                                     </div>
-                
-                                 
                                 </div>
 
                                 <div class="col-lg-5">
@@ -208,7 +209,6 @@
                         <li class="list-inline-item">
                             <a class="youtube" href="#"><i class="fab fa-youtube"></i></a>
                         </li>
-                        
                     </ul>
                 </div>
                 <div class="col-md-12 col-lg-8">
@@ -342,14 +342,17 @@
         const preamount = document.querySelector('#amount').textContent.split('.')[0].split(',');
         const amount = parseInt(''+preamount[0]+''+ preamount[1]);
 
-        const id = document.querySelector('#user_id').value;
         const name = document.querySelector('#user_name').value;
         const telephone = document.querySelector('#user_phone').value;
+        const user_id = document.querySelector('#user_id').value;
         const email = document.querySelector('#user_email').value;
 
-
-
         function payer() {
+
+            // on check si l'utilisateur est connectee
+            if (email == '' ) {
+                window.location.href = "/connexion";
+            }
             
             CinetPay.setConfig({
                 apikey: "19307168035e47e4a0a20d24.32798184",
@@ -376,61 +379,89 @@
                 customer_country: 'CM',
                 customer_state: 'CM',
                 customer_zip_code: '00225',
-                "metadata": "user".id,
+                "metadata": "user"+''+user_id,
 
             });
 
             CinetPay.waitResponse(function(data) {
-                if (data.status == "ACCEPTED") {
-                        console.log(data);
-                        sessionStorage.setItem(data);
 
-                        saveTransaction();
-                        saveFacture();
-                        saveDomain()
-                        saveHebergement(params)
-                        // window.location.reload();
-                    
+                if (data.status == "ACCEPTED") {
+
+                    // sessionStorage.setItem('data',data);
+                    saveTransaction(data);
+
                 } else if (data.status == "REFUSED") {
-                    console.log(data);
-                
-            
-                    sessionStorage.setItem(data);
+
+                    // sessionStorage.setItem('data',data);
                     // En cas d'echec on enregistre la transaction echoue
-                        setTimeout(() => {
-                            saveTransaction()
-                            window.location.reload();
-                        }, 15000);
-                    // 
+                    saveTransaction(data);
 
                 }
             });
 
-
-
-            function saveTransaction() {
-                
-            }
-
-            function saveFacture() {
-                
-            }
-
-            function saveDomain(params) {
-                
-            }
-
-            function saveHebergement(params) {
-                
-            }
-
-            
-
             CinetPay.onError(function(data) {
                 console.log(data);
             });
-
         }
+
+
+        function saveTransaction(data) {
+
+            // console.log('saveTransaction begin');
+
+            $.ajax({
+                url: "save-transaction",
+                type:"POST",
+                data:{
+                    _token: "{{ csrf_token() }}",
+                    userId:user_id,
+                    montant:data.amount,
+                    mode:data.payment_method,
+                    status:data.status,
+                    currency:data.currency,
+                    description:data.description
+                },
+                success: function(responses) {
+                    console.log(responses);
+                    console.log('L\'enregistrement s\'est bien deroulee');
+                },
+                error: function(response){
+                    console.log(response);
+                    console.log('Une erreur est survenue lors de l\'enregistrement de la transaction');
+                }
+            });
+
+            return false;
+        }
+
+        
+        function saveFacture() {
+            $.ajax({
+                url: "save-transaction",
+                type:"POST",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    userId:userId,
+                    montant:data.amount,
+                    mode:data.payment_method,
+                    status:data.status,
+                    payment_date:data.payment_date,
+                    currency:data.currency,
+                    description:data.description
+                },
+                success: function(responses) {
+                    console.log('L\'enregistrement s\'est bien deroulee');
+                },
+                error: function(response){
+                    console.log('Une erreur est survenue lors de l\'enregistrement de la transaction');
+                }
+            });
+        }
+
+        function saveDomain(params) {}
+
+        function saveHebergement(params) {}
+
     </script>
 
 </body>

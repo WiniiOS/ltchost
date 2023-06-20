@@ -45,11 +45,9 @@ Route::get('connexion', [UserController::class, 'connexion'])->name('connexion')
 Route::post('sign-up', [UserController::class, 'save'])->name('save');
 Route::post('authentify', [UserController::class, 'authentify'])->name('authentify');
 
-
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 /* Client Space */
-
 Route::get('showSpace', [UserController::class, 'showSpace'])->name('showSpace');
 
 Route::get('user-profile', [HoistingController::class, 'showProfile'])->name('user-profile');
@@ -58,13 +56,13 @@ Route::post('domain-transfer-form', [HoistingController::class, 'domainTransfer'
 
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
-
 /* Cart Routes */
 Route::get('panier/ajouter', [CartController::class, 'store'])->name('cart.store');
 Route::get('panier', [CartController::class, 'index'])->name('panier');
 Route::get('videpanier', function() {
     Cart::destroy();
 });
+
 Route::delete('panier/{rowId}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 /* Factures Routes */
@@ -74,8 +72,11 @@ Route::get('facture', [CartController::class, 'generatePDF'])->name('facture');
 Route::get('mail', [CartController::class, 'sendMailFacture'])->name('mail');
 Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');
 
+// Panier
+Route::get('panier', [CartController::class, 'index'])->name('panier');
 
 // test
-Route::get('test', [HoistingController::class, 'checkDomainAvailability'])->name('test');
+Route::post('save-transaction', [CartController::class, 'saveTransaction']);
 
 Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notify');
+

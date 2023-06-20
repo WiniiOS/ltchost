@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Models\Facture;
 use App\Models\Product;
+use App\Models\Transaction;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -12,26 +13,21 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
-
     public function index()
     {
         $products = Cart::content();
         $user = session()->get('user');
 
-
         return view('panier', [
             'products' => $products,
             'user' => $user
         ]);
-
     }
 
     public function destroy($rowId)
     {
-
         Cart::remove($rowId);
         return back()->with('success','Le produit a été supprimé.');
-
     }
 
     public $packages = [
@@ -93,10 +89,6 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-        // $user = session()->get('user');
-        // if (empty($user)) {
-        //     return redirect('connexion');
-        // }
 
         $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
             return $cartItem->id === $request->id;
@@ -106,25 +98,15 @@ class CartController extends Controller
             return redirect('/')->with('success','Le produit a déjà été ajouté au panier.');
         }
 
-        // Pour les packages
-        // if( $request->id <= 3 ) {
+        // on verifie si c'est un nom de domaine gratuit et on met le prix a zero
+        $free_domains = ['.com','.net','.cm','.org','.biz','.io'];
+        $price = $request->price;
 
-        //     $product = Product::find($request->id);
-        //     // Order : Id, Name, Quantity & Price
-        //     $cartItem = Cart::add($product->id,$product->title,1,$product->price)
-        //                 ->associate('Product');
 
-        // }else{
-        //     // Cas des noms de domaines
-        //     $cartItem = Cart::add($request->id,$request->title,1,$request->price)
-        //             ->associate('Product');
-        // }
-
-        $cartItem = Cart::add($request->id,$request->title,1,$request->price)
+        $cartItem = Cart::add($request->id,$request->title,1,$price)
                     ->associate('Product');
 
         return redirect('/')->with('success','Le produit a bien été ajouté.');
-
     }
 
 
@@ -181,6 +163,35 @@ class CartController extends Controller
         ]);
 
         return redirect('connexion');
+    }
+
+    public function saveTransaction(Request $request)
+    {
+        $userId = $request->userId;
+        $montant = $request->montant;
+        $payment_mode = $request->mode;
+        $status = $request->status;
+        $currency = $request->currency;
+        $description = $request->description;
+
+        //on crée un enregistrement de notre User en BD
+        Transaction::create([
+            'userId' => $userId,
+            'montant' => $montant,
+            'mode' => $payment_mode,
+            'status' => $status,
+            'currency' => $currency,
+            'description' => $description
+        ]);
+
+        return response()->json('save transaction Ok');
+
+        sendMailFacture($request);
+        storeInvoice($data,$user);
+        storeSubscription();
+
+        return false;
+        
     }
 
 

@@ -13,6 +13,8 @@ class Transaction extends Model
         'userId',
         'montant',
         'mode',
-        'type',
+        'status',
+        'currency',
+        'description'
     ];
 }

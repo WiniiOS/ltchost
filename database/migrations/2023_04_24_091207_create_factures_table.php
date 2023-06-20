@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('clientId');
             $table->string('reference');
-            $table->string('date_payement');
-            $table->string('mode_de_reglement');
-            $table->string('reference_du_payement');
+            $table->string('mode');
             $table->string('produits');
             $table->integer('total_ht');
             $table->integer('total_ttc');
