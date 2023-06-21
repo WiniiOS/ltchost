@@ -79,8 +79,14 @@
                                                     @endif
 
                                                     <div class="ms-3">
-                                                        <h5>{{ $product->name }} </h5>
-                                                        <p class="small mb-0"> Hebergement Annuel </p>
+                                                        @if($product->id > 3)
+                                                            <h5 class='domain_name'>{{ $product->name }} </h5>
+                                                            <p class="small mb-0"> Achat d'un nom de domaine </p>
+                                                        @else
+                                                            <h5 class='package_name'>{{ $product->name }} </h5>
+                                                            <p class="small mb-0"> Hebergement Annuel </p>
+                                                        @endif
+
                                                     </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
@@ -91,6 +97,7 @@
                                                         <h5 class="mb-0"> {{ $product->price }} F CFA</h5>
                                                     </div>
                                                     <form action="{{ route('cart.destroy', $product->rowId ) }}" method="post">
+
                                                         <!-- user data -->
                                                         <input type="hidden" name="id" id="user_id" value="{{ isset($user->id) ? $user->id : '' }}" >
                                                         <input type="hidden" name="email" id="user_email" value="{{ isset($user->email) ? $user->email : '' }}" >
@@ -99,6 +106,7 @@
 
                                                         @csrf
                                                         @method('DELETE')
+
                                                         <button type="submit" class='text-dark'><i class="fas fa-trash-alt"></i></button>
                                                     
                                                     </form>
@@ -347,6 +355,14 @@
         const user_id = document.querySelector('#user_id').value;
         const email = document.querySelector('#user_email').value;
 
+        if (document.querySelector('.domain_name') !== undefined ) {
+            
+        }
+        const domainProduct = document.querySelector('.domain_name').textContent;
+        const packProduct = document.querySelector('.package_name').textContent;
+
+        
+
         function payer() {
 
             // on check si l'utilisateur est connectee
@@ -358,7 +374,7 @@
                 apikey: "19307168035e47e4a0a20d24.32798184",
                 site_id: 948395,
                 notify_url: 'http://localhost:8000/notify/',
-                return_url: 'http://localhost:8000',
+                return_url: 'http://127.0.0.1:8000/',
                 mode: 'PRODUCTION'
             });
 
@@ -384,18 +400,14 @@
             });
 
             CinetPay.waitResponse(function(data) {
-
                 if (data.status == "ACCEPTED") {
-
                     // sessionStorage.setItem('data',data);
                     saveTransaction(data);
-
                 } else if (data.status == "REFUSED") {
-
                     // sessionStorage.setItem('data',data);
+                    console.log(data);
                     // En cas d'echec on enregistre la transaction echoue
                     saveTransaction(data);
-
                 }
             });
 
@@ -404,10 +416,9 @@
             });
         }
 
-
         function saveTransaction(data) {
 
-            // console.log('saveTransaction begin');
+            console.log('saveTransaction begin');
 
             $.ajax({
                 url: "save-transaction",
@@ -419,11 +430,17 @@
                     mode:data.payment_method,
                     status:data.status,
                     currency:data.currency,
-                    description:data.description
+                    description:data.description,
+                    domain_name:domainProduct,
+                    package:packProduct
                 },
                 success: function(responses) {
+                    
                     console.log(responses);
                     console.log('L\'enregistrement s\'est bien deroulee');
+
+                    console.log('save data ended');
+
                 },
                 error: function(response){
                     console.log(response);
@@ -431,36 +448,7 @@
                 }
             });
 
-            return false;
         }
-
-        
-        function saveFacture() {
-            $.ajax({
-                url: "save-transaction",
-                type:"POST",
-                data:{
-                    "_token": "{{ csrf_token() }}",
-                    userId:userId,
-                    montant:data.amount,
-                    mode:data.payment_method,
-                    status:data.status,
-                    payment_date:data.payment_date,
-                    currency:data.currency,
-                    description:data.description
-                },
-                success: function(responses) {
-                    console.log('L\'enregistrement s\'est bien deroulee');
-                },
-                error: function(response){
-                    console.log('Une erreur est survenue lors de l\'enregistrement de la transaction');
-                }
-            });
-        }
-
-        function saveDomain(params) {}
-
-        function saveHebergement(params) {}
 
     </script>
 

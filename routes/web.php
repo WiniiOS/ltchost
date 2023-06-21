@@ -75,8 +75,11 @@ Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');
 // Panier
 Route::get('panier', [CartController::class, 'index'])->name('panier');
 
-// test
 Route::post('save-transaction', [CartController::class, 'saveTransaction']);
 
 Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notify');
 
+
+
+// test
+Route::get('test', [CartController::class, 'saveTransaction'])->name('test');

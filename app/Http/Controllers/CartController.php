@@ -6,6 +6,13 @@ use PDF;
 use App\Models\Facture;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\Hebergement;
+use App\Models\Domain;
+
+use Carbon\Carbon;
+
+
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -109,14 +116,108 @@ class CartController extends Controller
         return redirect('/')->with('success','Le produit a bien été ajouté.');
     }
 
-
-    public function sendMailFacture(Request $request)
+    public function saveTransaction(Request $request)
     {
-        $user_email = 'franckndi5@gmail.com' ;
-        $name = 'Franck';
+
+        $userId = $request->userId;
+        $montant = $request->montant;
+        $payment_mode = $request->mode;
+        $currency = $request->currency;
+        $description = $request->description;
+        $status = $request->status;
+
+        $domainName = $request->domain_name;
+
+        $package = $request->package;
+
+        $expiration_date = Carbon::now()->addDays(365);
+
+        $ref = 'L'.rand(1, 15000000).'TC'.$userId;
+        $produits = json_encode(array('domain' => $domainName,'package' => $package));
+
+        //on crée un enregistrement de notre User en BD
+        Transaction::create([
+            'userId' => $userId,
+            'montant' => $montant,
+            'mode' => $payment_mode,
+            'status' => $status,
+            'currency' => $currency,
+            'description' => $description
+        ]);
+
+        // if ($status == 'ACCEPTED') {
+
+            $this->saveFacture($userId,$ref,$payment_mode,$produits,$montant);
+
+            $this->saveDomain($userId, $domainName, $dns1 = '', $dns2 = '', $expiration_date);
+
+            $this->saveHebergement($userId,$package,$expiration_date);
+
+            $this->sendMailFacture($ref);
+
+        // }
+
+        return response()->json('All save test Win successfully');
+        
+    }
+
+    public function saveFacture($client,$ref,$mode,$produits = '' ,$total)
+    {
+        //on crée un enregistrement de notre User en BD
+        Facture::create([
+            'clientId' => $client,
+            'reference' => $ref,
+            'mode' => $mode,
+            'produits' => json_encode($produits),
+            'total_ht' => $total,
+            'total_ttc' => $total
+        ]);
+
+        return false;
+    }
+
+    public function saveHebergement($client,$packageChoisi,$dateFin)
+    {
+        //on crée un enregistrement de notre User en BD
+        Hebergement::create([
+            'userId' => $client,
+            'packageChoisi' => $packageChoisi,
+            'dateFin' => $dateFin,
+        ]);
+
+        return false;
+
+    }
+
+    public function saveDomain($client, $domain, $dns1 = '', $dns2 = '', $expirationDate)
+    {
+        
+        //on crée un enregistrement de notre User en BD
+        Domain::create([
+            'userId' => $client,
+            'domainName' => $domain,
+            'dns1' => $dns1,
+            'dns2' => $dns2,
+            'expirationDate' => $expirationDate
+        ]);
+
+        return false;
+    }
+ 
+
+    public function sendMailFacture($reference = '')
+    {
+        $user = session()->get('user');
+        $user_email = $user->email;
+        $name = $user->name;
+
+        
+        // dd($user->name);
+
+
         $reference ='MONIÉ324AS';
-        // $data['reference'] = $reference ;
-        $data['email'] = 'franckndi5@gmail.com' ;
+        $data['reference'] = $reference ;
+        $data['email'] = $user_email;
         $data['title'] = 'Votre facture est disponible' ;
         $data['body'] = '' ;
 
@@ -131,76 +232,12 @@ class CartController extends Controller
         return response()->json(['message' => 'Facture envoyée avec succès']);
     }
 
-    public function storeInvoice($data,$user)
-    {
-        //on crée un enregistrement de notre User en BD
-        Facture::create([
-            'clientId' => $data->clientId,
-            'reference' => $data->reference,
-            'date_payement' => $data->date_payement,
-            'mode_de_reglement' => $data->mode_de_reglement,
-            'reference_du_payement' => $data->reference_du_payement,
-            'produits' => $data->produits,
-            'total_ht' => $data->total_ht,
-            'total_ttc' => $data->total_ttc,
-        ]);
 
-        return redirect('connexion');
-    }
-
-    public function storeSubscription($data,$user)
-    {
-        //on crée un enregistrement de notre User en BD
-        Subscription::create([
-            'user_id' => $request->clientId,
-            'name' => $request->reference,
-            'stripe_id' => $request->date_payement,
-            'mode_de_reglement' => $request->mode_de_reglement,
-            'reference_du_payement' => $request->reference_du_payement,
-            'produits' => $request->produits,
-            'total_ht' => $request->total_ht,
-            'total_ttc' => $request->total_ttc,
-        ]);
-
-        return redirect('connexion');
-    }
-
-    public function saveTransaction(Request $request)
-    {
-        $userId = $request->userId;
-        $montant = $request->montant;
-        $payment_mode = $request->mode;
-        $status = $request->status;
-        $currency = $request->currency;
-        $description = $request->description;
-
-        //on crée un enregistrement de notre User en BD
-        Transaction::create([
-            'userId' => $userId,
-            'montant' => $montant,
-            'mode' => $payment_mode,
-            'status' => $status,
-            'currency' => $currency,
-            'description' => $description
-        ]);
-
-        return response()->json('save transaction Ok');
-
-        sendMailFacture($request);
-        storeInvoice($data,$user);
-        storeSubscription();
-
-        return false;
-        
-    }
-
-
-    public function generatePDF()
+    public function generatePDF($data)
     {
         $data = ['foo' => 'bar']; // Données à passer à la vue
         // Charger la vue 'pdf.myview' avec les données
         $pdf = PDF::loadView('invoice', $data); 
-        // Pdf::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
         // Télécharger le PDF avec un nom de fichier personnalisé
         return $pdf->download("facture_ltc_host_ref.pdf");
     }

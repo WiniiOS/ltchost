@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('userId');
             $table->integer('montant');
             $table->string('mode');
-            $table->enum('status', ['ACCEPTED', 'REFUSED']);
+            $table->string('status');
             $table->string('currency');
             $table->string('description');
             $table->timestamps();

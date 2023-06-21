@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('userId');
             $table->string('packageChoisi');
-            $table->date('dateDebut');
             $table->date('dateFin');
             $table->timestamps();
         });

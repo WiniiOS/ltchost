@@ -13,8 +13,7 @@ class Hebergement extends Model
     protected $fillable = [
         'userId',
         'packageChoisi',
-        'dateDebut',
-        'dateFin',
+        'dateFin'
     ];
 
     public function user()

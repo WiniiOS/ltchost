@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('userId');
             $table->string('domainName');
-            $table->string('dns1');
-            $table->string('dns2');
+            $table->string('dns1')->nullable();
+            $table->string('dns2')->nullable();
             $table->date('expirationDate');
             $table->timestamps();
         });
