@@ -349,20 +349,14 @@
 
         const preamount = document.querySelector('#amount').textContent.split('.')[0].split(',');
         const amount = parseInt(''+preamount[0]+''+ preamount[1]);
-
         const name = document.querySelector('#user_name').value;
         const telephone = document.querySelector('#user_phone').value;
         const user_id = document.querySelector('#user_id').value;
         const email = document.querySelector('#user_email').value;
 
-        if (document.querySelector('.domain_name') !== undefined ) {
-            
-        }
         const domainProduct = document.querySelector('.domain_name').textContent;
         const packProduct = document.querySelector('.package_name').textContent;
-
         
-
         function payer() {
 
             // on check si l'utilisateur est connectee
@@ -401,11 +395,9 @@
 
             CinetPay.waitResponse(function(data) {
                 if (data.status == "ACCEPTED") {
-                    // sessionStorage.setItem('data',data);
                     saveTransaction(data);
                 } else if (data.status == "REFUSED") {
-                    // sessionStorage.setItem('data',data);
-                    console.log(data);
+                    // console.log(data);
                     // En cas d'echec on enregistre la transaction echoue
                     saveTransaction(data);
                 }
@@ -414,12 +406,12 @@
             CinetPay.onError(function(data) {
                 console.log(data);
             });
+
         }
 
         function saveTransaction(data) {
 
-            console.log('saveTransaction begin');
-
+            // console.log('saveTransaction begin');
             $.ajax({
                 url: "save-transaction",
                 type:"POST",
@@ -435,15 +427,12 @@
                     package:packProduct
                 },
                 success: function(responses) {
-                    
-                    console.log(responses);
+                    // console.log(responses);
                     console.log('L\'enregistrement s\'est bien deroulee');
-
-                    console.log('save data ended');
-
+                    // console.log('save data ended');
                 },
                 error: function(response){
-                    console.log(response);
+                    // console.log(response);
                     console.log('Une erreur est survenue lors de l\'enregistrement de la transaction');
                 }
             });

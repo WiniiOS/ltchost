@@ -82,4 +82,4 @@ Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notif
 
 
 // test
-Route::get('test', [CartController::class, 'saveTransaction'])->name('test');
+// Route::get('test', [CartController::class, 'saveTransaction'])->name('test');

@@ -125,13 +125,9 @@ class CartController extends Controller
         $currency = $request->currency;
         $description = $request->description;
         $status = $request->status;
-
         $domainName = $request->domain_name;
-
         $package = $request->package;
-
         $expiration_date = Carbon::now()->addDays(365);
-
         $ref = 'L'.rand(1, 15000000).'TC'.$userId;
         $produits = json_encode(array('domain' => $domainName,'package' => $package));
 
@@ -145,7 +141,7 @@ class CartController extends Controller
             'description' => $description
         ]);
 
-        // if ($status == 'ACCEPTED') {
+        if ($status == 'ACCEPTED') {
 
             $this->saveFacture($userId,$ref,$payment_mode,$produits,$montant);
 
@@ -154,8 +150,10 @@ class CartController extends Controller
             $this->saveHebergement($userId,$package,$expiration_date);
 
             $this->sendMailFacture($ref);
+        }
 
-        // }
+        // for test
+        $this->sendMailFacture($ref);
 
         return response()->json('All save test Win successfully');
         
@@ -184,9 +182,7 @@ class CartController extends Controller
             'packageChoisi' => $packageChoisi,
             'dateFin' => $dateFin,
         ]);
-
         return false;
-
     }
 
     public function saveDomain($client, $domain, $dns1 = '', $dns2 = '', $expirationDate)
@@ -211,14 +207,12 @@ class CartController extends Controller
         $user_email = $user->email;
         $name = $user->name;
 
-        
-        // dd($user->name);
+        $data['name'] = $name;
+        $data['telephone'] = $user->telephone;
 
-
-        $reference ='MONIÉ324AS';
         $data['reference'] = $reference ;
         $data['email'] = $user_email;
-        $data['title'] = 'Votre facture est disponible' ;
+        $data['title'] = 'La facture de votre souscription LTC HOST est disponible' ;
         $data['body'] = '' ;
 
         $pdf = PDF::loadView('invoice', $data);
@@ -226,10 +220,10 @@ class CartController extends Controller
         Mail::send("emails.invoice_mail", $data, function ($message) use ($reference,$user_email,$name, $pdf) {
                 $message->to($user_email,$name)
                         ->subject('Votre facture est disponible')
-                        ->attachData($pdf->output(), 'facture_'.$reference.'.pdf');
+                        ->attachData($pdf->output(), 'facture_'.$name.''.$reference.'.pdf');
         });
 
-        return response()->json(['message' => 'Facture envoyée avec succès']);
+        return false;
     }
 
 
