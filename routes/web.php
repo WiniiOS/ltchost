@@ -8,7 +8,6 @@ use App\Http\Controllers\HoistingController;
 use App\Http\Controllers\ContactController;
 
 
-
 Route::get('/', [HoistingController::class, 'index'])->name('home');
 Route::get('email_hosting', [HoistingController::class, 'email_hosting'])->name('email_hosting');
 Route::get('terms-condition', [HoistingController::class, 'terms'])->name('terms');
@@ -82,4 +81,4 @@ Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notif
 
 
 // test
-// Route::get('test', [CartController::class, 'saveTransaction'])->name('test');
+Route::get('test', [CartController::class, 'sendMailFacture'])->name('test');

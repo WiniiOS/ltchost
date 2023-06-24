@@ -13,23 +13,18 @@
     <link href="assets/css/all.min.css?v=03d1c3" rel="stylesheet">
     <link href="assets/css/theme.min.css?v=03d1c3" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" />
-
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" /> -->
     <link href="assets/css/swiper-bundle.min.css?v=03d1c3" rel="stylesheet">
     <link href="assets/css/kohost.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
-
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
-
     <link href="assets/css/invoice.min.css?v=03d1c3" rel="stylesheet">
-
 
 </head>
 
 <body>
     
-
     <div class="container-fluid invoice-container">
 
             <div class="row invoice-header">

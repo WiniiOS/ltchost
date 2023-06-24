@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Facture;
+use App\Models\Domain;
+use App\Models\Hebergement;
+use App\Models\Transactions;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -16,15 +21,11 @@ class UserController extends Controller
     public function showSpace(Request $request)
     {
         $routeCkeck = route('connexion') . '?previous=' . $request->fullUrl() ;
-
         $user = session()->get('user');
-
-        // dd($user);
         if (empty($user)) {
             return redirect($routeCkeck);
         }
         return view('espace-client',['user_data' => $user]);
-
     }
 
     public function save(Request $request)
@@ -41,12 +42,7 @@ class UserController extends Controller
         $pass1 = $request->password;
         $pass2 = $request->confirmPassword;
 
-        // $data = array('name' => $request->name,'email' => $request->email,'telephone' => $request->telephone);
-
-        // $request->session()->put('cachedData', $data);
-
         if ($pass1 != $pass2) {
-
             return redirect('/sign-up')->withErrors(['Les mots de passe ne correspondent pas!'])->withInput();
         }
 
@@ -58,19 +54,7 @@ class UserController extends Controller
             'password' => sha1($request->password),
         ]);
 
-
-
         return redirect('connexion');
-    }
-
-    public function connexion()
-    {
-        return view("login");
-    }
-
-    public function register()
-    {
-        return view("sign-up");
     }
 
     public function authentify(Request $request){
@@ -111,16 +95,14 @@ class UserController extends Controller
 
     }
 
-    // Methode qui donne access à une route en cas d'authentification
-    public function layoutAccess(Request $request){
+    public function connexion()
+    {
+        return view("login");
+    }
 
-        if ($request->session()->has('user')) {
-            return view('404',[
-                'user' => $request->session()->get('user')
-            ]);
-        }else{
-            return redirect('/')->withErrors(["Veuillez vous authentifier avant de payer un ticket"])->withInput();
-        }
+    public function register()
+    {
+        return view("sign-up");
     }
 
     public function getOne($id)
@@ -130,33 +112,28 @@ class UserController extends Controller
     }
 
     // fonction pour récupèrer tous les users
-    public function all_users()
+    public function allUsers()
     {
         // On recupere tous les users en base de donnée
         $users = User::all();
-
         return view('users',[
             'users' => $users
         ]);
-
     }
 
     // Fonction qui met à jour les données d'un user
-    public function update($id,Request $request){
+    public function update(Request $request){
 
-        $user = User::find($id);
-
+        $user = User::find($request->$id);
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'telephone' => $request->telephone,
-            'password' => $request->password,
+            'telephone' => $request->telephone
         ]);
-
-        return back()->with('message', 'Utilisateur édité avec succès');
-
+        return back()->with('message', 'Vos informations ont été modifié avec succès');
     }
 
+    // Fonction de deconnexion
     public function logout(Request $request)
     {
         $request->session()->forget('user'); 
@@ -165,22 +142,15 @@ class UserController extends Controller
 
     // Fonction qui supprime un user
     public function delete($id){
-
         $user = User::find($id);
         $user->delete();
         return 'Utilisateur supprimée avec success';
-
     }
 
-    // Fonction qui récupère 10 users
-    public function get_some_users()
-    {
-        $users = User::orderBy('name')->take(10)->get();
+    function getFactureById($id) {
 
-        return view('index-slider',[
-            'users' => $users
-        ]);
-        
+        $factures = Facture::all();
+        return $factures;
     }
 
 }

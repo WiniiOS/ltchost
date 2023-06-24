@@ -170,12 +170,12 @@ class CartController extends Controller
             'total_ht' => $total,
             'total_ttc' => $total
         ]);
-
         return false;
     }
 
     public function saveHebergement($client,$packageChoisi,$dateFin)
     {
+
         //on crée un enregistrement de notre User en BD
         Hebergement::create([
             'userId' => $client,
@@ -183,11 +183,11 @@ class CartController extends Controller
             'dateFin' => $dateFin,
         ]);
         return false;
+
     }
 
     public function saveDomain($client, $domain, $dns1 = '', $dns2 = '', $expirationDate)
     {
-        
         //on crée un enregistrement de notre User en BD
         Domain::create([
             'userId' => $client,
@@ -196,12 +196,10 @@ class CartController extends Controller
             'dns2' => $dns2,
             'expirationDate' => $expirationDate
         ]);
-
         return false;
     }
- 
 
-    public function sendMailFacture($reference = '')
+    public function sendMailFacture($reference = 'xcvfd')
     {
         $user = session()->get('user');
         $user_email = $user->email;
@@ -215,8 +213,10 @@ class CartController extends Controller
         $data['title'] = 'La facture de votre souscription LTC HOST est disponible' ;
         $data['body'] = '' ;
 
+        // la vue invoice pour le pdf
         $pdf = PDF::loadView('invoice', $data);
 
+        // vue du mail
         Mail::send("emails.invoice_mail", $data, function ($message) use ($reference,$user_email,$name, $pdf) {
                 $message->to($user_email,$name)
                         ->subject('Votre facture est disponible')
