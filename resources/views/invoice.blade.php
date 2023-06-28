@@ -1,155 +1,231 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+ <html lang="en">
+ <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  /> --}}
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!--favicon icon-->
-    <link rel="icon" href="{{ url('assets/img/favicon.png') }}" type="image/png" sizes="16x16" />
-    <!--title-->
-    <title>Facture</title>
-    <!-- endbuild -->
-    <link href="assets/css/invoice.min.css?v=03d1c3" rel="stylesheet">
-</head>
+	<link rel="stylesheet" href="style.css">
+	<title>facture</title>
+	<style>
 
-<body>
-    
-    <div class="container-fluid invoice-container">
+        body{
+			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			padding-bottom: 3rem;
+		}
+		.header{
+			padding: 2rem 1rem 2rem 0;
+			background: #02345c;
+			display: flex;
+			justify-content: space-between;
+			
+		}
+		.header .top{
+			display: flex;
+			justify-content: space-between;
+		}
+		.header .top h5{
+			color: white;
+		}
+		.header .top h1{
+			color: white;
+			font-weight: bold
+		}
+		.header .top img{
+                     
+            width: 150px;
+			margin-left: 20px;
+		}
+		.information{
+			display: flex;
+			width: 100%;
+			margin-top: 3rem;
+			margin-bottom: 3rem;
+		}
+		.information .right{
+			width: 50%;
 
-            <div class="row invoice-header">
-                <div class="col-12 col-sm-6 justify-content-sm-between text-center text-sm-left invoice-col">
 
-                <p><img src="assets/img/logo.png" title="ThemeTags" /></p>
-                <h5>Fature </h5>
+		}
+		.information .right ul{
+			list-style: none;
+		}
+		.information .right ul li strong{
+			opacity: 0.8;
+		}
+		.information .left{
+			width: 50%;
+			text-align: right;
+			padding-right: 10%;
+		}
+		.information .left p strong{
+			opacity: 0.8;
+		}
+		.detail .titre{
+			padding-left: 27px;
+		}
+		.detail .titre h6 strong{
+			opacity: 0.8;
+		}
+		.detail .tableau table {
+			width: 80%;
+            border-collapse: collapse;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 1rem;
+			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
-                </div>
-                <div class="col-12 col-sm-6 invoice-col text-center">
 
-                <div class="invoice-status">
-                    <span class="paid">Pago</span>
-                </div>  
-                    
-                </div>
-            </div>
+		}
+		
 
-            <hr>
-            
-            <div class="row justify-content-sm-between">
-                <div class="col-12 col-sm-6 order-sm-last text-sm-right invoice-col right">
-                    <strong>Pagar a</strong>
-                    <address class="small-text">
-                        Address goes here...
-                    </address>
-                </div>
-                <div class="col-12 col-sm-6 invoice-col">
-                    <strong>Faturado para</strong>
-                        <address class="small-text">
-                        ThemeTags <br />asd Hex<br />
-                        121 King Street, Melbourne, <br />
-                        Melbourne, , 3000<br />
-                        Israel
-                        </address>
-                </div>
-            </div>
+		  
 
-            <div class="row">
-                <div class="col-12 col-sm-6 order-sm-last text-sm-right invoice-col right">
-                    <strong>Forma de Pagamento</strong><br>
-                    <span class="small-text float-sm-right" data-role="paymethod-info">
-                                                    PayPal                                            </span>
-                    <br /><br />
-                </div>
-                <div class="col-12 col-sm-6 invoice-col">
-                    <strong>Data da Fatura</strong><br>
-                    <span class="small-text">
-                        Tuesday, January 4th, 2022<br><br>
-                    </span>
-                </div>
-            </div>
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-            <br />
+        th {
+            background-color: #f2f2f2;
+        }
 
-            
-            
-            <div class="card bg-default">
-                <div class="card-header">
-                    <h5 class="card-title mb-0 font-size-24"><strong>Fatura Itens</strong></h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-sm">
-                        <thead>
-                        <tr>
-                            <td><strong>Descrição</strong></td>
-                            <td width="20%" class="text-center"><strong>Valor</strong></td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                                                    <tr>
-                                <td>Addon (themetags.org) - Weebly Website Builder - Free (01/04/2022 - 02/03/2022)</td>
-                                <td class="text-center">$0.00 USD</td>
-                            </tr>
-                                                <tr>
-                            <td class="total-row text-right"><strong>Sub Total</strong></td>
-                            <td class="total-row text-center">$0.00 USD</td>
-                        </tr>
-                                                                        <tr>
-                            <td class="total-row text-right"><strong>Crédito</strong></td>
-                            <td class="total-row text-center">$0.00 USD</td>
-                        </tr>
-                        <tr>
-                            <td class="total-row text-right"><strong>Total</strong></td>
-                            <td class="total-row text-center">$0.00 USD</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        /* Style pour les cellules de la première colonne */
+        td:first-child {
+            font-weight: bold;
+			opacity: 0.8;
+        }
 
-            
-            <div class="transactions-container small-text">
-                <div class="table-responsive">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <td class="text-center"><strong>Data Transação</strong></td>
-                                <td class="text-center"><strong>Forma</strong></td>
-                                <td class="text-center"><strong>ID. Transação</strong></td>
-                                <td class="text-center"><strong>Valor</strong></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                                            <tr>
-                                    <td class="text-center" colspan="4">Nenhuma Transação Relacionada</td>
-                                </tr>
-                                                        <tr>
-                                <td class="text-right" colspan="3"><strong>Balanço</strong></td>
-                                <td class="text-center">$0.00 USD</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        /* Style pour les cellules de la dernière colonne */
+        td:last-child {
+            text-align: left;
+        }
+		.contact {
+			padding-left: 27px;
+			margin-top: 4rem;
 
-            <div class="float-right btn-group btn-group-sm d-print-none">
-                <a href="javascript:window.print()" class="btn btn-default"><i class="fas fa-print"></i> imprimer</a>
-                <a href="dl.php?type=i&amp;id=4" class="btn btn-default"><i class="fas fa-download"></i> Download</a>
-            </div>
+		}
+		.contact p .s{
+			color: #ffeb3b;
+			font-size: 18px;
+		}
+		.contact p strong{
+			opacity: 0.8;
+		}
 
-    </div>
+		@media (max-width:750px){
+			.header .top{
+				display: block;
+				text-align: center;
+			}
+			.information {
+			 display: block;
+			 text-align: center;
+			}
+			.information .right{
+				width: 100%;
+			}
+			.information .left{
+				width: 100%;
+			}
+		}
 
-    <p class="text-center d-print-none"><a href="clientarea.php?action=invoices">&laquo; Retornar para Área do Cliente</a></p>
+	</style>
+ </head>
+ <body>
 
-    <div id="fullpage-overlay" class="w-hidden">
-        <div class="outer-wrapper">
-            <div class="inner-wrapper">
-                <img src="/assets/img/overlay-spinner.svg" alt="">
-                <br>
-                <span class="msg"></span>
-            </div>
-        </div>
-    </div>
 
-</body>
+   <div class="header">
+	<div class="container top">
+		
+	 
+			 <h1>LTCHOST</h1>
+	   
+			<h5>Facture de LTCHOST</h5>
+	 
+	</div>
+   </div>
 
-</html>
+   <div class="information">
+	   <div class="right">
+          <ul>
+			<li><strong>Nom du client :</strong> Test Client </li>
+			<li><strong>Email :</strong> franckndi5@gmail.com </li>
+			<li><strong>telephone :</strong> +237 658 682 586</li>
+			 
+		  </ul>
+	   </div>
+	   <div class="left">
+          <p><strong>Date de facturation : </strong> 27/07/20223</p>
+	   </div>
+   </div>
+
+   <div class="detail">
+	   
+		<div class="titre">
+			<h6><strong>Details de la facture</strong></h6>
+		</div>
+
+		<div class="tableau">
+		 
+ 
+ 
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Prix</th>
+                <th>Durée</th>
+				
+             
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Hebergemrnt web</td>
+                <td>{{20000}} F CFA</td>
+                <td>{{ 1 }} An</td>
+                
+            </tr>
+            <tr>
+                <td>Nom de domaine</td>
+                <td>{{ 3000 }} F CFA</td>
+                <td>{{ 1 }} An</td>
+               
+            </tr>
+             
+        </tbody>
+		<tfoot>
+            <tr>
+                <td>Total</td>
+                <td>{{ 23000 }} F CFA </td>
+            </tr>
+        </tfoot>
+         
+    </table>
+ 
+
+		</div>
+	  
+   </div>
+
+   <div class="contact">
+
+	 <p>Merci de votre confiance en LTC HOST.</p>
+	 <p><strong>Coordonnées :</strong> Yaoundé : Mvan descent into BEAC complex, Yaoundé, Cameroon. | Douala : Immeuble Saker Ndokotti Coming from the Ndokotti tunnel just after the total magzi</p>
+	 <p><strong>Phone :</strong>  +237 673 209 375|+237 691 371 922</p>
+	 <p><strong>Email:</strong> contact@ltcgroup.net </p>
+	 <p>Visitez nous_: <a href=" https://www.ltcgroup.net"> https://www.ltcgroup.net.</a></p>
+	 <p>Merci <i class="s fa fa-face-smile"></i> <i class="s fa fa-face-smile"></i> </p>
+
+
+   </div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ </body>
+ </html>

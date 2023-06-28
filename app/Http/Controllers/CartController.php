@@ -94,6 +94,8 @@ class CartController extends Controller
         )
     ];
 
+
+
     public function store(Request $request)
     {
 
@@ -106,20 +108,67 @@ class CartController extends Controller
         }
 
         // on verifie si c'est un nom de domaine gratuit et on met le prix a zero
-        $free_domains = ['.com','.net','.cm','.org','.biz','.io'];
-        $price = $request->price;
+        $firstYearFreeDomains = ['com','net','cm'];
 
+        // nom du domaine a ajouter au panier ou nom du pack choisi
+        $domainOrPackTitle = $request->title;
+        // Comment distinguer le pack du domaine
+        // Les packs ont des identifiants allant fixe allant de 1 a 3 max
+        $productId = $request->id; // On recupere l'identifiant du produit
+
+        // si id > 3 alors il s'agit d'un nom de domaine
+        if ($productId > 3 ) { 
+            // Verification pour traiter la valeur finale du prix cette premiere annee
+            // On check si c'est un nom de domaine gratuit
+            $result = $this->getNameAndExtension($domainOrPackTitle);
+
+            $extension = $result['extension'];
+
+            // Maintenant on check le tableau pour savoir si le domaine sera gratuit
+            if(in_array( $extension, $firstYearFreeDomains )){
+                $price = 0;
+            }else{
+                $price = $request->price;
+            }
+
+        }else{
+            // Ici il s'agit des pack Standard et Business
+            // Les prix ne changent pas
+            $price = $request->price;
+        }
 
         $cartItem = Cart::add($request->id,$request->title,1,$price)
                     ->associate('Product');
 
         return redirect('/')->with('success','Le produit a bien été ajouté.');
     }
+      
+
+    // Fonction qui prend en parametre une url et la dispatch
+    function getNameAndExtension($url) {
+       
+        // Sépare le nom de domaine et l'extension du domaine
+        $domain_parts = explode('.', $url);
+        $extension = end($domain_parts);
+        $domain_name = implode('.', array_slice($domain_parts, 0, -1));
+      
+        // Retourne le nom de domaine et l'extension du domaine sous forme d'un tableau associatif
+        return [
+          'domain_name' => $domain_name,
+          'extension' => $extension,
+        ];
+    }
+
+
+
 
     public function saveTransaction(Request $request)
     {
+        $user = session()->get('user');
 
-        $userId = $request->userId;
+        // dd();
+        $userId = $user->id;
+       
         $montant = $request->montant;
         $payment_mode = $request->mode;
         $currency = $request->currency;
@@ -153,7 +202,7 @@ class CartController extends Controller
         }
 
         // for test
-        $this->sendMailFacture($ref);
+        $this->sendMailFacture($ref,$montant);
 
         return response()->json('All save test Win successfully');
         
@@ -199,12 +248,12 @@ class CartController extends Controller
         return false;
     }
 
-    public function sendMailFacture($reference = 'xcvfd')
+    public function sendMailFacture($reference = 'xcvfd',)
     {
         $user = session()->get('user');
         $user_email = $user->email;
         $name = $user->name;
-
+        $data = [];
         $data['name'] = $name;
         $data['telephone'] = $user->telephone;
 

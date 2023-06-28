@@ -49,17 +49,17 @@
 
         <div class="container-fluid">
             <div class="row info">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="left">
-                        <h5> Vos informations</h5>
+                        <h5>Informations DNS</h5>
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="nom col-3">
-                                        <p>Nom </p>
+                                        <p>Domaine </p>
                                     </div>
                                     <div class="col-9 ">
-                                        <p> : naoussi talla leo</p>
+                                        <p> : domaine</p>
                                     </div>
                                 </div>
 
@@ -68,10 +68,10 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="nom col-3">
-                                        <p>Email </p>
+                                        <p>DNS-1 </p>
                                     </div>
                                     <div class="col-9">
-                                        <p> : naoussileo@gmail.com</p>
+                                        <p> : dns1</p>
                                     </div>
                                 </div>
 
@@ -80,10 +80,10 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="nom col-3">
-                                        <p>Adresse </p>
+                                        <p>DNS-2 </p>
                                     </div>
                                     <div class="col-9">
-                                        <p> : yaoundé anguissa</p>
+                                        <p> : dns2</p>
                                     </div>
                                 </div>
 
@@ -96,162 +96,38 @@
                     <div class="list col-12">
 
                         <ul>
-                            <li> <a href="{{route('showSpacedns')}}">Modifier les informations du DNS <i class="fa fa-arrow-right"></i></a></li>
+                            <li> <a href="{{route('showSpace')}}"><i class="fa fa-arrow-left"></i> Accueil espace client </a></li>
                             <li> <a href="{{route('domain-transfer')}}">Transfert de nom de domaine <i class="fa fa-arrow-right"></i></a></li>
-                            <li> <a href="{{route('showSpacemdp')}} ">Modifier votre mot de passe  <i class="fa fa-arrow-right"></i></a></li>
+
                         </ul>
 
                     </div>
 
                 </div>
-                <div class="col-md-9">
-                    <!-- modifier vos informations -->
+                <div class="col-md-8">
 
-                    <div class="container info">
-                        <div class="row">
-
-                            <div class="col-md-12 col-lg-12 col-ms-12 ">
-                                <div class="right">
-                                    <h5> Modifier vos informations</h5>
-                                    <form action="" method="" class="border">
-                                        <nav class="navbar">
-                                            <div class="container-fluid ">
-
-                                                <a   data-target="nomField">Nom </a>
-                                                <a  data-target="emailField">Email</a>
-                                                <a   data-target="adresseField">Adresse</a>
-
-                                            </div>
-                                        </nav>
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" id="id" name="id">
-                                        </div>
-                                        <div class="form-group" id="nomField">
-                                            <input type="text" class="form-control" id="nom" value="naoussi léo" name="nom">
-                                        </div>
-                                        <div class="form-group" id="emailField" style="display: none;">
-                                            <input type="email" class="form-control" id="email" value="naoussileo@gmail.com" name="email">
-                                        </div>
-                                        <div class="form-group" id="adresseField" style="display: none;">
-                                            <input type="text" class="form-control" id="adresse" value="Yaoundé Anguissa" name="adresse">
-                                        </div>
-                                        <button type="submit" class="btn btn-tertiary">Modifier</button>
-                                    </form>
-                                </div>
+                    <div class="right">
+                        <h5>Modifiier les informations du DNS</h5>
+                        <form class="domaine">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="id" name="id">
                             </div>
-                        </div>
+                            <div class="form-group">
+                            <label for="domaine">Nom de domiane:</label>
+                                <input type="text" class="form-control" id="domaine" value="non de domaine" name="domaine" required>
+                            </div>
+                            <div class="form-group">
+                            <label for="dns1">Dns1:</label>
+                                <input type="text" class="form-control" id="dns1" value="dns1" name="dns1" required>
+                            </div>
+                            <div class="form-group">
+                            <label for="dns2">Dns2:</label>
+                                <input type="text" class="form-control" id="dns2" value="dns1" name="dns2" required>
+                            </div>
+                            <button type="submit" class="btn btn-tertiary">Modifier</button>
+                        </form>
                     </div>
-                    <!-- fin  information personnelle -->
 
-                     
-
-                    <!-- categories  -->
-
-                    <section class="categorie">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card">
-                                        <div class="card-body ">
-                                            <h5 class="">Services <i class="fa-solid fa-bell-concierge"></i></h5>
-                                            <p class="card-text gradient-bg">7</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card ">
-                                        <div class="card-body">
-                                            <h5 class="">Domaines <i class="fa-solid fa-server"></i></h5>
-                                            <p class="card-text gradient-bg"> 2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card ">
-                                        <div class="card-body">
-                                            <h5 class="">Hebergement <i class="fa-solid fa-code-pull-request"></i></h5>
-                                            <p class="card-text gradient-bg">5</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card ">
-                                        <div class="card-body">
-                                            <h5 class="">Factures <i class="fa-solid fa-file-invoice"></i></h5>
-                                            <p class="card-text gradient-bg">5</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </section>
-
-                    <!-- categories  fin  -->
-
-
-
-                    <!-- Domaines -------- -->
-                    <section class="domaine">
-                        <div class="container">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nom de domaine</th>
-                                            <th>Durée</th>
-                                            <th>Date de paiement</th>
-                                            <th>Date d'expiration</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>garaan.com</td>
-                                            <td>1 ans</td>
-                                            <td>2022/01/15</td>
-                                            <td>2023/01/15</td>
-                                        </tr>
-
-                                        <!-- Ajoutez d'autres lignes de données ici -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Domaines -------- -->
-
-
-                    <!-- hebergement -------- -->
-                    <section class="hebergement">
-                        <div class="container">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Hebergements</th>
-                                            <th>Type</th>
-                                            <th>Periode</th>
-                                            <th>Date initiale</th>
-                                            <th>Expiration</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>garaan.com</td>
-                                            <td>Pack standard</td>
-                                            <td>1 ans</td>
-                                            <td>2022/01/15</td>
-                                            <td>2023/01/16</td>
-                                        </tr>
-
-                                        <!-- Ajoutez d'autres lignes de données ici -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- hebergement -------- -->
                 </div>
             </div>
         </div>

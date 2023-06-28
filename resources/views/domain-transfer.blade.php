@@ -15,6 +15,7 @@
 
     <!--build:css-->
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
+    <link id="theme-style" href="{{asset('assets/css/transfert.css')}}" as="style" rel="stylesheet" />
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
 
@@ -43,7 +44,7 @@
                             <div class="domain-transfer-wrap mt-4">
                                 <form id="domain-transfert" class="domain-transfer-form  position-relative w-75">
                                 @csrf
-                                    <input type="text" value="" required name="domain" id="domain" class="form-control rounded-pill"  />
+                                    <input type="text" value="" required name="domain" id="domain" placeholder="Non de domaine" class="form-control rounded-pill"  />
                                     <input type="text" required name="authcode" id="authcode" class="form-control rounded-pill" placeholder="code EPP" />
                                     <br>
                                     <button type="submit" class="btn btn-tertiary rounded-pill">
@@ -239,10 +240,6 @@
 
             });
         });
-
-
-        
-
 
         </script>
 

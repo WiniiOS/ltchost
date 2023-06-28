@@ -39,7 +39,8 @@
                     <div class="col-12 col-md-7 col-lg-8">
                         <div class="hero-content-wrap text-white text-center position-relative">
                             <h1 class="text-white">Espace Client</h1>
-                            
+                            <p class="lead">Hébergement Web facile et abordable, choisissez une solution de services d'hébergement Web adaptée pour des
+                                sites Web personnels et professionnels performants.</p>
                         </div>
                     </div>
                 </div>
@@ -96,162 +97,37 @@
                     <div class="list col-12">
 
                         <ul>
+                            <li> <a href="{{route('showSpace')}}"><i class="fa fa-arrow-left"></i> Accueil espace client </a></li>
                             <li> <a href="{{route('showSpacedns')}}">Modifier les informations du DNS <i class="fa fa-arrow-right"></i></a></li>
+                            
                             <li> <a href="{{route('domain-transfer')}}">Transfert de nom de domaine <i class="fa fa-arrow-right"></i></a></li>
-                            <li> <a href="{{route('showSpacemdp')}} ">Modifier votre mot de passe  <i class="fa fa-arrow-right"></i></a></li>
+
                         </ul>
 
                     </div>
 
                 </div>
                 <div class="col-md-9">
-                    <!-- modifier vos informations -->
 
-                    <div class="container info">
-                        <div class="row">
-
-                            <div class="col-md-12 col-lg-12 col-ms-12 ">
-                                <div class="right">
-                                    <h5> Modifier vos informations</h5>
-                                    <form action="" method="" class="border">
-                                        <nav class="navbar">
-                                            <div class="container-fluid ">
-
-                                                <a   data-target="nomField">Nom </a>
-                                                <a  data-target="emailField">Email</a>
-                                                <a   data-target="adresseField">Adresse</a>
-
-                                            </div>
-                                        </nav>
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" id="id" name="id">
-                                        </div>
-                                        <div class="form-group" id="nomField">
-                                            <input type="text" class="form-control" id="nom" value="naoussi léo" name="nom">
-                                        </div>
-                                        <div class="form-group" id="emailField" style="display: none;">
-                                            <input type="email" class="form-control" id="email" value="naoussileo@gmail.com" name="email">
-                                        </div>
-                                        <div class="form-group" id="adresseField" style="display: none;">
-                                            <input type="text" class="form-control" id="adresse" value="Yaoundé Anguissa" name="adresse">
-                                        </div>
-                                        <button type="submit" class="btn btn-tertiary">Modifier</button>
-                                    </form>
-                                </div>
+                    <div class="right">
+                        <h5>Modifiier votre mot de passse</h5>
+                        <form class="domaine">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="id" name="id">
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="amdp" placeholder=" Entrez ancien mot de passe" name="domaine" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="nmdp"   placeholder=" Entrez nouveau mot de passe" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="nmdp" name="nmdp"  placeholder="Confirmer nouveau mot de passe" required>
+                            </div>
+                            <button type="submit" class="btn btn-tertiary">Modifier</button>
+                        </form>
                     </div>
-                    <!-- fin  information personnelle -->
 
-                     
-
-                    <!-- categories  -->
-
-                    <section class="categorie">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card">
-                                        <div class="card-body ">
-                                            <h5 class="">Services <i class="fa-solid fa-bell-concierge"></i></h5>
-                                            <p class="card-text gradient-bg">7</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card ">
-                                        <div class="card-body">
-                                            <h5 class="">Domaines <i class="fa-solid fa-server"></i></h5>
-                                            <p class="card-text gradient-bg"> 2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card ">
-                                        <div class="card-body">
-                                            <h5 class="">Hebergement <i class="fa-solid fa-code-pull-request"></i></h5>
-                                            <p class="card-text gradient-bg">5</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card ">
-                                        <div class="card-body">
-                                            <h5 class="">Factures <i class="fa-solid fa-file-invoice"></i></h5>
-                                            <p class="card-text gradient-bg">5</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </section>
-
-                    <!-- categories  fin  -->
-
-
-
-                    <!-- Domaines -------- -->
-                    <section class="domaine">
-                        <div class="container">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nom de domaine</th>
-                                            <th>Durée</th>
-                                            <th>Date de paiement</th>
-                                            <th>Date d'expiration</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>garaan.com</td>
-                                            <td>1 ans</td>
-                                            <td>2022/01/15</td>
-                                            <td>2023/01/15</td>
-                                        </tr>
-
-                                        <!-- Ajoutez d'autres lignes de données ici -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Domaines -------- -->
-
-
-                    <!-- hebergement -------- -->
-                    <section class="hebergement">
-                        <div class="container">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Hebergements</th>
-                                            <th>Type</th>
-                                            <th>Periode</th>
-                                            <th>Date initiale</th>
-                                            <th>Expiration</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>garaan.com</td>
-                                            <td>Pack standard</td>
-                                            <td>1 ans</td>
-                                            <td>2022/01/15</td>
-                                            <td>2023/01/16</td>
-                                        </tr>
-
-                                        <!-- Ajoutez d'autres lignes de données ici -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- hebergement -------- -->
                 </div>
             </div>
         </div>

@@ -1,0 +1,224 @@
+ 
+ 
+.main .top{
+    
+    
+    margin-bottom: 3rem;
+    height: 70px;
+ }
+
+ /*------------------main-info----------*/
+ .main .info{
+    margin-bottom: 3rem;
+ }
+ .main .info .left{
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 10px;
+    
+
+ }
+ .main .info .left h5{
+    color: #6f42c1;
+    font-weight: normal;
+ }
+ .info .list-group {
+   border-radius: 10px;
+ }
+ .info .list-group .list-group-item{
+   text-align: left;
+    
+    
+ }
+ .info .list-group .list-group-item p{
+   transform: translateY(10px);
+ }
+
+ .info .list-group .list-group-item .nom{
+   display: block;
+   text-align: left;
+   text-transform: capitalize;
+   opacity: 0.5;
+   padding-left: 20px;
+
+ }
+
+ .main .info .right{
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+   padding: 1rem;
+   text-align: center;
+   border-radius: 10px;
+
+}
+.main .info .right h5{
+   color: #6f42c1;
+   font-weight: normal;
+
+}
+
+.main .info .right form{
+   background: white;
+   padding: 1rem;
+   text-align: left;
+   border-radius: 10px;
+
+}
+.main .info .right form .navbar{
+   width: 40%;
+
+
+}
+
+.main .info .right form .navbar a{
+
+   justify-content: right;
+   color: black;
+   text-transform: capitalize;
+   cursor: pointer;
+
+
+}
+
+
+.main .info .right form .form-group input{
+   font-size: 20px;
+   height: 40px;
+
+   
+}
+ 
+.main .info .right form .btn{
+   margin-top: 1rem;
+   width: 150px;
+   font-size: 16px;
+   font-weight: bold;
+   letter-spacing: 2px;
+}
+
+ 
+/*-----categories------*/
+
+.categorie {
+   margin-bottom: 3rem;
+
+}
+.categorie .card{
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+}
+.categorie .card .card-body{
+   text-align: center;
+}
+
+.categorie .card .card-body h5{
+   
+   color: #6f42c1;
+  
+   
+}
+.categorie .card .card-body h5 i{
+   margin-left: 10px;
+    
+}
+.categorie .card .card-body p{
+   background: #6f42c1;
+   color: white;
+   font-weight: bold;
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-left: auto;
+   margin-right: auto;
+   padding-top:7px;
+
+
+}
+/*-----domaine------*/
+
+
+.domaine {
+   margin: 1rem 0rem 2rem 0rem;
+
+
+}
+.domaine .table{
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  
+}
+thead{
+   background: whitesmoke;
+   
+}
+
+/*-----hebergement------*/
+
+.hebergement {
+   margin: 1rem 0rem 2rem 0rem;
+
+}
+.hebergement .table{
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  
+}
+
+/*-----media query------*/
+
+@media (max-width:750px){
+
+ 
+.main .info .right{
+   margin-left: 0;
+   margin-top: 2rem;
+}
+.main .info .right form .navbar{
+   width: 100%;
+}
+
+
+.categorie .card{
+   margin-top: 1rem;
+}
+
+}
+/*-----list------*/
+
+.info .list{
+   margin-top: 1rem;
+   
+
+}
+.info .list li a{
+   color: #6f42c1;
+   font-size: 18px;
+
+   
+}
+
+/*-----page modification dns------*/
+
+
+.main .info .right .domaine .form-group{
+   margin-top: 1rem;
+   
+}
+
+.main .info .right .domaine .form-group input{
+   height: 50px;
+}
+
+.main .info .right .domaine .btn{
+   transform: translateY(20px);
+   width: 150px;
+   font-size: 18px;
+   font-weight: bold;
+   letter-spacing: 2px;
+   
+}
+
+
+
+
+
+
+

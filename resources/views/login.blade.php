@@ -5,18 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
     <!--favicon icon-->
     <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="16x16" />
-
     <!--title-->
     <title>Connexion</title>
-
     <!--build:css-->
     <link id="theme-style" href="assets/css/main.css" as="style" rel="stylesheet" />
     <link id="theme-dynamic" href="" as="style" rel="stylesheet" />
     <!-- endbuild -->
-
 </head>
 
 <body>
@@ -32,7 +28,7 @@
                 <div class="col-12 col-md-8 col-lg-5">
                     <div class="login-signup-wrap p-5 gray-light-bg rounded shadow">
                         <div class="login-signup-header text-center">
-                            <a href="{{ route('home') }}"><img src="assets/img/logo/blue.png" class="img-fluid mb-3" alt="Logo" /></a>
+                            <a href="{{ route('home') }}"><img style="height=50px;width=50px;" src="assets/img/logo/blue.png" class="img-fluid mb-3" alt="Logo" /></a>
                             <h5 class="mb-5">Connectez vous à votre compte</h5>
                         </div>
 

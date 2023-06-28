@@ -436,7 +436,6 @@
                     console.log('Une erreur est survenue lors de l\'enregistrement de la transaction');
                 }
             });
-
         }
 
     </script>

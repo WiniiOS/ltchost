@@ -153,4 +153,15 @@ class UserController extends Controller
         return $factures;
     }
 
+    // route vers le formulaire modifer dns
+    public function showSpacedns(){
+        return view('espace-clientdns');
+    }
+
+    // route vers le formulaire modifer dns
+    public function showSpacedmdp(){
+        return view('espace-clientmdp');
+    }
+
 }
+ 
