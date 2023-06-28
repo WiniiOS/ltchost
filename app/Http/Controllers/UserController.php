@@ -6,6 +6,7 @@ use App\Models\Facture;
 use App\Models\Domain;
 use App\Models\Hebergement;
 use App\Models\Transactions;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -18,14 +19,62 @@ class UserController extends Controller
         $this->request = $request;
     }
 
+    function changePass(Request $request) {
+
+        $sessionUser = session()->get('user');
+        $userBD = User::where('email', $sessionUser->email)->first();
+
+        $oldPass = sha1($request->oldPass);
+        $newPass = sha1($request->newPass);
+        $confirmPass = sha1($request->confirmPass);
+
+        if ($oldPass !== $sessionUser->password) {
+            return back()->with('error', "L'ancien mot de passe est incorrect");
+        }
+
+        if ($newPass == $confirmPass) {
+            $userBD->password = $newPass;
+            $userBD->save();
+            return back()->with('success', 'Votre mot de passe a bien été modifié.');
+        }else{
+            return back()->with('error', "Le nouveau mot de passe n'est pas identique");
+
+        }
+    }
+
     public function showSpace(Request $request)
     {
         $routeCkeck = route('connexion') . '?previous=' . $request->fullUrl() ;
         $user = session()->get('user');
+
+        if (isset($user)) {
+            $domains = $this->getDomainsByUserId($user->id);
+            $hebergements = $this->getHebergementByUserId($user->id);
+            $factures = $this->getFacturesByUserId($user->id);
+        }
+
+        
+
         if (empty($user)) {
             return redirect($routeCkeck);
         }
-        return view('espace-client',['user_data' => $user]);
+
+        return view('espace-client',['user_data' => $user,'domains' => $domains, 'hebergements' => $hebergements, 'factures' => $factures ]);
+    }
+
+    function getDomainsByUserId($id) {
+        $domains = DB::select('select * from domains where userId = ?', [$id]);
+        return $domains;
+    }
+
+    function getHebergementByUserId($id) {
+        $hebergements = DB::select('select * from hebergements where userId = ?', [$id]);
+        return $hebergements;
+    }
+
+    function getFacturesByUserId($id) {
+        $factures = DB::select('select * from factures where clientId = ?', [$id]);
+        return $factures;
     }
 
     public function save(Request $request)
@@ -154,13 +203,36 @@ class UserController extends Controller
     }
 
     // route vers le formulaire modifer dns
-    public function showSpacedns(){
-        return view('espace-clientdns');
+    public function showSpacedns(Request $request){
+
+        $routeCkeck = route('connexion') . '?previous=' . $request->fullUrl() ;
+        $user = session()->get('user');
+
+        $domains = $this->getDomainsByUserId($user->id);
+        $hebergements = $this->getHebergementByUserId($user->id);
+        $factures = $this->getFacturesByUserId($user->id);
+
+        if (empty($user)) {
+            return redirect($routeCkeck);
+        }
+
+        return view('espace-clientdns',['user_data' => $user,'domains' => $domains, 'hebergements' => $hebergements, 'factures' => $factures ]);
     }
 
     // route vers le formulaire modifer dns
-    public function showSpacedmdp(){
-        return view('espace-clientmdp');
+    public function showSpacedmdp(Request $request){
+        $routeCkeck = route('connexion') . '?previous=' . $request->fullUrl() ;
+        $user = session()->get('user');
+
+        $domains = $this->getDomainsByUserId($user->id);
+        $hebergements = $this->getHebergementByUserId($user->id);
+        $factures = $this->getFacturesByUserId($user->id);
+
+        if (empty($user)) {
+            return redirect($routeCkeck);
+        }
+
+        return view('espace-clientmdp',['user_data' => $user,'domains' => $domains, 'hebergements' => $hebergements, 'factures' => $factures ]);
     }
 
 }

@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
+
     <!--favicon icon-->
     <link rel="icon" href="{{ url('assets/img/favicon.png') }}" type="image/png" sizes="16x16" />
     <!--title-->
@@ -39,8 +41,6 @@
                     <div class="col-12 col-md-7 col-lg-8">
                         <div class="hero-content-wrap text-white text-center position-relative">
                             <h1 class="text-white">Espace Client</h1>
-                            <p class="lead">Hébergement Web facile et abordable, choisissez une solution de services d'hébergement Web adaptée pour des
-                                sites Web personnels et professionnels performants.</p>
                         </div>
                     </div>
                 </div>
@@ -60,10 +60,9 @@
                                         <p>Nom </p>
                                     </div>
                                     <div class="col-9 ">
-                                        <p> : naoussi talla leo</p>
+                                        <p> : {{ $user_data->name }} </p>
                                     </div>
                                 </div>
-
                             </li>
 
                             <li class="list-group-item">
@@ -72,7 +71,7 @@
                                         <p>Email </p>
                                     </div>
                                     <div class="col-9">
-                                        <p> : naoussileo@gmail.com</p>
+                                        <p> : {{ $user_data->email }} </p>
                                     </div>
                                 </div>
 
@@ -81,10 +80,10 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="nom col-3">
-                                        <p>Adresse </p>
+                                        <p>Telephone </p>
                                     </div>
                                     <div class="col-9">
-                                        <p> : yaoundé anguissa</p>
+                                        <p> : {{ $user_data->telephone }} </p>
                                     </div>
                                 </div>
 
@@ -111,18 +110,35 @@
 
                     <div class="right">
                         <h5>Modifiier votre mot de passse</h5>
-                        <form class="domaine">
-                            <div class="form-group">
+
+                        @if (session('success'))
+                            <div class="col-12 pb-3 message-box ">
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            </div>
+                        @endif
+                        @if (session('error'))
+                            <div class="col-12 pb-3 message-box ">
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            </div>
+                        @endif
+
+                        <form class="domaine" action="{{ route('changepass') }}" method="POST">
+                            @csrf
+                            {{-- <div class="form-group">
                                 <input type="hidden" class="form-control" id="id" name="id">
+                            </div> --}}
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="oldpass" placeholder=" Entrez ancien mot de passe" name="oldPass" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="amdp" placeholder=" Entrez ancien mot de passe" name="domaine" required>
+                                <input type="password" class="form-control" id="newpass" name="newPass"  placeholder=" Entrez nouveau mot de passe" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="nmdp"   placeholder=" Entrez nouveau mot de passe" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="nmdp" name="nmdp"  placeholder="Confirmer nouveau mot de passe" required>
+                                <input type="password" class="form-control" id="confirmPass" name="confirmPass"  placeholder="Confirmer nouveau mot de passe" required>
                             </div>
                             <button type="submit" class="btn btn-tertiary">Modifier</button>
                         </form>
@@ -205,124 +221,6 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
-    <script type="text/javascript">
-        $('.spinner-border').hide();
-        $('#search_domain1').hide(); // Resultats de recherche
-        $('#search_domain2').hide(); // Recherche en cours
-        $('.ajax-domain-search-result-section').hide();
-
-
-        $('#SubmitForm').on('submit', function(e) {
-            e.preventDefault();
-
-            let domain = $('#domain').val();
-            let domainType = $('#domainType').val();
-
-            $.ajax({
-                url: "check-domain-availability",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    domain: domain,
-                    domainType: domainType,
-                },
-                beforeSend: function() {
-                    $('.ajax-domain-search-result-section').show();
-                    $('.spinner-border').show();
-                    $('#search_domain2').show(); // Recherche en cours
-                },
-                success: function(responses) {
-
-                    $('#search_domain2').hide(); // Recherche en cours
-                    $('#search_domain1').show(); // Resultats de recherche
-
-                    $('tbody').empty();
-
-                    responses.forEach(data => {
-
-                        if (data['domainAvailability'] == 'available') {
-
-                            $('tbody').append(
-
-                                `<tr class='vps-pricing-row'>
-                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
-                            <td data-value='Price'>
-                                <p>
-                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
-                                    <span class='pricing-onsale'>Achetez-le -
-                                <span class="badge bg-warning">1 an Gratuit</span></span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
-                                </p>
-                            </td>
-                            <!--preloader start-->
-                            <td>
-                                <form action='/panier/ajouter'>
-                                    @csrf
-                                    <input type='hidden' name='id' value='${ data['id'] }' >
-                                    <input type='hidden' name="title" value='${ data['domain'] }' >
-                                    <input type='hidden' name="price" value='${ data['price'] }'>
-                                    <button type='submit' class='btn btn-primary btn-block' >Ajouter au panier</button>
-                                </form>
-                            </td>
-                            
-                        </tr>`);
-
-                        } else {
-
-
-                            $('tbody').append(
-
-                                `<tr class='vps-pricing-row'>
-                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
-                            <td data-value='Price'>
-                                <p>
-                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
-                                    <span class='pricing-onsale'>Achetez-le -
-                                <span class="badge bg-warning">1 an Gratuit</span></span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
-                                </p>
-                            </td>
-                            <td>
-                                <a onclick="handleTransfert('${data['domain']}')"  class='btn btn-primary btn-sm'>Transferer</a>
-                            </td>
-                            
-                        </tr>`);
-                        }
-                    });
-
-                    $('.spinner-border').hide();
-
-                },
-                error: function(response) {
-                    $('#search_domain2').hide(); // Recherche en cours
-                    $('#search_domain1').show();
-                },
-            });
-        });
-
-
-        function handleTransfert(domain) {
-
-            console.log('Clicked domain', domain);
-
-            // on stocke le domaine en session
-            sessionStorage.removeItem('domainSwitch');
-            sessionStorage.setItem('domainSwitch', domain);
-
-            // Simulate a mouse click:
-            window.location.href = "/domain-transfer";
-
-        }
-    </script>
-
 
     <script>
         $(document).ready(function() {

@@ -347,6 +347,8 @@
 
     <script>
 
+
+
         const preamount = document.querySelector('#amount').textContent.split('.')[0].split(',');
         const amount = parseInt(''+preamount[0]+''+ preamount[1]);
         const name = document.querySelector('#user_name').value;
@@ -437,6 +439,8 @@
                 }
             });
         }
+
+    
 
     </script>
 

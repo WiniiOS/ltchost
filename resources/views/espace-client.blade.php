@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
+
     <!--favicon icon-->
     <link rel="icon" href="{{ url('assets/img/favicon.png') }}" type="image/png" sizes="16x16" />
     <!--title-->
@@ -59,10 +61,9 @@
                                         <p>Nom </p>
                                     </div>
                                     <div class="col-9 ">
-                                        <p> : naoussi talla leo</p>
+                                        <p> : {{ $user_data->name }} </p>
                                     </div>
                                 </div>
-
                             </li>
 
                             <li class="list-group-item">
@@ -71,7 +72,7 @@
                                         <p>Email </p>
                                     </div>
                                     <div class="col-9">
-                                        <p> : naoussileo@gmail.com</p>
+                                        <p> : {{ $user_data->email }} </p>
                                     </div>
                                 </div>
 
@@ -80,10 +81,10 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="nom col-3">
-                                        <p>Adresse </p>
+                                        <p>Telephone </p>
                                     </div>
                                     <div class="col-9">
-                                        <p> : yaoundé anguissa</p>
+                                        <p> : {{ $user_data->telephone }} </p>
                                     </div>
                                 </div>
 
@@ -99,6 +100,8 @@
                             <li> <a href="{{route('showSpacedns')}}">Modifier les informations du DNS <i class="fa fa-arrow-right"></i></a></li>
                             <li> <a href="{{route('domain-transfer')}}">Transfert de nom de domaine <i class="fa fa-arrow-right"></i></a></li>
                             <li> <a href="{{route('showSpacemdp')}} ">Modifier votre mot de passe  <i class="fa fa-arrow-right"></i></a></li>
+                            <li> <a href="{{route('logout')}} ">Deconnexion  <i class="fa fa-arrow-right"></i></a></li>
+
                         </ul>
 
                     </div>
@@ -119,7 +122,7 @@
 
                                                 <a   data-target="nomField">Nom </a>
                                                 <a  data-target="emailField">Email</a>
-                                                <a   data-target="adresseField">Adresse</a>
+                                                <a   data-target="adresseField">Telephone</a>
 
                                             </div>
                                         </nav>
@@ -127,13 +130,13 @@
                                             <input type="hidden" class="form-control" id="id" name="id">
                                         </div>
                                         <div class="form-group" id="nomField">
-                                            <input type="text" class="form-control" id="nom" value="naoussi léo" name="nom">
+                                            <input type="text" class="form-control" id="nom" value="{{ $user_data->name }}" name="nom">
                                         </div>
                                         <div class="form-group" id="emailField" style="display: none;">
-                                            <input type="email" class="form-control" id="email" value="naoussileo@gmail.com" name="email">
+                                            <input type="email" class="form-control" id="email" value="{{ $user_data->email }}" name="email">
                                         </div>
                                         <div class="form-group" id="adresseField" style="display: none;">
-                                            <input type="text" class="form-control" id="adresse" value="Yaoundé Anguissa" name="adresse">
+                                            <input type="text" class="form-control" id="telephone" value="{{ $user_data->telephone }}" name="telephone">
                                         </div>
                                         <button type="submit" class="btn btn-tertiary">Modifier</button>
                                     </form>
@@ -154,7 +157,7 @@
                                     <div class="card">
                                         <div class="card-body ">
                                             <h5 class="">Services <i class="fa-solid fa-bell-concierge"></i></h5>
-                                            <p class="card-text gradient-bg">7</p>
+                                            <p class="card-text gradient-bg">{{ count($domains) + count($hebergements) }} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +165,7 @@
                                     <div class="card ">
                                         <div class="card-body">
                                             <h5 class="">Domaines <i class="fa-solid fa-server"></i></h5>
-                                            <p class="card-text gradient-bg"> 2</p>
+                                            <p class="card-text gradient-bg"> {{ count($domains) }} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +173,7 @@
                                     <div class="card ">
                                         <div class="card-body">
                                             <h5 class="">Hebergement <i class="fa-solid fa-code-pull-request"></i></h5>
-                                            <p class="card-text gradient-bg">5</p>
+                                            <p class="card-text gradient-bg"> {{ count($hebergements) }}  </p>
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +181,7 @@
                                     <div class="card ">
                                         <div class="card-body">
                                             <h5 class="">Factures <i class="fa-solid fa-file-invoice"></i></h5>
-                                            <p class="card-text gradient-bg">5</p>
+                                            <p class="card-text gradient-bg"> {{ count($factures) }} </p>
                                         </div>
                                     </div>
                                 </div>
@@ -206,13 +209,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($domains as $item)
                                         <tr>
-                                            <td>garaan.com</td>
-                                            <td>1 ans</td>
-                                            <td>2022/01/15</td>
-                                            <td>2023/01/15</td>
+                                            <td>{{ $item->domainName }}</td>
+                                            <td> 1 ans </td>
+                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ $item->expirationDate }}</td>
                                         </tr>
-
+                                        @endforeach
                                         <!-- Ajoutez d'autres lignes de données ici -->
                                     </tbody>
                                 </table>
@@ -229,22 +233,22 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Hebergements</th>
-                                            <th>Type</th>
+                                            <th>Hebergements Type</th>
                                             <th>Periode</th>
                                             <th>Date initiale</th>
                                             <th>Expiration</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($hebergements as $item)
                                         <tr>
-                                            <td>garaan.com</td>
-                                            <td>Pack standard</td>
-                                            <td>1 ans</td>
-                                            <td>2022/01/15</td>
-                                            <td>2023/01/16</td>
+                                            <td>{{ $item->packageChoisi }}</td>
+                                            <td> 1 ans </td>
+                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ $item->dateFin }}</td>
                                         </tr>
-
+                                        @endforeach
+                                        
                                         <!-- Ajoutez d'autres lignes de données ici -->
                                     </tbody>
                                 </table>
@@ -329,123 +333,6 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
-    <script type="text/javascript">
-        $('.spinner-border').hide();
-        $('#search_domain1').hide(); // Resultats de recherche
-        $('#search_domain2').hide(); // Recherche en cours
-        $('.ajax-domain-search-result-section').hide();
-
-
-        $('#SubmitForm').on('submit', function(e) {
-            e.preventDefault();
-
-            let domain = $('#domain').val();
-            let domainType = $('#domainType').val();
-
-            $.ajax({
-                url: "check-domain-availability",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    domain: domain,
-                    domainType: domainType,
-                },
-                beforeSend: function() {
-                    $('.ajax-domain-search-result-section').show();
-                    $('.spinner-border').show();
-                    $('#search_domain2').show(); // Recherche en cours
-                },
-                success: function(responses) {
-
-                    $('#search_domain2').hide(); // Recherche en cours
-                    $('#search_domain1').show(); // Resultats de recherche
-
-                    $('tbody').empty();
-
-                    responses.forEach(data => {
-
-                        if (data['domainAvailability'] == 'available') {
-
-                            $('tbody').append(
-
-                                `<tr class='vps-pricing-row'>
-                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
-                            <td data-value='Price'>
-                                <p>
-                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
-                                    <span class='pricing-onsale'>Achetez-le -
-                                <span class="badge bg-warning">1 an Gratuit</span></span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
-                                </p>
-                            </td>
-                            <!--preloader start-->
-                            <td>
-                                <form action='/panier/ajouter'>
-                                    @csrf
-                                    <input type='hidden' name='id' value='${ data['id'] }' >
-                                    <input type='hidden' name="title" value='${ data['domain'] }' >
-                                    <input type='hidden' name="price" value='${ data['price'] }'>
-                                    <button type='submit' class='btn btn-primary btn-block' >Ajouter au panier</button>
-                                </form>
-                            </td>
-                            
-                        </tr>`);
-
-                        } else {
-
-
-                            $('tbody').append(
-
-                                `<tr class='vps-pricing-row'>
-                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
-                            <td data-value='Price'>
-                                <p>
-                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
-                                    <span class='pricing-onsale'>Achetez-le -
-                                <span class="badge bg-warning">1 an Gratuit</span></span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
-                                </p>
-                            </td>
-                            <td>
-                                <a onclick="handleTransfert('${data['domain']}')"  class='btn btn-primary btn-sm'>Transferer</a>
-                            </td>
-                            
-                        </tr>`);
-                        }
-                    });
-
-                    $('.spinner-border').hide();
-
-                },
-                error: function(response) {
-                    $('#search_domain2').hide(); // Recherche en cours
-                    $('#search_domain1').show();
-                },
-            });
-        });
-
-
-        function handleTransfert(domain) {
-
-            console.log('Clicked domain', domain);
-
-            // on stocke le domaine en session
-            sessionStorage.removeItem('domainSwitch');
-            sessionStorage.setItem('domainSwitch', domain);
-
-            // Simulate a mouse click:
-            window.location.href = "/domain-transfer";
-
-        }
-    </script>
 
 
     <script>

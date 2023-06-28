@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token()}}"/>
+
     <!--favicon icon-->
     <link rel="icon" href="{{ url('assets/img/favicon.png') }}" type="image/png" sizes="16x16" />
     <!--title-->
@@ -56,10 +58,21 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="nom col-3">
-                                        <p>Domaine </p>
+                                        <p>Nom </p>
                                     </div>
                                     <div class="col-9 ">
-                                        <p> : domaine</p>
+                                        <p> : {{ $user_data->name }} </p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="nom col-3">
+                                        <p>Email </p>
+                                    </div>
+                                    <div class="col-9">
+                                        <p> : {{ $user_data->email }} </p>
                                     </div>
                                 </div>
 
@@ -68,22 +81,10 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="nom col-3">
-                                        <p>DNS-1 </p>
+                                        <p>Telephone </p>
                                     </div>
                                     <div class="col-9">
-                                        <p> : dns1</p>
-                                    </div>
-                                </div>
-
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="nom col-3">
-                                        <p>DNS-2 </p>
-                                    </div>
-                                    <div class="col-9">
-                                        <p> : dns2</p>
+                                        <p> : {{ $user_data->telephone }} </p>
                                     </div>
                                 </div>
 
@@ -108,13 +109,22 @@
 
                     <div class="right">
                         <h5>Modifiier les informations du DNS</h5>
-                        <form class="domaine">
-                            <div class="form-group">
-                                <input type="hidden" class="form-control" id="id" name="id">
+                        <div class="text-center">
+                            <div class="alert alert-success" role="alert">
+                                Success : Votre domaine a bien ete transferee
                             </div>
+                            <div class="alert alert-danger" role="alert">
+                                Echec : La devise comptable ne correspond pas ou le solde n'est pas suffisant.
+                            </div>
+                        </div>
+                        <form class="domaine" id="modify_dns">
+                            @csrf
+                            {{-- <div class="form-group">
+                                <input required type="hidden" class="form-control" id="id" name="id">
+                            </div> --}}
                             <div class="form-group">
                             <label for="domaine">Nom de domiane:</label>
-                                <input type="text" class="form-control" id="domaine" value="non de domaine" name="domaine" required>
+                                <input required type="text" class="form-control" id="domain" value="nom de domaine" name="domain" >
                             </div>
                             <div class="form-group">
                             <label for="dns1">Dns1:</label>
@@ -205,123 +215,46 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
-    <script type="text/javascript">
+    <script>
+
+        const domain = document.querySelector("#domain");
+        const dns1 = document.querySelector("#dns1");
+        const dns2 = document.querySelector("#dns2");
+
         $('.spinner-border').hide();
-        $('#search_domain1').hide(); // Resultats de recherche
-        $('#search_domain2').hide(); // Recherche en cours
-        $('.ajax-domain-search-result-section').hide();
+        $('.alert-success').hide();
+        $('.alert-danger').hide();
 
+        $(document).ready(function(){
 
-        $('#SubmitForm').on('submit', function(e) {
-            e.preventDefault();
+            $('#modify_dns').on('submit', function(e) {                
 
-            let domain = $('#domain').val();
-            let domainType = $('#domainType').val();
+                e.preventDefault()
+                let token = $('meta[name="csrf-token"]').attr('content');
 
-            $.ajax({
-                url: "check-domain-availability",
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    domain: domain,
-                    domainType: domainType,
-                },
-                beforeSend: function() {
-                    $('.ajax-domain-search-result-section').show();
-                    $('.spinner-border').show();
-                    $('#search_domain2').show(); // Recherche en cours
-                },
-                success: function(responses) {
+                $.ajax({
+                    url: 'dns',
+                    type: "POST",
+                    data: { domain : domain.value, dns1 : dns1.value, dns2 : dns2.value, _token: token },
+                    dataType: "json",
+                    beforeSend: function() {
+                        $('.spinner-border').show();
+                    },
+                    success: function(data) {
+                        
+                        $('.alert-success').show();
+                              
+                        $('.spinner-border').hide();
+                    },
+                    error: function(error) {
+                        $('.alert-danger').hide();
+                    }
+                });
 
-                    $('#search_domain2').hide(); // Recherche en cours
-                    $('#search_domain1').show(); // Resultats de recherche
-
-                    $('tbody').empty();
-
-                    responses.forEach(data => {
-
-                        if (data['domainAvailability'] == 'available') {
-
-                            $('tbody').append(
-
-                                `<tr class='vps-pricing-row'>
-                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
-                            <td data-value='Price'>
-                                <p>
-                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
-                                    <span class='pricing-onsale'>Achetez-le -
-                                <span class="badge bg-warning">1 an Gratuit</span></span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
-                                </p>
-                            </td>
-                            <!--preloader start-->
-                            <td>
-                                <form action='/panier/ajouter'>
-                                    @csrf
-                                    <input type='hidden' name='id' value='${ data['id'] }' >
-                                    <input type='hidden' name="title" value='${ data['domain'] }' >
-                                    <input type='hidden' name="price" value='${ data['price'] }'>
-                                    <button type='submit' class='btn btn-primary btn-block' >Ajouter au panier</button>
-                                </form>
-                            </td>
-                            
-                        </tr>`);
-
-                        } else {
-
-
-                            $('tbody').append(
-
-                                `<tr class='vps-pricing-row'>
-                            <td data-value=' ${data['domainAvailability']} ' > ${data['domain']} </td>
-                            <td data-value='Price'>
-                                <p>
-                                    <span class='rate'> ${data['price']} ${data['currency']} <span>/An</span></span>
-                                    <span class='pricing-onsale'>Achetez-le -
-                                <span class="badge bg-warning">1 an Gratuit</span></span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <span class='badge bg-info'> ${ data['domainAvailability'] == 'available' ? 'Disponible' : 'Indisponible'  } </span>
-                                </p>
-                            </td>
-                            <td>
-                                <a onclick="handleTransfert('${data['domain']}')"  class='btn btn-primary btn-sm'>Transferer</a>
-                            </td>
-                            
-                        </tr>`);
-                        }
-                    });
-
-                    $('.spinner-border').hide();
-
-                },
-                error: function(response) {
-                    $('#search_domain2').hide(); // Recherche en cours
-                    $('#search_domain1').show();
-                },
             });
         });
 
-
-        function handleTransfert(domain) {
-
-            console.log('Clicked domain', domain);
-
-            // on stocke le domaine en session
-            sessionStorage.removeItem('domainSwitch');
-            sessionStorage.setItem('domainSwitch', domain);
-
-            // Simulate a mouse click:
-            window.location.href = "/domain-transfer";
-
-        }
-    </script>
+        </script>
 
 
     <script>

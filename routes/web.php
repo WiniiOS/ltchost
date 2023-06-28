@@ -52,6 +52,10 @@ Route::get('showSpace', [UserController::class, 'showSpace'])->name('showSpace')
 Route::get('showSpacedns', [UserController::class, 'showSpacedns'])->name('showSpacedns');
 Route::get('showSpacemdp', [UserController::class, 'showSpacedmdp'])->name('showSpacemdp');
 
+// ROUTE POUR MODIFIER LE MOT DE PASSE
+Route::post('changepass', [UserController::class, 'changePass'])->name('changepass');
+
+
 Route::get('user-profile', [HoistingController::class, 'showProfile'])->name('user-profile');
 
 Route::post('domain-transfer-form', [HoistingController::class, 'domainTransfer'])->name('domain-transfer-form');
@@ -81,8 +85,8 @@ Route::post('save-transaction', [CartController::class, 'saveTransaction']);
 
 Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notify');
 
-
+// 
 
 
 // test
-Route::get('test', [CartController::class, 'getNameAndExtension'])->name('test');
+Route::get('test', [UserController::class, 'changePassword'])->name('test');
