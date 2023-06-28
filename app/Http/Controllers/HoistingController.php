@@ -75,9 +75,12 @@ class HoistingController extends Controller
         }
 
         // $domainName = $request->domainName;
-        $domainName = "money.net";
-        $dns1 = 'ns1.domainname.net';
-        $dns2 = 'ns2.domainname.net';
+        $domainName = $request->domain;
+        // $dns1 = 'ns1.domainname.net';
+        // $dns2 = 'ns2.domainname.net';
+
+        $dns1 = $request->dns1;
+        $dns2 = $request->dns2;
         // ----------
 
         $user = session()->get('user');
@@ -93,7 +96,7 @@ class HoistingController extends Controller
         }else{
             $ns_change = $dna->ModifyNameServer($domainName,['ns1' => $dns1, 'ns2' => $dns2]);
 
-            dd($ns_change);
+            // dd($ns_change);
 
             return response()->json($ns_change);
 

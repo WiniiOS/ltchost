@@ -78,6 +78,9 @@ Route::get('facture', [CartController::class, 'generatePDF'])->name('facture');
 Route::get('mail', [CartController::class, 'sendMailFacture'])->name('mail');
 Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');
 
+Route::post('modify_dns', [HoistingController::class, 'modifyNameServer'])->name('modify_dns');
+
+
 // Panier
 Route::get('panier', [CartController::class, 'index'])->name('panier');
 

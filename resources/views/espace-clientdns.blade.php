@@ -109,19 +109,26 @@
 
                     <div class="right">
                         <h5>Modifiier les informations du DNS</h5>
-                        <div class="text-center">
-                            <div class="alert alert-success" role="alert">
-                                Success : Votre domaine a bien ete transferee
+
+                        @if (session('success'))
+                            <div class="col-12 pb-3 message-box ">
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
                             </div>
-                            <div class="alert alert-danger" role="alert">
-                                Echec : La devise comptable ne correspond pas ou le solde n'est pas suffisant.
+                        @endif
+
+                        @if (session('error'))
+                            <div class="col-12 pb-3 message-box ">
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
                             </div>
-                        </div>
-                        <form class="domaine" id="modify_dns">
+                        @endif
+
+                        <form class="domaine" action="{{ route('modify_dns') }}" method="POST" >
                             @csrf
-                            {{-- <div class="form-group">
-                                <input required type="hidden" class="form-control" id="id" name="id">
-                            </div> --}}
+                            
                             <div class="form-group">
                             <label for="domaine">Nom de domiane:</label>
                                 <input required type="text" class="form-control" id="domain" value="nom de domaine" name="domain" >
@@ -215,47 +222,6 @@
     <script src="assets/js/vendors/hs.megamenu.js"></script>
     <script src="assets/js/app.js"></script>
     <!--endbuild-->
-    <script>
-
-        const domain = document.querySelector("#domain");
-        const dns1 = document.querySelector("#dns1");
-        const dns2 = document.querySelector("#dns2");
-
-        $('.spinner-border').hide();
-        $('.alert-success').hide();
-        $('.alert-danger').hide();
-
-        $(document).ready(function(){
-
-            $('#modify_dns').on('submit', function(e) {                
-
-                e.preventDefault()
-                let token = $('meta[name="csrf-token"]').attr('content');
-
-                $.ajax({
-                    url: 'dns',
-                    type: "POST",
-                    data: { domain : domain.value, dns1 : dns1.value, dns2 : dns2.value, _token: token },
-                    dataType: "json",
-                    beforeSend: function() {
-                        $('.spinner-border').show();
-                    },
-                    success: function(data) {
-                        
-                        $('.alert-success').show();
-                              
-                        $('.spinner-border').hide();
-                    },
-                    error: function(error) {
-                        $('.alert-danger').hide();
-                    }
-                });
-
-            });
-        });
-
-        </script>
-
 
     <script>
         $(document).ready(function() {
