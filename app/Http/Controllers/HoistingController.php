@@ -67,18 +67,14 @@ class HoistingController extends Controller
 
     public function modifyNameServer(Request $request)
     {
-        // $route = route('connexion') . '?previous=' . Request::fullUrl() ;
-        // dd($route);
 
         if(empty(session()->get('user')->email)){
             return redirect('connexion');
         }
 
-        // $domainName = $request->domainName;
         $domainName = $request->domain;
         // $dns1 = 'ns1.domainname.net';
         // $dns2 = 'ns2.domainname.net';
-
         $dns1 = $request->dns1;
         $dns2 = $request->dns2;
         // ----------
@@ -94,11 +90,17 @@ class HoistingController extends Controller
         if ($checkUser == false) {
             return redirect('connexion');
         }else{
-            $ns_change = $dna->ModifyNameServer($domainName,['ns1' => $dns1, 'ns2' => $dns2]);
+            
+            $ns_change_data = $dna->ModifyNameServer($domainName,['ns1' => $dns1, 'ns2' => $dns2]);
+                        
+            if ($ns_change_data['result'] == "ERROR") {
 
-            // dd($ns_change);
+                return back()->with('error', "La modification de vos parametres DNS a echoué.");
 
-            return response()->json($ns_change);
+            }else {
+                return back()->with('success', 'La modification de vos parametres DNS a reussi.');
+            }
+            // return response()->json($ns_change);
 
         }
     }

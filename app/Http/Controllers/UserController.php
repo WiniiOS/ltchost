@@ -173,13 +173,14 @@ class UserController extends Controller
     // Fonction qui met à jour les données d'un user
     public function update(Request $request){
 
-        $user = User::find($request->$id);
+        $user = User::find($request->id);
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'telephone' => $request->telephone
         ]);
-        return back()->with('message', 'Vos informations ont été modifié avec succès');
+
+        return back()->with('success', 'Vos informations ont été modifié avec succès');
     }
 
     // Fonction de deconnexion

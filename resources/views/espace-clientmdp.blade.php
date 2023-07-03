@@ -128,9 +128,7 @@
 
                         <form class="domaine" action="{{ route('changepass') }}" method="POST">
                             @csrf
-                            {{-- <div class="form-group">
-                                <input type="hidden" class="form-control" id="id" name="id">
-                            </div> --}}
+                           
                             <div class="form-group">
                                 <input type="password" class="form-control" id="oldpass" placeholder=" Entrez ancien mot de passe" name="oldPass" required>
                             </div>

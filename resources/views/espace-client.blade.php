@@ -95,15 +95,13 @@
                     </div>
 
                     <div class="list col-12">
-
                         <ul>
-                            <li> <a href="{{route('showSpacedns')}}">Modifier les informations du DNS <i class="fa fa-arrow-right"></i></a></li>
+                            <li> <a href="{{route('showSpacedns')}}">Modifier les parametres DNS <i class="fa fa-arrow-right"></i></a></li>
                             <li> <a href="{{route('domain-transfer')}}">Transfert de nom de domaine <i class="fa fa-arrow-right"></i></a></li>
                             <li> <a href="{{route('showSpacemdp')}} ">Modifier votre mot de passe  <i class="fa fa-arrow-right"></i></a></li>
                             <li> <a href="{{route('logout')}} ">Deconnexion  <i class="fa fa-arrow-right"></i></a></li>
 
                         </ul>
-
                     </div>
 
                 </div>
@@ -116,21 +114,38 @@
                             <div class="col-md-12 col-lg-12 col-ms-12 ">
                                 <div class="right">
                                     <h5> Modifier vos informations</h5>
-                                    <form action="" method="" class="border">
+
+                                        @if (session('success'))
+                                            <div class="col-12 pb-3 message-box ">
+                                                <div class="alert alert-success">
+                                                    {{ session('success') }}
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if (session('error'))
+                                            <div class="col-12 pb-3 message-box ">
+                                                <div class="alert alert-danger">
+                                                    {{ session('error') }}
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    <form action="{{ route('updateuser') }}" method="POST" class="border">
+                                        @csrf
                                         <nav class="navbar">
                                             <div class="container-fluid ">
-
-                                                <a   data-target="nomField">Nom </a>
+                                                <a  data-target="nomField"> Nom </a>
                                                 <a  data-target="emailField">Email</a>
-                                                <a   data-target="adresseField">Telephone</a>
-
+                                                <a  data-target="adresseField">Telephone</a>
                                             </div>
                                         </nav>
+
                                         <div class="form-group">
-                                            <input type="hidden" class="form-control" id="id" name="id">
+                                            <input type="hidden" class="form-control" id="id" name="id" value="{{ $user_data->id }}">
                                         </div>
                                         <div class="form-group" id="nomField">
-                                            <input type="text" class="form-control" id="nom" value="{{ $user_data->name }}" name="nom">
+                                            <input type="text" class="form-control" id="nom" value="{{ $user_data->name }}" name="name">
                                         </div>
                                         <div class="form-group" id="emailField" style="display: none;">
                                             <input type="email" class="form-control" id="email" value="{{ $user_data->email }}" name="email">

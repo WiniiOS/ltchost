@@ -54,6 +54,7 @@ Route::get('showSpacemdp', [UserController::class, 'showSpacedmdp'])->name('show
 
 // ROUTE POUR MODIFIER LE MOT DE PASSE
 Route::post('changepass', [UserController::class, 'changePass'])->name('changepass');
+Route::post('updateuser', [UserController::class, 'update'])->name('updateuser');
 
 
 Route::get('user-profile', [HoistingController::class, 'showProfile'])->name('user-profile');
@@ -86,9 +87,7 @@ Route::get('panier', [CartController::class, 'index'])->name('panier');
 
 Route::post('save-transaction', [CartController::class, 'saveTransaction']);
 
-Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notify');
-
-// 
+Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notify'); 
 
 
 // test

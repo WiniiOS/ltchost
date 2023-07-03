@@ -130,16 +130,16 @@
                             @csrf
                             
                             <div class="form-group">
-                            <label for="domaine">Nom de domiane:</label>
-                                <input required type="text" class="form-control" id="domain" value="nom de domaine" name="domain" >
+                            <label for="domaine">Nom de domiane: </label>
+                                <input required type="text" class="form-control" id="domain" value="nomdedomaine.com" name="domain" >
                             </div>
                             <div class="form-group">
                             <label for="dns1">Dns1:</label>
-                                <input type="text" class="form-control" id="dns1" value="dns1" name="dns1" required>
+                                <input type="text" class="form-control" id="dns1" value="ns1.domainname.net" name="dns1" required>
                             </div>
                             <div class="form-group">
                             <label for="dns2">Dns2:</label>
-                                <input type="text" class="form-control" id="dns2" value="dns1" name="dns2" required>
+                                <input type="text" class="form-control" id="dns2" value="ns2.domainname.net" name="dns2" required>
                             </div>
                             <button type="submit" class="btn btn-tertiary">Modifier</button>
                         </form>
@@ -203,6 +203,7 @@
                     <span class="theme-3-tertiary"></span>
                 </a>
             </div>
+            
         </div>
     </div><!--scroll bottom to top button start-->
     <div class="scroll-top scroll-to-target primary-bg text-white" data-target="html">
