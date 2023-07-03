@@ -177,8 +177,13 @@ class CartController extends Controller
         $domainName = $request->domain_name;
         $package = $request->package;
         $expiration_date = Carbon::now()->addDays(365);
-        $ref = 'L'.rand(1, 15000000).'TC'.$userId;
+        $ref = 'FC'.rand(1, 15000000).$userId;
         $produits = json_encode(array('domain' => $domainName,'package' => $package));
+        $dateOfTheDay = Carbon::now();
+
+        // $this->sendMailFacture($ref,$montant,$dateOfTheDay, $package, $domainName);
+        // dd('test send mail ok');
+
 
         //on crée un enregistrement de notre User en BD
         Transaction::create([
@@ -198,13 +203,13 @@ class CartController extends Controller
 
             $this->saveHebergement($userId,$package,$expiration_date);
 
-            $this->sendMailFacture($ref);
+            $this->sendMailFacture($ref,$montant,$dateOfTheDay, $package, $domainName);
         }
 
         // for test
-        $this->sendMailFacture($ref,$montant);
+        $this->sendMailFacture($ref,$montant,$dateOfTheDay, $package, $domainName);
 
-        return response()->json('All save test Win successfully');
+        return response()->json('Un email de confirmation a ete envoyee avec votre facture en piece jointe');
         
     }
 
@@ -248,18 +253,24 @@ class CartController extends Controller
         return false;
     }
 
-    public function sendMailFacture($reference = 'xcvfd',)
+    public function sendMailFacture($reference = 'FC-XXX', $montant= 25000, $date='XXX', $packageChoisi = 'Starter', $domainName = 'test.net')
     {
         $user = session()->get('user');
         $user_email = $user->email;
         $name = $user->name;
-        $data = [];
+        
+        $data = array();
         $data['name'] = $name;
         $data['telephone'] = $user->telephone;
-
         $data['reference'] = $reference ;
         $data['email'] = $user_email;
-        $data['title'] = 'La facture de votre souscription LTC HOST est disponible' ;
+        $data['title'] = "Confirmation du paiement d'une offre LTC HOST";
+        $data['date'] = $date;
+        $data['montant'] = $montant;
+
+        $data['package'] = $packageChoisi;
+        $data['domain'] = $domainName;
+
         $data['body'] = '' ;
 
         // la vue invoice pour le pdf
@@ -267,9 +278,9 @@ class CartController extends Controller
 
         // vue du mail
         Mail::send("emails.invoice_mail", $data, function ($message) use ($reference,$user_email,$name, $pdf) {
-                $message->to($user_email,$name)
-                        ->subject('Votre facture est disponible')
-                        ->attachData($pdf->output(), 'facture_'.$name.''.$reference.'.pdf');
+                $message->to($user_email)
+                        ->subject("Confirmation du paiement d'une offre LTC HOST")
+                        ->attachData($pdf->output(), $reference.'.pdf');
         });
 
         return false;

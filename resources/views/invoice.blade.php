@@ -154,14 +154,13 @@
    <div class="information">
 	   <div class="right">
           <ul>
-			<li><strong>Nom du client :</strong> Test Client </li>
-			<li><strong>Email :</strong> franckndi5@gmail.com </li>
-			<li><strong>telephone :</strong> +237 658 682 586</li>
-			 
+			<li><strong>Nom du client :</strong> {{ $name }} </li>
+			<li><strong>Email :</strong> {{ $email }} </li>
+			<li><strong>telephone :</strong> {{ $telephone }} </li>
 		  </ul>
 	   </div>
 	   <div class="left">
-          <p><strong>Date de facturation : </strong> 27/07/20223</p>
+          <p><strong>Date de facturation : </strong> {{ $date }}</p>
 	   </div>
    </div>
 
@@ -180,22 +179,23 @@
             <tr>
                 <th></th>
                 <th>Prix</th>
-                <th>Durée</th>
+                <th> Duree / An</th>
 				
              
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Hebergemrnt web</td>
-                <td>{{20000}} F CFA</td>
-                <td>{{ 1 }} An</td>
+            
+			<tr>
+                <td> Hebergemrnt web </td>
+                <td> {{ $package }} F CFA</td>
+                <td> 1 </td>
                 
             </tr>
             <tr>
-                <td>Nom de domaine</td>
-                <td>{{ 3000 }} F CFA</td>
-                <td>{{ 1 }} An</td>
+                <td> Nom de domaine </td>
+                <td>{{ $domain }} </td>
+                <td> 1 </td>
                
             </tr>
              
@@ -203,7 +203,7 @@
 		<tfoot>
             <tr>
                 <td>Total</td>
-                <td>{{ 23000 }} F CFA </td>
+                <td>{{ $montant }} F CFA </td>
             </tr>
         </tfoot>
          

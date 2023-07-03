@@ -17,7 +17,7 @@
     <div>
         <p>Madame, Monsieur </p>
         <p>
-            Veuillez trouver en pièce jointe votre facture ayant pour référence: FC-1641500 au format PDF.
+            Veuillez trouver en pièce jointe votre facture ayant pour référence: {{ $reference }} au format PDF.
         </p>
         <p>
             Si vous n'avez pas Acrobat Reader (Logiciel permettant de lire les fichiers PDF) vous pouvez le télécharger ici:

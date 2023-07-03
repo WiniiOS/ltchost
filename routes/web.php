@@ -77,6 +77,7 @@ Route::get('facture', [CartController::class, 'generatePDF'])->name('facture');
 
 // tests
 Route::get('mail', [CartController::class, 'sendMailFacture'])->name('mail');
+
 Route::get('dns', [HoistingController::class, 'modifyNameServer'])->name('dns');
 
 Route::post('modify_dns', [HoistingController::class, 'modifyNameServer'])->name('modify_dns');
@@ -91,4 +92,4 @@ Route::get('notify_url', [HoistingController::class, 'show_alert'])->name('notif
 
 
 // test
-Route::get('test', [UserController::class, 'changePassword'])->name('test');
+Route::get('test', [CartController::class, 'sendMailFacture'])->name('test');
